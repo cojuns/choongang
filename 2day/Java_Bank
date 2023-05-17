@@ -1,0 +1,62 @@
+package sec03.exam02;
+
+import java.util.Scanner;
+
+public class ScannerExample {
+
+	public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String inputData;
+        String inputNum;
+
+        int deposit = 0; // 잔고
+
+        while (deposit < 0) { // 잔액이 0보다 작거나 같을 때 계속 반복
+            System.out.println("잔액이 부족합니다.");
+            break; // 반복 후 종료
+        }
+
+        while (true) {
+            System.out.println("원하시는 서비스를 입력 후 엔터를 쳐 주세요.");
+            System.out.println("1.잔액조회");
+            System.out.println("2.입금");
+            System.out.println("3.출금");
+            System.out.println("4.종료");
+            System.out.print("입력>");
+
+            inputData = scanner.nextLine().toUpperCase(); // 입력값을 대문자로 변환
+
+            if (inputData.equals("4")) { // 입력값이 "Q"일 때 루프 종료
+                break;
+            }
+
+            if (inputData.equals("2")) {
+                System.out.print("입금>");
+                inputNum = scanner.nextLine(); // 키보드 입력
+                int tmp = Integer.parseInt(inputNum); // 정수로 변환
+                deposit += tmp; // 잔고에 누적
+                System.out.println("잔고: " + deposit); // 잔고 출력
+            } else if (inputData.equals("3")) {
+                System.out.print("출금>");
+                inputNum = scanner.nextLine(); // 키보드 입력
+                int tmp = Integer.parseInt(inputNum); // 정수로 변환
+                deposit -= tmp; // 잔고에서 차감
+
+                if (deposit < 0) {
+                    System.out.println("잔고가 없습니다.");
+                    deposit += tmp; // 출금한 금액을 다시 잔고에 더해줌
+                } else {
+                    System.out.println("잔고: " + deposit); // 잔고 출력
+                }
+            } else if (inputData.equals("1")) {
+                if (deposit <= 0) {
+                    System.out.println("잔고가 없습니다.");
+                } else {
+                    System.out.println("잔고: " + deposit); // 출력
+                }
+            }
+        }
+
+        System.out.println("종료");
+    }
+}
