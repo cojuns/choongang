@@ -1,0 +1,11 @@
+package sec03.exam01;
+
+public class Hello {
+	public static void main(String[] args) {
+		int aa = 1000;
+		
+		System.out.println(aa);
+
+	}
+
+}
