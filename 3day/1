@@ -1,0 +1,55 @@
+package sec02.exam02;
+
+public class Ex001 {
+
+	public static void main(String[] args) {
+		long var1 = 10;
+		long var2 = 20L;
+//		long var3 = 3000000000; 컴파일 에러
+		long var4 = 3000000000L; 
+		
+		char var5 = 'A'; 
+		char var6 = 65;
+		char var7 = '\u0041';
+		
+		char var8 = 'A';
+//		char var9 = "A"; 컴파일 에러
+		String var10 = "A";
+		
+		String var11 = "\t A"; // 이스케이프
+		String var12= "\" A";
+		
+		double var13 = 3e6;
+		float  var18 = 1e2f;
+		
+		float var14 = 3.14f;
+		double var15 = 3.14;
+//		double var19 = 2e-350; -324까지 가능
+		
+		boolean var16 = false;
+		boolean var17 = true;
+		if (var16) { // true면 출력 false면 출력x
+			System.out.println(var5);
+			System.out.println(var6);
+			System.out.println(var7);
+			
+			System.out.println(var10);
+			System.out.println(var11);
+			
+			System.out.println(var13);
+			
+		}
+		
+		System.out.println(var5);
+		System.out.println(var6);
+		System.out.println(var7);
+		
+		System.out.println(var10);
+		System.out.println(var11);
+		
+		System.out.println(var13);
+		
+
+	}
+
+}
