@@ -1,0 +1,27 @@
+package sec02.exam02;
+
+public class Ex002 {
+
+	public static void main(String[] args) {
+		//강제 타입변환
+		int intValue = 10;
+		byte byteValue = (byte)intValue;
+		
+		// "A"가 출력
+		int intValue2 = 65;
+		char charValue = (char)intValue2;
+		
+		//intValue3는 정수 부분인 3만 저장
+		double doubleValue = 3.14;
+		int intValue3 = (int)doubleValue;
+		
+		//intValue4는 int 최대 값 21억 출력
+		double doubleValue2 = 3000000000.0;
+		int intValue4 = (int)doubleValue2;
+		System.out.println(intValue4);
+		
+		
+
+	}
+
+}
