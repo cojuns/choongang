@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>menu1</title>
+
+    <style>
+        .line {
+          position: relative;
+          width: 100%;
+          height: 3px;
+          background-color: #c2bdbd;
+
+          margin-top: 30px;
+
+        }
+        .line::before {
+          content: "";
+          position: absolute;
+          top: 0px;
+          left: 250px;
+          width: 3px;
+          height: 10px;
+          border-top: 900px solid #c2bdbd;
+
+          
+        }
+        .imguser {
+            margin-top: 20px;
+        }
+
+        .user button {
+            margin-top: 10px;
+            padding-right: 50px;
+
+            color: #fff;
+            font-style: inherit;
+            background-color: rgb(52, 152, 219) ;
+            border-color: #c2bdbd;
+            border-radius: 20px;
+            
+            
+        }
+
+        .menu {
+      width: 200px;
+      background-color: rgb(255, 255, 255) ;
+      
+
+      margin-top: 50px;
+    }
+    .menu ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    .menu li {
+      padding: 10px;
+    }
+    .menu li a {
+      display: block;
+      color: rgb(52, 152, 219);
+      text-decoration: none;
+    }
+    .menu li a:hover {
+      background-color: rgb(93, 153, 192);
+    }
+
+    .main_menu {
+        font-size: 30px;
+        color:rgb(52, 152, 219) ;
+        
+        margin-left: 280px;
+        margin-top: 30px;
+        
+    }
+
+    .imgmenu{
+        margin-left: 260px;
+    }
+
+    .main_menu {
+      display: inline-block;
+      padding: 10px 20px;
+      border: none;
+      color: rgb(52, 152, 219);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    a { text-decoration: none; color: rgb(52, 152, 219); }
+    a:visited { text-decoration: none; }
+    a:hover { text-decoration: none; }
+    a:focus { text-decoration: none; }
+    a:hover, a:active { text-decoration: none; }
+
+
+
+      </style>
+
+</head>
+<body>
+    <h1 style="text-align: center; color:rgb(52, 152, 219) ;">CRMS</h1>
+    <div class="line">
+        <img class="imguser" src="/CRMS/uesr.png">
+        
+        <div class="user button">
+        <button type="button">정보변경</button>
+        <button type="button">Logout</button>
+        </div>
+        <div class="menu">
+           <strong> <ul>
+              <li><a href="/CRMS/menu1.html">전산장비</a></li>
+              <li><a href="/CRMS/menu2.html">기타 사무용품</a></li>
+              <li><a href="/CRMS/menu3.html">소모품</a></li>
+              <li><a href="/CRMS/menu4.html">관리번호</a></li>
+            </ul></strong>
+          </div>
+    </div>
+
+    </div>
+
+    <div class="main_menu" >
+        <strong><a href="#" class="button">메인</a></strong>
+
+    </div>
+
+
+        
+    
+
+
+
+</body>
+</html>
