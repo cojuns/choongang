@@ -1,0 +1,46 @@
+package sec02.exam02;
+
+import java.io.IOException;
+
+public class Ex005 {
+
+	public static void main(String[] args) throws IOException {
+		int keyCode;  
+		String str = "";
+		int intVal = 0;
+		
+//		System.out.print("입력>");
+//		
+//		keyCode = System.in.read();
+//		System.out.println("keCode:" + keyCode);
+//		
+//		keyCode = System.in.read();
+//		System.out.println("keCode:" + keyCode);
+//		
+//		keyCode = System.in.read();
+//		System.out.println("keCode:" + keyCode);
+//		
+//		//a입력후 엔터시 a키코드(97) 엔터키코드(13,10) 출력 
+		
+		while(true) {
+			System.out.print("입력>");
+			keyCode = System.in.read();
+			System.out.println("keCode:" + keyCode);
+			if( keyCode >= 45 && keyCode <= 57) { // 0~9까지 입력
+				str += keyCode-48;
+				intVal = Integer.parseInt(str);
+			}
+			
+			if (keyCode == 113) {
+				break;
+			
+			}
+			if (keyCode == keyCode) {
+				break;
+			}
+			
+		}
+		System.out.println("종료");
+	}
+
+}
