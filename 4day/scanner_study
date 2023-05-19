@@ -1,0 +1,46 @@
+package sec02.exam01;
+
+import java.awt.GraphicsDevice;
+import java.util.Scanner;
+
+public class study {
+
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		int kor, math, eng, tot, grade;
+		double avg;
+		int score = 100;
+		
+		
+		
+		System.out.print("국어");
+		kor = Integer.parseInt(scanner.nextLine());
+		System.out.print("수학");
+		math = Integer.parseInt(scanner.nextLine());
+		System.out.print("영어");
+		eng = Integer.parseInt(scanner.nextLine());
+		System.out.print("학생");
+		String name = scanner.nextLine();
+		
+		tot = kor + math + eng; 
+		avg = tot / 3.0;
+		grade = (kor >= 90 ) ? 'A' : ((kor >=80) ? 'B' : 'C');
+		System.out.printf("국어점수: %d (%c)\n", kor, grade);
+		grade = (math >= 90 ) ? 'A' : ((math >=80) ? 'B' : 'C');
+		System.out.printf("수학점수: %d (%c)\n", math, grade);
+		grade = (eng >= 90 ) ? 'A' : ((eng >=80) ? 'B' : 'C');
+		System.out.printf("영어점수: %d (%c)\n", eng, grade);
+		
+		System.out.println("학생이름:" + name);
+		System.out.println("국어점수:" + kor);
+		System.out.println("수학점수:" + math);
+		System.out.println("영어점수:" + eng);
+		System.out.println("총점:" + tot);
+		System.out.printf("평균:%3.2f\n:" , avg);
+		
+		
+		
+		
+	}
+
+}
