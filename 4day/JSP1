@@ -1,0 +1,51 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>테스트 페이지</h1>
+    
+</body>
+
+<%
+int kor = Integer.parseInt(request.getParameter("kor"));
+int math = Integer.parseInt(request.getParameter("math"));
+int eng = Integer.parseInt(request.getParameter("eng"));
+
+int tot = kor + math + eng; 
+double avg = tot / 3.0;
+char grade = (kor >= 90 ) ? 'A' : ((kor >=80) ? 'B' : 'C');
+
+        
+		out.println("국어점수:" + grade);
+        out.println("</br>");
+ grade = (math >= 90 ) ? 'A' : ((math >=80) ? 'B' : 'C');
+		out.println("수학점수:" + grade);
+        out.println("</br>");
+ grade = (eng >= 90 ) ? 'A' : ((eng >=80) ? 'B' : 'C');
+		out.println("영어점수:"  + grade);
+        out.println("</br>");
+        out.println("</br>");
+		out.println("국어점수:" + kor);
+        out.println("</br>");
+		out.println("수학점수:" + math);
+        out.println("</br>");
+		out.println("영어점수:" + eng);
+        out.println("</br>");
+        out.println("</br>");
+		out.println("총점:" + tot);
+        out.println("</br>");
+		out.println("평균:" + avg);
+        out.println("</br>");
+		
+
+%>
+
+
+</html>
