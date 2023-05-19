@@ -1,0 +1,57 @@
+package sec02.exam01;
+
+import java.util.Scanner;
+
+public class study2 {
+
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		int kor, math, eng, tot, grade;
+		double avg;
+		int score = 100;
+		
+		System.out.print("국어");
+		kor = Integer.parseInt(scanner.nextLine());
+		System.out.print("수학");
+		math = Integer.parseInt(scanner.nextLine());
+		System.out.print("영어");
+		eng = Integer.parseInt(scanner.nextLine());
+		System.out.print("학생");
+		String name = scanner.nextLine();
+		
+		tot = kor + math + eng;
+		avg = tot / 3.0;
+		
+		if (kor >= 90) {
+			grade = 'A';
+		}else if(kor >= 80) {
+			grade = 'B';
+		}else {
+			 grade = 'C';
+			
+		}
+		System.out.printf("국어점수: %d (%c)\n", kor, grade);
+		
+		if (math >= 90) {
+			grade = 'A';
+		}else if(math >= 80) {
+			grade = 'B';
+		}else {
+			 grade = 'C';
+			
+		}
+		System.out.printf("국어점수: %d (%c)\n", kor, grade);
+		
+		if (eng >= 90) {
+			grade = 'A';
+		}else if(eng >= 80) {
+			grade = 'B';
+		}else {
+			 grade = 'C';
+			
+		}
+		System.out.printf("국어점수: %d (%c)\n", kor, grade);
+
+	}
+
+}
