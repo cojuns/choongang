@@ -1,0 +1,48 @@
+		boolean run = true;
+		int balance = 0;
+		Scanner scan = new Scanner(System.in);
+		String inputData, inputNum;
+		int deposit = 0; // 잔고
+		
+		
+		while (run) {
+			System.out.println("--------------------------");
+			System.out.println("1.예금 | 2.출금 | 3.잔고 | 4.종료");
+			System.out.println("--------------------------");
+			System.out.print("선택>");
+			
+			 inputData = scan.nextLine().toUpperCase(); // 입력값을 대문자로 변환
+			  if (inputData.equals("1")) {
+	                System.out.print("예금>");
+	                inputNum = scan.nextLine(); // 키보드 입력
+	                int tmp = Integer.parseInt(inputNum); // 정수로 변환
+	                deposit += tmp; // 잔고에 누적
+	                System.out.println("예금액> " + deposit); // 잔고 출력
+	            } else if (inputData.equals("2")) {
+	                System.out.print("출금>");
+	                inputNum = scan.nextLine(); // 키보드 입력
+	                int tmp = Integer.parseInt(inputNum); // 정수로 변환
+	                deposit -= tmp; // 잔고에서 차감
+	                if (deposit < 0) {
+	                    System.out.println("출금액>");
+	                    deposit += tmp; // 출금한 금액을 다시 잔고에 더해줌
+	                } else {
+	                    System.out.println("출금액> " + deposit); // 잔고 출력
+	                }
+	            } else if (inputData.equals("3")) {
+	                if (deposit <= 0) {
+	                    System.out.println("잔고가 없습니다.");
+	                } else {
+	                    System.out.println("잔고: " + deposit); // 출력
+	                }
+	            if (inputData.equals("4")) { // 입력값이 "Q"일 때 루프 종료
+	                break;
+	            }
+			
+		}
+		 while (deposit < 0) { // 잔액이 0보다 작거나 같을 때 계속 반복
+	            System.out.println("잔액이 부족합니다.");
+	            break; // 반복 후 종료
+	        }
+		System.out.println("프로그램 종료");
+		}
