@@ -1,0 +1,15 @@
+		Scanner scanner = new Scanner(System.in);
+		double one;
+		double two;
+		double tot;
+		
+		
+		
+		System.out.print("첫번째 수:");
+		one = (scanner.nextDouble());
+		System.out.print("두번째 수:");
+		two = (scanner.nextDouble());
+		
+		
+		tot = one / two;  
+		System.out.println("결과:" + tot);
