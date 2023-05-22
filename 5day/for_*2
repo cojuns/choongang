@@ -1,0 +1,17 @@
+		for ( int i = 1; i <= 4; i++) { 
+//			내부 for문 앞에 공백 i 갯수 빼면서 역순 3, 2, 1
+			for (int y = 1; y <= 4 -i; y++  ) { 
+				System.out.print(" ");
+			}
+//			내부 for문 i에 개수 만큼 " * " 출력
+			for (int j = 1; j <= i; j++) {
+				System.out.print("*");
+			}
+//			1줄 만들때 마다 줄 바꿈
+			System.out.println();
+	}
+//결과
+//   *
+//  **
+// ***
+//****
