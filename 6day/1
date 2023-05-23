@@ -1,0 +1,42 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="res.jsp" onsubmit="return checkForWhiteSpace()">
+	<h1>로그인 하기</h1>
+<a> 아이디 : </a><input type="text" name="kor" id="kor" oninput="validateInput()" /> 
+		<div></div>
+<a> 패스워드 :</a>		<input type="password" name="eng" id="eng" /> 
+		<input type="submit" value="확인" />
+		<script>
+			function checkForWhiteSpace() {
+				var kor = document.getElementById("kor").value; // "kor" id값
+				var eng = document.getElementById("eng").value; // "eng" id값
+				if (kor.trim() == "") {
+					alert("공백은 입력할 수 없습니다.");
+					return false;
+				}
+				if (eng.trim() == "") {
+					alert("공백은 입력할 수 없습니다.");
+					return false;
+				}
+				return true;
+			}
+			function validateInput() {
+				  var input = document.getElementById("kor").value;
+				  var pattern = /^[a-zA-Z0-9!@#$%^&*()]*$/; // 영문자, 숫자, 특수 기호만 허용하는 정규표현식
+				  
+				  if (!pattern.test(input)) {
+					  document.getElementById("kor").value = input;
+				    alert("영문자, 숫자, 특수 기호만 입력해주세요.");
+				  }
+				}
+		</script>
+	</form>
+</body>
+</html>
