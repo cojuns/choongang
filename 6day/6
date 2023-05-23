@@ -1,0 +1,35 @@
+package sec01.exam01;
+
+public class TestEx {
+
+	public static void main(String[] args) {
+		
+		//참조변수
+//		int[] scores = {10, 20, 30};
+//		scores[0] = 20;
+//		System.out.println(scores[0]);
+//		for( int i = 0; i < 3; i++) {
+//			if (scores[i] != 10)
+//			System.out.println(scores[i]);
+//			
+//		}
+		String name1 = "홍길동";
+		String name2 = "홍길동";
+		String name3 = new String("홍길동");
+		String name4 = new String("홍길동");
+		
+		if (name3 == name4) {// 참조변수 비교
+			System.out.println("같다");
+		}else {
+			System.out.println("다르다");
+		}
+		if (name3.equals(name4)) {// 문자열 비교 
+			System.out.println("같다");
+		}else {
+			System.out.println("다르다");
+		}
+		
+		
+	}
+
+}
