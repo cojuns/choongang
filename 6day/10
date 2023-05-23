@@ -1,0 +1,21 @@
+package sec02.exam01;
+
+import java.lang.reflect.Method;
+import java.util.jar.Attributes.Name;
+
+public class ArrayExTotall {
+
+	public static void main(String[] args) {
+		int sum = add(3, 5);
+
+
+		
+	}
+	public static int add(int a, int b) {
+		int sum = a+b;
+		System.out.println("두 수의 합은" + sum + "입니다.");
+		return sum;
+
+		
+} 
+	}
