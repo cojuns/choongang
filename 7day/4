@@ -1,0 +1,19 @@
+package sec01.exam01;
+
+public class StudEx {
+
+	public static void main(String[] args) {
+		// 인스턴스
+		Student student = null; // 클래스 변수 선언
+		
+		System.out.println(student);
+		student = new Student(); // 객체 생성
+		System.out.println(student.name); // name 속성(변수)
+		student.name = "이순신"; // name 속성 변경
+		System.out.println(student.name); 
+		
+		student.printName(); // 메서드 호출
+
+	}
+
+}
