@@ -1,0 +1,23 @@
+package sec03.exam03;
+
+public class ForEx1 {
+
+	public static void main(String[] args) {
+		// 향상된 for문
+		String[] arr2 = {"가", "나", "다"};
+		for(String ss : arr2) {// // 배열을 변수에 저장 ( 인덱스는 모름 )
+			System.out.println(ss);
+		}
+		
+		int sum = 0;
+		int[] arr1 = {1,2,3,4,5};
+		for(int aa : arr1) {// 배열을 변수에 저장 ( 인덱스는 모름 )
+			sum += aa;
+			System.out.println(aa);
+		}
+		System.out.println("합계:" + sum);
+		
+		
+	}
+
+}
