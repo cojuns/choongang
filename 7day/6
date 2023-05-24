@@ -1,0 +1,39 @@
+package sec03.exam02;
+
+import java.util.function.BiConsumer;
+
+public class ArrayInArray01 {
+
+	public static void main(String[] args) {
+		// 다차원 배열
+		
+//		int[][] score = {{95,80}, 
+//						 {92, 96, 100}, 
+//						 {65}};
+		int[][] score = new int[3][];
+		score[0] = new int[2];
+		score[1] = new int[3];
+		score[2] = new int[1];
+		
+		score[0][0] = 95;
+		score[0][1] = 80;
+		score[1][0] = 92;
+		score[1][1] = 96;
+		score[1][2] = 100;
+		score[2][0] = 65;
+		
+		int sum = 0;
+		for(int i = 0; i < score.length; i++) {
+			for (int j=0; j <score[i].length; j++) {
+				for(int k=0; k<score[j].length; k++) {
+					System.out.println(score[i][j]);
+					
+			
+				}
+				
+			}
+		}
+		
+	}
+
+}
