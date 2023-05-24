@@ -1,0 +1,23 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="css.css">
+<title>Insert title here</title>
+</head>
+<body>
+<table border="1">
+<%
+int num = Integer.parseInt(request.getParameter("gugu"));
+for (int i=1; i<=9; i++){
+//	out.println(i+"<br/>");
+%>
+	<h2><tr><td><%=i %></td><td><%=i*num %></td></tr></h2>
+<%
+}
+%>
+</table>
+</body>
+</html>
