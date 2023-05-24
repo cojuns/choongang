@@ -1,0 +1,26 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<script type="text/javascript">
+var a = [1,3,10,2,8];
+var max = a[0];
+for (var i=0; i < a.length; i++) {
+	if(max < a[i]){
+		
+		max = a[i];
+	}
+	
+	
+}
+document.writeln(max);
+</script>
+
+</body>
+</html>
