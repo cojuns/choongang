@@ -1,0 +1,49 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<%
+// 입력 받아온 값 
+String num1 = request.getParameter("num1");
+String num2 = request.getParameter("num2");
+String num3 = request.getParameter("num3");
+String num4 = request.getParameter("num4");
+int score1 = Integer.parseInt(num1);
+int score2 = Integer.parseInt(num2);
+int score3 = Integer.parseInt(num3);
+int score4 = Integer.parseInt(num4);
+%>
+
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<% 
+int[] a = new int[4];
+a[0] = score1;
+a[1] = score2;
+a[2] = score3;
+a[3] = score4;
+// 각 인덱스에 변수 저장
+
+
+for(int i=0; i<a.length-1; i++) {
+	for (int j=a.length-1; j>i; j--) {
+		if(a[j] < a[j-1]) {
+			int tmp = a[j];
+			a[j] = a[j-1];
+			a[j-1] = tmp;
+		}
+		
+		
+	}
+	
+}
+for (int num : a) {
+	out.println(num + ", ");
+	
+}
+%>
+</body>
+</html>
