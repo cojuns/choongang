@@ -1,0 +1,22 @@
+package sec02.exam01;
+
+public class Swap {
+
+	public static void main(String[] args) {
+		int a = 10;
+		int b = 20;
+		int result = a;
+		
+		a = b;
+		b = result;
+		
+//		swapData(a, b); call by value이어서 안됨
+		System.out.printf("a = %d, b = %d\n" , a,b);
+
+	}
+	public static void swapData (int x, int y) {
+		int result = x;
+		x = y;
+		y = result;
+	}
+}
