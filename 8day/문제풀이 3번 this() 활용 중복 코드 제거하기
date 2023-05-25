@@ -1,0 +1,33 @@
+package sec02.exam01;
+
+public class Board {
+	// 3번 문제 this() 활용 중복 코드 제거 
+	//this() 사용시 마지막 생성자 작성하고 작성하면 될듯
+	
+	String title;
+	String content;
+	String writer;
+	String dete;
+	int hitcount;
+	
+	Board(String title, String content){
+	this(title, content, "로그인한 회원아이디", "현재 컴퓨터 날짜", 0);	
+	}
+	Board(String title, String content, String writer ){
+	this(title, content, writer, "현재 컴퓨터 날짜", 0);	
+	}
+	Board(String title, String content, String writer, String dete ){
+	this(title, content, writer, "현재 컴퓨터 날짜", 0);	
+	}
+	
+	//공통 실행 코드
+	Board(String title, String content, String writer, String date, int hitcount){
+	this.title = title;
+	this.content = content;
+	this.writer = writer;
+	this.dete = dete;
+	this.hitcount = hitcount;
+	}
+	
+	
+}
