@@ -1,0 +1,32 @@
+package sec02.exam01;
+
+public class Bubble {
+
+	public static void main(String[] args) {
+		
+		// 정렬 bubble sort
+		
+//		정리하자면, 바깥쪽의 for 루프는 배열의 모든 인덱스를 순회하며 안쪽의 
+//		for 루프를 실행하여 인접한 원소를 비교하고 필요한 경우 교환하는 과정을 반복
+	
+		int a[] = {10, 3, 1, 4, 2};
+		
+		for(int i=0; i<a.length-1; i++) {// 왼쪽 오른쪽 순서 인덱스 이동 -1은 뒤에 2는 빼고 안쪽 for문이 끝날때 마다 왼쪽에서 오른쪽으로 이동
+			for (int j=a.length-1; j>i; j--) {// 오른쪽 왼쪽 순서 이동
+				if(a[j] < a[j-1]) {// 오른쪽 왼쪽 값 비교 후 바꿔줌
+					int tmp = a[j];
+					a[j] = a[j-1];
+					a[j-1] = tmp;
+				}
+				System.out.printf("i:%d, j:%d\n", i, j);
+				
+			}
+			
+		}
+		for (int num : a) {
+			System.out.println(num + ", ");
+			
+		}
+	}
+
+}
