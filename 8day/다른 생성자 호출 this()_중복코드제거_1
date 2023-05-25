@@ -1,0 +1,40 @@
+package sec02.exam01;
+
+public class CarThis2 {
+	//필드
+	//다른 생성자 호출:this()
+	//다른 생성자 호출해서 중복 코드 줄이기
+	String color;
+	int cc;
+	String model;
+	String company = "현대자동차";
+	int maxSpeed;
+	
+	CarThis2(){  // 기본 생성자 생략 가능
+		
+	}
+	
+	CarThis2(String model){
+		
+		this(model, "은색", 250);
+		
+		
+	}
+	
+	CarThis2(String model, String color){
+		
+		this(model, color, 250);
+		
+		
+	}
+	
+	CarThis2(String model, String color, int maxSpeed){
+		
+		this.model = model;
+		this.color = color;
+		this.maxSpeed = maxSpeed; // 공통 실행 코드
+		
+		
+	}
+	
+}
