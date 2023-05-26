@@ -1,0 +1,80 @@
+//클래스 ( 메소드 선언 ) 
+package sec02.exam03;
+
+public class Calculator {
+	// 필드
+	int x;
+	int y;
+	
+	//생성자
+	Calculator(int x, int y) { //지역변수
+		this.x = x;
+		this.y = y;
+	}
+	
+
+	void powerOn() {
+		System.out.println("전원을 켭니다.");
+	}
+	int plus() { 
+		
+		return x + y; //인스턴스변수
+	}
+	double divide() { //지역변수
+		double result = (double)x / (double)y;
+		return result;
+	}
+	
+	// 필드값 초기화
+	void setX(int x) {
+		this.x = x;
+	}
+	void setY(int y) {
+		this.y = y;
+	}
+	
+	int getX() {
+		return x;
+	}
+	// x,y 값을 읽어옴
+	int getY() {
+		return y;
+	}
+	
+	
+	void powerOff() {
+		System.out.println("전원을 끕니다.");
+	}
+}
+
+//main( 메소드 호출 ) 
+package sec02.exam03;
+
+public class CalculatorExample {
+
+	public static void main(String[] args) {
+		Calculator myCalc = new Calculator(5, 6);
+		myCalc.powerOn();
+		
+		int result1 = myCalc.plus();
+		System.out.println("result1=" + result1);
+		
+//		byte x = 10;
+//		byte y = 4;
+//		double result2 = myCalc.divide(x, y);
+		
+		myCalc.x = 10;
+		myCalc.y = 3;
+		double result2 = myCalc.divide();
+		System.out.println("result2=" + result2);
+		
+		myCalc.setX(10);
+		myCalc.setY(3);
+		double result3 = myCalc.divide();
+		System.out.println("x= " + myCalc.getX());
+		System.out.println("y= " + myCalc.getY());
+		
+		myCalc.powerOff();
+	}
+
+}
