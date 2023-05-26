@@ -1,0 +1,116 @@
+package sec04.exam02;
+//main( 출력 ) 
+import java.util.Scanner;
+
+public class StuEx {
+	public static void main(String[] args) {
+		boolean run = true;
+		int korTot = 0;
+		int engTot = 0;
+		int mathTot = 0;
+		double avgTot = 0.0;
+		int korMax = 0;
+		int engMax = 0;
+		int mathMax = 0;
+		String kMaxName = null;
+		String eMaxName = null;
+		String mMaxName = null;
+		Scanner scanner = new Scanner(System.in);
+		
+		System.out.print("학생 수>");
+		int num = Integer.parseInt(scanner.nextLine());
+		Student[] students = new Student[num];
+		for (int i=0; i <students.length; i++) {
+			System.out.print("이름>");
+			String name = scanner.nextLine();
+			System.out.print("국어>");
+			int kor = Integer.parseInt(scanner.nextLine());
+			System.out.print("영어>");
+			int eng = Integer.parseInt(scanner.nextLine());
+			System.out.print("수학>");
+			int math = Integer.parseInt(scanner.nextLine());
+			korTot += kor;
+			engTot += eng;
+			mathTot += math;
+			students[i] = new Student(name, kor, eng, math);
+			if (korMax < students[i].kor) {
+				korMax = kor;
+				kMaxName = students[i].name;
+			}
+			if (engMax < students[i].eng) {
+				engMax = eng;
+				eMaxName = students[i].name;
+			}
+			if (mathMax < students[i].math) {
+				mathMax = math;
+				mMaxName = students[i].name;
+			}
+			
+		}
+		while (run) {
+			System.out.println("---------------------------------------------");
+			System.out.println(" 1. 점수리스트 | 2. 분석 | 3. 종료");
+			System.out.println("---------------------------------------------");
+			System.out.print("선택>");
+			
+			int selectNo = Integer.parseInt(scanner.nextLine());
+			switch(selectNo) {
+			case 1:
+				System.out.println("\t국어\t영어\t수학");
+				System.out.println("------------------------------------------");
+				for (Student st : students) {
+					System.out.printf("%s\t%d\t%d\t%d\t총점:%d\t평균:%f\n"
+							,st.name,st.kor,st.eng,st.math, st.getTotal(), st.getAvg());
+				}
+				System.out.println("------------------------------------------");
+				System.out.printf("총점:\t%d\t%d\t%d\n", korTot, engTot, mathTot);
+				break;
+			case 2:
+				System.out.println("프로그램 분석");
+				System.out.printf("국어 최고 점수: %d %s\n",korMax, kMaxName);
+				System.out.printf("영어 최고 점수: %d %s\n",engMax, eMaxName);
+				System.out.printf("수학 최고 점수: %d %s\n",mathMax, mMaxName);
+				break;
+			case 3:
+				run = false;
+				System.out.println("프로그램 종료");
+			}
+		}
+		
+		
+		
+		
+		
+	}
+
+}
+
+
+package sec04.exam02;
+// ( class 값 선언)
+public class Student {
+	String name;
+	int kor, eng, math;
+	Student(String name, int kor, int eng, int math) {
+		this.name = name;
+		this.kor = kor;
+		this.eng = eng;
+		this.math = math;
+	}
+	int getTotal() {
+		//System.out.println(kor+eng+math);
+		return kor+eng+math;
+	}
+	double getAvg() {
+		return getTotal() / 3.0;
+	}
+	void printResult() {
+		System.out.println("이름:" + name);
+		System.out.println("국어:" + kor);
+		System.out.println("영어:" + eng);
+		System.out.println("수학:" + math);
+		System.out.println("총점:" + getTotal());
+		System.out.println("평균:" + getAvg());
+	}
+
+}
