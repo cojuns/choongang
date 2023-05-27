@@ -1,0 +1,43 @@
+package superCode;
+
+import java.util.Scanner;
+
+public class Join {
+
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		
+		
+		System.out.print("[회원가입] 아이디 입력:");
+		String joinId = scan.nextLine();
+		System.out.print("[회원가입] 비밀번호 입력:");
+		int joinPw = scan.nextInt();
+		System.out.println("회원가입 완료 ");
+		
+		scan.nextLine();
+		
+		boolean loginRe = false;
+		// 로그인실패시 재입력 받기 위해 변수 선언
+		
+		while (!loginRe) {
+		System.out.print("[로그인] 아이디 입력:");
+		String loginId = scan.nextLine();
+		System.out.print("[비밀번호] 비밀번호 입력:");
+		int loginPW = scan.nextInt();
+		
+		if(joinId.equals(loginId) && joinPw == loginPW) {
+			System.out.println("로그인 성공");
+			
+			loginRe = true;
+		}
+		// || <- 둘 중 하나라도 true면 true
+		if(!joinId.equals(loginId)  || joinPw != loginPW) {
+			System.out.println("로그인 실패");
+			
+			scan.nextLine(); // 버퍼 비우기
+		}
+		
+		}
+	}
+
+}
