@@ -1,0 +1,30 @@
+package superCode;
+
+//[문제]
+//	1. 민수네반 학생은 총 26명
+//	2. 학생들에게 종이 2장씩 나눠줘야됨
+//	3. 종이는 10장씩 한 묶으로만 판매 10장에 가격은 1,200원
+//	4. 총 얼마가 필요한지 구하시오
+//[정답]
+//	7,200원
+public class Paper26_if_if {
+
+	public static void main(String[] args) {
+		int sudent = 26;// 총 학생수
+		
+		int paper = 10;// 종이 한묶음
+		int paperprice = 1200;// 종이 한묶음 가격 
+		
+		int studetPaper = sudent * 2;//필요한 종이 개수 / 학생 수 * 2 
+		int totalPaper = studetPaper / paper;
+		// 필요한 종이묶음 개수 = 필요한 종이 개수 / 종이 한묶음
+		
+		if(studetPaper % paper > 0) {// 52 % 10 = 2 > 0 비교 true 밑에 실행문 실행
+			totalPaper = totalPaper +1; // 0 = 5 + 1 대입 
+		}System.out.println("필요한 도화지 묶음 개수 = " + totalPaper);// = 6
+		
+		int total = totalPaper * paperprice;// 필요한 종이 개수 * 종이 한묶음 가격 
+		System.out.println("필요한 금액 : " + total + "원");
+	}
+
+}
