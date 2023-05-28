@@ -1,0 +1,44 @@
+package superCode;
+
+import java.util.Scanner;
+
+//1. id를 입력받아 joinId와 일치할 경우에만 pw를 입력할 수 있다.
+//2. id를 틀린 경우, "ID를 확인해주세요."라는 메세지를 출력
+//3. pw가 틀린 경우, "PW를 확인해주세요."라는 메세지를 출력
+//4. id와 pw가 모두 일치하는 경우, "로그인 성공입니다."라는 메세지를 출력
+
+public class Join_if_if {
+
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		
+		//임의 계정 정보
+		int joinId = 1234;
+		int joinPw = 1111;
+		
+		//사용한태 아이디 입력 요청
+		System.out.print("아이디를 입력하세요>");
+		int myId = scan.nextInt();
+		
+		// 아이디 입력 정보 맞으면 밑에 if문 실행
+		if(joinId == myId) {
+			System.out.print("비밀번호를 입력하세요>");
+			int myPw = scan.nextInt();
+			
+			// 비밀번호까지 맞으면 밑에 if문 실행
+			if (joinPw == myPw) {
+				System.out.println("로그인 성공");
+			}
+			// 비밀번호 틀리시 밑에 if문 실행
+			if (joinPw != myPw) {
+				System.out.println("비밀번호를 확인해주세요.");
+			}
+		}
+		//처음부터 아이디 틀리시 밑에 if문 실행
+		if(joinId != myId) {
+			System.out.println("아이디를 확인해주세요.");
+		}
+		
+	}
+
+}
