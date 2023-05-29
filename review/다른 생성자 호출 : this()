@@ -1,0 +1,45 @@
+//선언
+package New_this;
+
+	public class Person {
+	    private String name;
+	    private int age;
+
+	    public Person() {
+	        this("Unknown"); // 매개변수가 있는 생성자 호출
+	    }					 // 마지막 생성자 호출
+
+	    public Person(String name) {
+	        this(name, 0); // 두 개의 매개변수를 받는 생성자 호출
+	        			   // 마지막 생성자 호출
+	    }
+
+	    public Person(String name, int age) { // 마지막 생성자
+	        this.name = name; // 공통 실행 코드
+	        this.age = age;
+	    }
+
+	    public void sayHello() {
+	        System.out.println("안녕하세요! 저는 " + name + "이고, " + age + "살입니다.");
+	    }
+	
+	}
+  
+  //호출
+  package New_this;
+
+public class PerEx {
+
+	public static void main(String[] args) {
+	Person person1 = new Person();
+	
+	person1.sayHello();  // 출력: 안녕하세요! 저는 Unknown이고, 0살입니다.
+
+	Person person2 = new Person("John");
+	person2.sayHello();  // 출력: 안녕하세요! 저는 John이고, 0살입니다.
+
+	Person person3 = new Person("Alice", 25);
+	person3.sayHello();  // 출력: 안녕하세요! 저는 Alice이고, 25살입니다.
+
+	}
+}
