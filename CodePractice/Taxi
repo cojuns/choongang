@@ -1,0 +1,66 @@
+package superCode;
+
+import java.util.Scanner;
+
+//[문제]
+//	택시 기본요금은 10,000원이다.
+//	기본 요금으로 10km까지 이동할 수 있다.
+//	10km이상 이동 시 추가요금이 발생
+//	추가 요금은 3km를 이동할 때마다 2,300원씩 요금이 추가된다.
+//	이동거리를 입력 받고 요금을 출력
+//
+//	예)
+//		0~10km => 10,000원
+//		11, 12, 13km => 12,300원
+//		14, 15, 16km => 14,600원
+//	
+//	예1) 이동 거리 = 13km
+//	[기본요금] + [추가요금]
+//	10,000  + (13 - 10) / 3 * 2,300 = 12,300원
+//				 3 / 3 = 1 * 2,300 // 3의 배수는 문제가 없음 
+
+//   예1) 이동 거리 = 14km
+//   [기본요금] + [추가요금]
+//   10,000  + (14 - 10) / 3 * 2,300 = 12,300원
+//			       4 / 3 = 1 * 2,300 // 4가 될 경우가 문제 4 / 3 = 1이기때문에 
+//				[밑에 처럼 나눈 다음에 +1해서 2로 만들어줄 필요가 있음 ]
+//	 10,000  + (14 - 10) / 3 + 1 * 2,300 = 14,600원
+//                  4 / 3 = 1 + 1 = 2 * 2,300 
+
+
+
+public class TaxiCharge_if_if {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		int basicCharge = 10000;//기본 요금
+		int basicRoad = 10;// 기본 거리
+		
+		int plusCharge = 2300;// 추가 요금
+		int plusRoad = 3;// 추가 기본 거리
+		
+		System.out.print("이동할 거리를 입력하세요>");
+		int travel = sc.nextInt();// 이동 거리 입력 // ex) 14입력인 경우 false
+		
+		if(travel <= 0) {
+			System.out.println("오류");}
+												// ex) false
+		if(1 <= travel && travel <= basicRoad) {// 기본 요금일때 경우
+			System.out.println("요금은 " + basicCharge + "원입니다.");
+		}
+		
+		if(travel > basicRoad) {// ex) true
+			int plusRoad_1 = travel - basicRoad; // ex) 추가이동거리  = 14 - 10 = 4 
+			
+			int plusCharge_1 = plusRoad_1 / plusRoad;// ex ) 추가요금 = 4 / 3 = 1
+			if(plusRoad_1 % plusRoad > 0 ) { //  ex) 4 / 3 = 1 > 0 
+				plusCharge_1 = plusCharge_1 + 1;// ex) 2 = 1+1
+			}
+//							ex)    10,000  + 2 * 2,300
+			int totalCharge = basicCharge + plusCharge_1 * plusCharge;
+			System.out.println("요금은" + totalCharge + "원 입니다.");
+		}
+	}
+
+}
