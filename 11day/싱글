@@ -1,0 +1,40 @@
+선언
+
+package sec05.exam01;
+// 싱글톤 개념
+public class Aaa {
+	// 정적 필드
+	private static Aaa a1 = new Aaa();//자기 자신을 초기화 
+	// 생성자
+	private Aaa() {}
+	// 정적 메소드
+	static Aaa mmm() {
+		return a1;
+	}
+	void test() {
+		System.out.println(a1);
+	}
+	
+
+}
+
+호출
+
+package sec05.exam01;
+//싱글톤 개념
+
+public class AaaEx {
+
+	public static void main(String[] args) {
+//		Aaa.a1.mmm();
+		Aaa a2 = Aaa.mmm();
+		a2.test();
+		
+		Aaa a3 = Aaa.mmm();
+		a3.test();
+	}
+
+}
+결과
+sec05.exam01.Aaa@3b6eb2ec
+sec05.exam01.Aaa@3b6eb2ec
