@@ -1,0 +1,44 @@
+선언
+
+package sec05.exam01;
+
+public class Singleton {
+	//싱글톤 선언
+	
+	//정적 필드
+	private static Singleton singleton = new Singleton();
+	
+	//생성자
+	private Singleton() {}
+	//정적 메소드
+	static Singleton getSingleton() {
+		return singleton;
+	}
+}
+
+호출
+
+package sec05.exam01;
+
+public class SingletonEx {
+
+	public static void main(String[] args) {
+		//싱글톤 호출
+		
+	/*	
+		Singleton obj1 = new SingletonEx();
+		Singleton obj2 = new SingletonEx(); */ //컴파일 에러
+		
+		Singleton obj1 = Singleton.getSingleton();
+		Singleton obj2 = Singleton.getSingleton();
+		
+		if(obj1 == obj2) {
+			System.out.println("같은 Singleton 객체입니다.");
+		}else {
+			System.out.println("다른 Singleton 객체입니다.");
+		}
+	}
+
+}
+결과
+같은 Singleton 객체입니다.
