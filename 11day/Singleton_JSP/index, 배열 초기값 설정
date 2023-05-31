@@ -1,0 +1,16 @@
+package static0531;
+
+public class HandleStu {
+	// index, 배열 초기값 설정
+	
+	// stu 배열을 초기화하고 학생 정보를 저장하는 역할
+	// 학생 정보를 저장하는 배열인 stu를 Singleton과 공유
+	public static int index = 0;
+	public static Student[] stu = new Student[3];
+	public static void create() {
+		for(int i=0; i < stu.length; i++ ) {
+			stu[i] = new Student();
+		}
+	}
+
+}
