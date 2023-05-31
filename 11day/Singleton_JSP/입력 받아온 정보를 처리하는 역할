@@ -1,0 +1,44 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="static0531.*" %>
+<%
+// Singleton 클래스의 인스턴스를 가져옴
+// 한 번의 인스턴스화만 허용하고 해당 인스턴스를 전역적으로 접근
+Singleton st = Singleton.getInstance();
+
+//사용자가 입력한 학생 정보를 처리하는 역할
+
+String bunho = request.getParameter("bunho");
+int index = Integer.parseInt(bunho);
+//request.getParameter => 사용자가 입력한 정보를 변수에 저장
+String name = request.getParameter("name");
+String kor = request.getParameter("kor");
+// Integer.parseInt => 입력받은 문자열을 int타입으로 변경
+int kscore = Integer.parseInt(kor);
+String math = request.getParameter("math");
+int mscore = Integer.parseInt(math);
+String eng = request.getParameter("eng");
+int escore = Integer.parseInt(eng);
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<br/>
+<% 
+//Singleton 인스턴스인 st의 stu 배열에서 입력된 인덱스(index)에 해당하는 학생 객체의 이름을 입력값으로 설정합니다. 
+//예) st.stu[0].name = name;은 입력된 인덱스 0에 해당하는 학생 객체의 이름을 입력값으로 설정
+st.stu[index].name = name;
+st.stu[index].kor = kscore;
+st.stu[index].math = mscore;
+st.stu[index].eng = escore;
+//입력된 학생 정보는 Singleton 인스턴스의 stu 배열에 저장됩니다. 
+//이 배열은 HandleStu 클래스에서 생성되며, 각 인덱스에는 학생 객체가 할당
+
+%>
+
+</body>
+</html>
