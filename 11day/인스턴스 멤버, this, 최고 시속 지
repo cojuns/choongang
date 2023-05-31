@@ -1,0 +1,75 @@
+package sec05.exam01;
+
+// 선언
+public class Car {
+	//인스턴스 멤버, this
+	// 최고 시속 지정
+	
+	private int gas;
+	private int speed;
+	
+	void keyTurnOn() {
+		System.out.println("키를 돌립니다.");
+	}
+	
+	// 남은 가스를 체크
+	boolean isLeftGas() {
+		if(gas > 0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	//달린다
+	void run() {
+		while (isLeftGas()) { // 참일경우 계속 반복 
+			System.out.println("달립니다. (gas 잔량:" + 
+								gas + "시속:" + speed + "km/h");
+			if (speed <= 100) { // 최고 시속은 110이 됩니다.
+				speed += 10;
+			}
+		 gas -= 1;
+		}
+		System.out.println("멈춥니다 gas 잔량: " + gas);
+	}
+
+	public int getGas() {
+		return gas;
+	}
+
+
+	public void setGas(int gas) {
+		this.gas = gas;
+	//  this.인스턴스변수 = 참조변수
+	}
+
+
+	public int getSpeed() {
+		return speed;
+	}
+
+
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	//  this.인스턴스변수 = 참조변수
+	}
+
+  // 
+	public static void main(String[] args) {
+		// 1. 차를 만든다.( 생성 )
+		Car myCar = new Car();
+		
+		// 2. 주유한다. ( 연료 잔량 )
+		myCar.setGas(10); // 메소드 
+		
+		// 3. 차키를 돌린다 ( 시동 )
+		myCar.keyTurnOn();
+		
+		// 4. 달린다.( 주유, 속도 정보 출력 )
+		myCar.run();
+		
+
+	}
+
+}
