@@ -1,0 +1,33 @@
+package sec05.exam01;
+
+public class Calculator {
+	//정적필드, 정적멤버 
+	// 계산기
+	
+	//선언
+	static double pi = 3.14159;
+	
+	static int plus(int x, int y) {
+		return x + y;
+	}
+	
+	static int minus(int x, int y) {
+		return x - y;
+	}
+
+	public static void main(String[] args) {
+		// 호출 
+		double result1 = 10 * 10 * Calculator.pi;
+		int result2 = Calculator.plus(10, 5);
+		int result3 = Calculator.minus(10, 5);
+		
+		System.out.println("result1 : " + result1);
+		System.out.println("result2 : " + result2);
+		System.out.println("result3 : " + result3);
+	}
+
+}
+결과
+result1 : 314.159
+result2 : 15
+result3 : 5
