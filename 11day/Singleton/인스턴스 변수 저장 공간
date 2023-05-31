@@ -1,0 +1,9 @@
+package static0531;
+
+public class Student {
+	// 인스턴스 변수 저장 공간
+	public String name;
+	public int kor;
+	public int math;
+	public int eng;
+}
