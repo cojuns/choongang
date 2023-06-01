@@ -1,0 +1,88 @@
+package static0601;
+
+public class Singleton {
+	public Student[] stu = new Student[3];
+	private int index;
+	
+	public int getIndex() {
+		System.out.println(index);
+		return index++ % stu.length;
+	}
+	public void setIndex(int index) {
+		this.index = index;
+	}
+	private static Singleton st = new Singleton();
+	
+	// 과목별 최고 점수, 학생 필드값 지정
+    private int kmax;
+    private String kMaxName;
+    
+    private int emax;
+    private String eMaxName;
+    
+    private int mmax;
+    private String mMaxName;
+	
+	private Singleton() {
+		for (int i=0; i < stu.length; i++) {
+			stu[i] = new Student();
+		}
+	}
+	public static Singleton getInstance() {
+		return st;
+	}
+	
+	// 과목별 최고 점수. 학생 Getter/Setter 
+	 public int getKmax() {
+	        return kmax;
+	    }
+
+	    public void setKmax(int kmax) {
+	        this.kmax = kmax;
+	    }
+
+	    public String getKMaxName() {
+	        return kMaxName;
+	    }
+
+	    public void setKMaxName(String kMaxName) {
+	        this.kMaxName = kMaxName;
+	    }
+		public int getEmax() {
+			return emax;
+		}
+		public void setEmax(int emax) {
+			this.emax = emax;
+		}
+		public String geteMaxName() {
+			return eMaxName;
+		}
+		public void seteMaxName(String eMaxName) {
+			this.eMaxName = eMaxName;
+		}
+		public int getMmax() {
+			return mmax;
+		}
+		public void setMmax(int mmax) {
+			this.mmax = mmax;
+		}
+		public String getmMaxName() {
+			return mMaxName;
+		}
+		public void setmMaxName(String mMaxName) {
+			this.mMaxName = mMaxName;
+		}
+	    
+	    
+}
+	
+	
+	
+	// 기본 싱글톤
+//	private static Singleton st = new Singleton();
+	
+//	private Singleton() {}
+	
+//	public static Singleton getInstance() {
+//		return st;
+//	}
