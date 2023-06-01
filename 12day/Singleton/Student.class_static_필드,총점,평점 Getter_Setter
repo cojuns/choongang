@@ -1,0 +1,91 @@
+package static0601;
+
+public class Student {
+	// 필드
+	//총점, 평균 Getter/Setter
+	
+	private String name;
+	private int kor;
+	private int math;
+	private int eng;
+	
+	private int tot;
+	private int avg;
+	
+	//사용 안함
+//	private int kmax;
+//	private int mmax;
+//	private int emax;
+//	
+//	String kMaxName;
+//	String eMaxName;
+//	String mMaxName;
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getKor() {
+		return kor;
+	}
+	public void setKor(int kor) {
+		this.kor = kor;
+	}
+	public int getMath() {
+		return math;
+	}
+	public void setMath(int math) {
+		this.math = math;
+	}
+	public int getEng() {
+		return eng;
+	}
+	public void setEng(int eng) {
+		this.eng = eng;
+	}
+	public int getTot() {
+		return tot;
+	}
+	public void setTot(int kor, int math, int eng) {
+		this.tot = kor + eng + math;
+		
+
+	}
+	public int getAvg() {
+		return avg;
+	}
+	public void setAvg(int kor, int math, int eng) {
+		this.avg = (kor + eng + math) / 3;
+	}
+	
+	//사용 안함
+//	public int getKmax() {
+//		return kmax;
+//	}
+//	public void setKmax(int kmax, int kor, String kMaxName) {
+//	    this.kmax = kmax;
+//	    this.kor = kor;
+//	    this.kMaxName = kMaxName;
+//	}
+//	public int getMmax() {
+//		return mmax;
+//	}
+//	public void setMmax(int mmax, int math, String mMaxName) {
+//		this.mmax = mmax;
+//	    this.math = math;
+//	    this.mMaxName = mMaxName;
+//	}
+//	public int getEmax() {
+//		return emax;
+//	}
+//	public void setEmax(int emax, int eng, String eMaxName) {
+//		this.emax = emax;
+//	    this.eng = eng;
+//	    this.eMaxName = eMaxName;
+//	}
+	
+	
+	
+}
