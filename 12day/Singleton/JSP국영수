@@ -1,0 +1,105 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="static0601.*" %>
+<%
+Singleton st = Singleton.getInstance();
+String nm = request.getParameter("name");
+String kor = request.getParameter("kor");
+String math = request.getParameter("math");
+String eng = request.getParameter("eng");
+
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="">
+이름<input type="text" name="name" /><br/>
+국어<input type="text" name="kor" /><br/>
+수학<input type="text" name="math" /><br/>
+영어<input type="text" name="eng" /><br/>
+
+<input type="submit" />
+</form>
+<%
+
+if (kor != null) {
+	int index = st.getIndex();
+	st.stu[index].setName(nm);
+	st.stu[index].setKor(Integer.parseInt(kor));
+	st.stu[index].setEng(Integer.parseInt(eng));
+	st.stu[index].setMath(Integer.parseInt(math));
+/*총점*/st.stu[index].setTot(Integer.parseInt(kor), Integer.parseInt(math) , Integer.parseInt(eng));
+/*평균*/st.stu[index].setAvg(Integer.parseInt(kor), Integer.parseInt(math) , Integer.parseInt(eng));
+
+ // 최고점수,사람 
+if (Integer.parseInt(kor) > st.getKmax()) {
+    st.setKmax(Integer.parseInt(kor));
+    st.setKMaxName(nm);
+}
+ 
+if (Integer.parseInt(math) > st.getMmax()) {
+    st.setMmax(Integer.parseInt(math));
+    st.setmMaxName(nm);
+}
+if (Integer.parseInt(eng) > st.getEmax()) {
+    st.setEmax(Integer.parseInt(eng));
+    st.seteMaxName(nm);
+}
+ 
+}
+%>
+<table border="1">
+<%
+for (int i = 0; i < st.stu.length; i++) {
+	
+%>
+
+    	<tr><th>이름</th>
+        <td><%= st.stu[i].getName() %></td>
+        <th>국어</th> 
+        <td><%= st.stu[i].getKor() %></td>
+        <th>수학</th> 
+        <td><%= st.stu[i].getMath() %></td>
+        <th>영어</th> 
+        <td><%= st.stu[i].getEng() %></td>
+        <th>총점</th> 
+        <td><%= st.stu[i].getTot() %></td>
+        <th>평균</th> 
+        <td><%= st.stu[i].getAvg() %></td>   
+    </tr>    
+<%
+}
+%>
+
+</table>
+
+</table>
+<table border="1">
+<tr>
+    <th>과목</th>
+    <th>최고 점수</th>
+    <th>최고 점수를 받은 학생</th>
+</tr>
+<tr>
+    <td>국어</td>
+    <td><%= st.getKmax() %></td>
+    <td><%= st.getKMaxName() %></td>
+</tr>
+<tr>
+    <td>수학</td>
+    <td><%= st.getMmax() %></td>
+    <td><%= st.getmMaxName() %></td>
+</tr>
+<tr>
+    <td>영어</td>
+    <td><%= st.getEmax() %></td>
+    <td><%= st.geteMaxName() %></td>
+</tr>
+</table>
+
+</body>
+</html>
