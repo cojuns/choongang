@@ -1,0 +1,67 @@
+부모
+
+package sec01.exam01.Child01;
+
+public class Parent {
+	void method1() {
+		System.out.println("부모의 method1");
+	}
+	void method2() {
+		System.out.println("부모의 method2");
+	}
+}
+
+자식
+package sec01.exam01.Child01;
+
+public class Child extends Parent {
+	void method2() {
+		System.out.println("자식의 method2");
+	}
+	void method3() {
+		System.out.println("자식의 method3");
+	}
+	void method4() {
+		super.method1();
+		System.out.println("부모의 method1");
+	}
+	
+	@Override // 재정의 
+	void method1() {
+		
+		super.method1();
+	}
+	
+	
+}
+
+재정의된 메소드 호출
+package sec01.exam01.Child01;
+
+public class ChildEx {
+
+	public static void main(String[] args) {
+		
+		Child child = new Child();
+		
+		child.method1();
+		//부모의 method2
+		
+		child.method2(); // 재정의된 메소드 호출
+		//자식의 method2
+
+		child.method3();
+		//자식의 method3
+		
+		child.method4();
+		//부모의 method1
+		//부모의 method1
+	}
+
+}
+결과
+부모의 method1
+자식의 method2
+자식의 method3
+부모의 method1
+부모의 method1
