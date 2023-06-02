@@ -1,0 +1,100 @@
+package score0602;
+
+import java.util.Scanner;
+
+public class ScoreEx {
+
+	public static void main(String[] args) {
+		boolean run = true;
+		
+		Scanner sc = new Scanner(System.in);
+		Singleton st = Singleton.getInstance();
+//		for (int i=0; i < st.students.length; i++) {
+//			//임시 자료 더미코드
+//			 st.students[i].setName("김"+i);
+//			int score =(int) (Math.random()*100 + 1);
+//			 st.students[i].setKor(score);
+//			 score =(int) (Math.random()*100 + 1);
+//			 st.students[i].setMath(score);
+//			 score =(int) (Math.random()*100 + 1);
+//			 st.students[i].setEng(score);
+//
+//		}
+		for(int i=0; i <st.students.length; i++) {
+			System.out.print(i+1+"번 학생 이름>");
+			String name = sc.nextLine();
+			st.students[i].setName(name);
+			// 국어 점수 입력
+			System.out.print(i+1+"번 학생 국어 점수>");
+			int kor = Integer.parseInt(sc.nextLine());
+			st.students[i].setKor(kor);
+			// 수학 점수 입력
+			System.out.print(i+1+"번 학생 수학 점수>");
+			int math = Integer.parseInt(sc.nextLine());
+			st.students[i].setMath(math);
+			// 영어 점수 입력
+			System.out.print(i+1+"번 학생 영어 점수>");
+			int eng = Integer.parseInt(sc.nextLine());
+			st.students[i].setEng(eng);
+			
+		}
+			for(Student student : st.students) {
+				System.out.println(student);
+
+			}
+			while(run) { // 무한루프
+				System.out.println("-----------------------------------------------");
+				System.out.println("1.학생별 총점/평균 2.과목별 최고 점수/이름 3.이름으로 성적 검색 4.종료");
+				System.out.println("-----------------------------------------------");
+				int num = Integer.parseInt(sc.nextLine());
+				switch(num) {
+				case 1: // 1. 학생별 총점/평균
+					System.out.println("이름\t국어\t수학\t영어\t총점\t평균");
+					System.out.println("---------------------------------------------");
+//					배열에 저장된 학생 객체를 하나씩 가져와서 반복문의 코드 블록을 실행하는 역할
+					for(Student student : st.students) {
+						System.out.printf("%s\t%d\t%d\t%d\t%d\t%f\n",
+								student.getName(), student.getKor(),
+								student.getMath(), student.getEng(),
+								student.total(), student.avg());
+					}
+					System.out.println("---------------------------------------------");
+					break;
+					
+				case 2: // 2.과목별 최고 점수/이름
+					st.makeKing();// 싱글톤에서 작성한 for문 메서드 호출
+					System.out.printf("국어 최고 점수: %d, 이름: %s\n",
+							          st.korKingScore, st.korKingName);
+					System.out.printf("수학 최고 점수: %d, 이름: %s\n",
+									  st.mathKingsScore, st.mathKingName);
+					System.out.printf("영어 최고 점수: %d, 이름: %s\n",
+							          st.engKingScore, st.engKingName);
+					break;
+					
+				case 3://3.이름으로 성적 검색
+					System.out.print("이름입력>");
+					String name = sc.nextLine();
+					Student student = st.search(name);
+					if(student != null) {
+						System.out.println("이름\t국어\t수학\t영어\t총점\t평균");
+						System.out.println("---------------------------------------------");
+						System.out.printf("%s\t%d\t%d\t%d\t%d\t%f\n",
+								student.getName(), student.getKor(),
+								student.getMath(), student.getEng(),
+								student.total(), student.avg());
+						
+					}System.out.println("정보가 없습니다.");
+					
+					break;
+					
+					
+				case 4:
+					run = false; // 루프 종료
+				}
+			}
+			System.out.println("프로그램 종료");
+		
+
+	}
+
+}
