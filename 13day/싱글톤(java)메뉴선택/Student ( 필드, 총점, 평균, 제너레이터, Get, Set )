@@ -1,0 +1,78 @@
+package score0602;
+
+public class Student {
+	// 필드
+	private String name;
+	private int kor;
+	private int math;
+	private int eng;
+	private int tot;
+	private int avg;
+	
+	//총점 메소드
+	public int total() {
+		return kor + math + eng;
+	}
+	
+	//평균
+	public double avg() {
+		return total() / 3.0;
+	}
+	
+	
+	@Override // 제너레이터 to string
+	public String toString() {
+		return "Student [name=" + name + ", kor=" + kor + ", math=" + math + ", eng=" + eng + ", tot=" + tot + ", avg="+ avg + "]";
+	}
+	//생성자
+	public Student() {}
+	public Student(String name, int kor, int math, int eng) {
+		
+	this.name = name;
+	this.kor = kor;
+	this.math = math;
+	this.eng = eng;
+	}
+	
+	//Get,Set
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getKor() {
+		return kor;
+	}
+	public void setKor(int kor) {
+		this.kor = kor;
+	}
+	public int getMath() {
+		return math;
+	}
+	public void setMath(int math) {
+		this.math = math;
+	}
+	public int getEng() {
+		return eng;
+	}
+	public void setEng(int eng) {
+		this.eng = eng;
+	}
+	public int getTot() {
+		return tot;
+	}
+	public void setTot(int tot, int kor, int math, int eng) {
+		this.tot = ( kor + math + eng);
+	}
+	public int getAvg() {
+		return getAvg();
+	}
+	public void setAvg(int avg) {
+		this.avg = avg;
+	}
+	
+	
+	
+	
+}
