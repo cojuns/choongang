@@ -1,0 +1,68 @@
+package score0602;
+
+public class Singleton {
+	//최고 점수/이름 필드 생성
+	public String korKingName;
+	public String mathKingName;
+	public String engKingName;
+	
+	public int korKingScore;
+	public int mathKingsScore;
+	public int engKingScore;
+	
+	//이름으로 성적 검색
+	public Student search(String name) {
+		for (Student student : students) {
+			if(name.equals(student.getName())) {
+				return student;
+			}
+		}
+		return null;
+	}
+	
+	//최고 점수/이름 메서드 
+	public void makeKing() {
+		for (Student student : students) {
+			if (korKingScore < student.getKor()) {
+				korKingScore = student.getKor();
+				korKingName = student.getName();
+			}
+		}
+		for (Student student : students) {
+			if (mathKingsScore < student.getMath()) {
+				mathKingsScore = student.getMath();
+				mathKingName = student.getName();
+			}
+		}
+		for (Student student : students) {
+			if (engKingScore < student.getEng()) {
+				engKingScore = student.getEng();
+				engKingName = student.getName();
+			}
+		}
+	}
+	
+	// 클래스 배열
+	Student[] students = new Student[3]; 
+	
+	//생성자
+	private static Singleton st = new Singleton();
+	
+	
+	
+
+
+	private Singleton() {
+		// 학생  클래스 배열의 객체를 생성
+		for(int i=0; i< students.length; i++) {
+			students[i] = new Student();
+		}
+	}
+	
+	//메소드 
+	public static Singleton getInstance() {
+		return st;
+	}
+	
+	
+}
