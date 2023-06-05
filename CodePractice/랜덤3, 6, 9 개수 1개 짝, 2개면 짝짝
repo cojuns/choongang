@@ -1,0 +1,54 @@
+package superCode;
+
+import java.util.Random;
+
+//	[문제]
+//		1. 1~50사이의 랜덤 숫자를 저장한다.
+//		2. 랜덤 숫자 중에서 3이나 6이나 9의 개수가 2개면, 짝짝을 출력한다.
+//		3. 랜덤 숫자 중에서 3이나 6이나 9의 개수가 1개면, 짝을 출력한다.
+//		4. 랜덤 숫자 중에서 3이나 6이나 9의 개수가 0이면, 해당 숫자를 출력한다.
+//			예)
+//				33  => 짝짝
+//				16  => 짝
+//				7   => 7
+
+
+public class Randum369 {
+
+	public static void main(String[] args) {
+		
+//		1. 1~50사이의 랜덤 숫자를 저장한다.
+		Random ran = new Random();
+		int rNum = ran.nextInt(50); // [0 ~ 49] + 1
+		System.out.println("rNum = " + rNum);
+		
+		// 십의 자리
+		int tens = rNum / 10;
+		// 일의 자리
+		int units = rNum % 10;
+		System.out.println("십의 자리 = " + tens);
+		System.out.println("일의 자리 = " + units);
+		
+		int count = 0;
+		// 십의 자리 3, 6, 9 개수
+		if(tens == 3 || tens == 6 || tens == 9) {
+			count = count + 1;
+		}
+		
+		// 일의 자리 3, 6, 9 개수
+		if(units == 3 || units == 6 || units == 9) {
+			count = count + 1;
+		}
+		
+		if(count == 2) {
+			System.out.println("짝짝");
+		}
+		else if(count == 1) {
+			System.out.println("짝");
+		}else {
+			System.out.println(rNum);
+		}
+		
+	}
+
+}
