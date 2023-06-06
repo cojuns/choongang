@@ -1,0 +1,30 @@
+package superCode;
+
+public class Sjh_test {
+
+	public static void main(String[] args) {
+//		[문제] 아래 조건을 충족하는 식을 작성하시오.
+//			조건1) 10 ~ 1 까지 거꾸로 반복문을 실행한다.
+//			조건2) 3 ~ 6 사이는 "안녕"을 출력한다.
+//			조건3) 3 ~ 6 사이가 아닐때는 숫자를 출력한다.
+		
+		int i = 10;
+//			조건1) 10 ~ 1 까지 거꾸로 반복문을 실행한다.
+		while(i >= 1) {
+
+			
+//			조건2) 3 ~ 6 사이는 "안녕"을 출력한다.
+			if(3 <= i && i <= 6) {
+				System.out.println("안녕");
+//			조건3) 3 ~ 6 사이가 아닐때는 숫자를 출력한다.	
+			}else {
+				System.out.println(i);
+			}
+			
+			i -= 1;
+		}
+		
+		
+	}
+
+}
