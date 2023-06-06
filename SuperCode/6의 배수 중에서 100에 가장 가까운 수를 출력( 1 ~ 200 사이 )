@@ -1,0 +1,57 @@
+package superCode;
+
+public class Sjh_test {
+
+	public static void main(String[] args) {
+//		[문제] 
+//			1에서 200 사이의 숫자 중 다음 조건에 맞는 숫자를 출력하시오.
+//			조건) 6의 배수 중에서 100에 가장 가까운 수를 출력하시오.
+//		[정답]
+//			102
+		
+//		1. 방법
+//		int i = 6;
+//		int count = 0;
+//		
+//		boolean run = true;
+//		
+//		while(run) {
+//			if(i % 6 == 0) {
+//				
+//				count = count + 1;
+//			}
+//			if(count == 17) {
+//				System.out.println(i);
+//				run = false;
+//			}
+//			i += 1;
+//		}
+		
+//		2. 방법
+		int i = 1;
+		
+		int limit = 100;
+		int answer = 0;
+		
+		while(i <= 200) {
+			// 100 까지 6의 배수 구하기
+			if(i % 6 == 0 && i <= limit) {
+				answer = i;
+			}
+			i += 1;
+		}
+		System.out.println("answer = " + answer); // answer = 96
+		
+		// 96 100 102
+		int nextanswer = answer + 6;
+		System.out.println("nextanswer = " + nextanswer);
+		
+		if(limit - answer < limit - nextanswer) {
+			System.out.println(answer);
+		}else {
+			System.out.println(nextanswer);
+		}
+		
+	}
+
+}
