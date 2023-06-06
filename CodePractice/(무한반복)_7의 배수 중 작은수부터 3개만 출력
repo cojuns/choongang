@@ -1,0 +1,47 @@
+package superCode;
+
+public class Sjh_test {
+
+	public static void main(String[] args) {
+//		[문제] 
+//			7의 배수 중 작은수부터 3개만 출력하시오.
+//		[정답]
+//			7, 14, 21
+		
+//		1번째 방법
+//		int i = 1;
+//		int count = 0;
+//		
+//		while(i <= 25) {
+//			
+//			if(i % 7 == 0) {
+//				System.out.print(i + " ");
+//				count = count + 1;
+//			}
+//			i += 1;
+//		}
+//		System.out.println();
+//		System.out.println("7의 배수 개수는 = " + count + "개");
+		
+//		2번째 방법
+		int i = 7;
+		int count = 0;
+		
+		// 무한 반복
+		boolean run = true;
+		
+		while(run) {
+			// i가 7의 배수가 될 때마다 count + 1씩 증가
+			if(i % 7 == 0) {
+				System.out.println(i); // i 7의 배수가 될 때마다 i가 출력
+				count = count + 1;
+			}
+			// count가 3이 될 때 반복 중단 
+			if(count == 3) {
+				run = false;
+			}
+			i += 1;
+		}
+	}
+
+}
