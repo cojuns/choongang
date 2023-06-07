@@ -1,0 +1,64 @@
+//부모
+
+package sec02.exam09_03;
+// 강제 타입 변환
+
+public class Parent {
+	public String field1;
+	
+	public void method1() {
+		System.out.println("parent-method1");
+	}
+	public void method2() {
+		System.out.println("parent-method2");
+	}
+}
+
+//자식
+
+package sec02.exam09_03;
+//강제 타입 변환
+
+public class Child extends Parent {
+	public String field2;
+	
+	public void method3() {
+		System.out.println("Child-method3");
+	}
+}
+
+//실행
+
+package sec02.exam09_03;
+//강제 타입 변환
+
+public class ChildEx {
+
+	public static void main(String[] args) {
+//		Parent p1 = new Parent();
+//		Child c1 = (Child) p1; // 컴파일 에러
+		
+		// 필드 다형성
+		Parent parent = new Child();
+		parent.field1 = "aaa";		
+		//parent.field2 = "bbb";// 자식만 가지고 있어서 에러
+		parent.method1();
+		parent.method2();
+//		parent.method3(); // 자식만 가지고 있어서 에러
+		
+		// 강제 형변환시 가능 
+		Child child = (Child) parent;
+		child.field2 = "bbb";
+		child.method1();
+		child.method2();
+		child.method3();
+
+	}
+
+}
+//< 결과 >
+//parent-method1
+//parent-method2
+//parent-method1
+//parent-method2
+//Child-method3
