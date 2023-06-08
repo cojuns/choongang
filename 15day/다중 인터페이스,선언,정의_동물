@@ -1,0 +1,55 @@
+//인터페이스 선언
+
+package sec01.exam03_1;
+
+public interface Animal {
+	void eat();
+}
+
+
+//다중 인터페이스 선언
+
+package sec01.exam03_1;
+
+public interface Bird extends Animal {
+	void fly();
+}
+
+
+//인터페이스 재정의
+package sec01.exam03_1;
+
+public class Sparrow implements Bird {
+
+	@Override
+	public void eat() {
+		System.out.println("먹는다.");
+		
+	}
+
+	@Override
+	public void fly() {
+		System.out.println("날아오른다.");
+		
+	}
+
+}
+
+
+//실행
+
+package sec01.exam03_1;
+
+public class SparrowEx {
+
+	public static void main(String[] args) {
+		Sparrow sparrow = new Sparrow();
+		sparrow.eat();
+		sparrow.fly();
+
+	}
+
+}
+//<결과>
+//먹는다.
+//날아오른다.
