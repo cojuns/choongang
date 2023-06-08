@@ -1,0 +1,58 @@
+//추상 메소드 선언
+
+package sec03.exam03;
+
+public abstract class Http {// 추상클래스
+	public abstract void service();
+}
+
+
+//추상 메소드 재정의 1
+package sec03.exam03;
+
+public class HttpChild extends Http { 
+
+	@Override
+	public void service() {
+		System.out.println("로그인 합니다.");
+		
+	}
+
+	
+	
+}
+
+
+//추상 메소드 재정의 2
+package sec03.exam03;
+
+public class HttpChild2 extends Http {
+
+	@Override
+	public void service() {
+		System.out.println("파일 다운로드합니다.");
+		
+	}
+	
+}
+
+
+//실행
+package sec03.exam03;
+
+public class HttpEx {
+
+	public static void main(String[] args) {
+		method(new HttpChild());
+		method(new HttpChild2());
+
+	}
+	public static void method(Http http) {
+		http.service();
+	}
+	
+
+}
+//<결과>
+//로그인 합니다.
+//파일 다운로드합니다.
