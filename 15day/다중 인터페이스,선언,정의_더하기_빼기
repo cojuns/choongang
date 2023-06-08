@@ -1,0 +1,91 @@
+//인터페이스 선언
+
+package sec01.exam03_3;
+
+public interface Calculator {
+	void add(int a, int b);
+	void subtract(int a, int b);
+}
+
+
+//다중 인터페이스 구현 1
+
+package sec01.exam03_3;
+
+public interface Adder extends Calculator {
+	void add(int a, int b);
+}
+
+
+//다중 인터페이스 구현 2
+
+package sec01.exam03_3;
+
+public interface Subtractor extends Calculator {
+	void subtract(int a, int b);
+}
+
+
+//인터페이스 재정의 1
+
+package sec01.exam03_3;
+
+public class AdderClass implements Adder {
+
+	@Override
+	public void subtract(int a, int b) {
+		
+
+	}
+
+	@Override
+	public void add(int a, int b) {
+		int add = a+b;
+		System.out.println("더하기 = " + add);
+	}
+	
+
+
+}
+
+
+//인터페이스 재정의 2
+
+package sec01.exam03_3;
+
+public class SubtractorClass implements Subtractor {
+
+	@Override
+	public void add(int a, int b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void subtract(int a, int b) {
+		int subtract = a-b;
+		System.out.println("빼기 = " + subtract);
+		
+	}
+
+}
+
+
+//실행
+
+package sec01.exam03_3;
+
+public class Main {
+
+	public static void main(String[] args) {
+		AdderClass adderClass = new AdderClass();
+		adderClass.add(10, 20);
+		
+		SubtractorClass subtractorClass = new SubtractorClass();
+		subtractorClass.subtract(20, 10);
+	}
+
+}
+//<결과>
+//더하기 = 30
+//빼기 = 10
