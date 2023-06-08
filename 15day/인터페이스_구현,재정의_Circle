@@ -1,0 +1,109 @@
+//인터페이스 정의
+
+package sec01.exam03;
+
+public interface Figure {
+	void draw();
+}
+
+
+//인터페이스 구현 1
+
+package sec01.exam03;
+
+public class Circle implements Figure {
+
+	@Override
+	public void draw() {
+		System.out.println("Circle의 draw 메소드");
+		
+	}
+	
+}
+
+
+//인터페이스 구현 2
+package sec01.exam03;
+
+public class Rectangle implements Figure {
+
+	@Override
+	public void draw() {
+		System.out.println("Rectangle의 draw 메소드");
+		
+	}
+	
+}
+
+
+//인터페이스 구현 3
+
+//인터페이스 구현3
+
+package sec01.exam03;
+
+public class Square implements Figure {
+
+	@Override
+	public void draw() {
+		System.out.println("Square의 draw 메소드");
+		
+	}
+
+}
+
+
+//구현한 인터페이스 정의
+
+package sec01.exam03;
+
+public class FigureFactory {
+	public Figure getFigure(String figureType) {
+		if(figureType == null) {
+			return null;
+		}
+		// equalsIgnoreCase => 대소문자 상관없이 비교 
+		if (figureType.equalsIgnoreCase("CIRCLE")) {
+			return new Circle();
+		}else if (figureType.equalsIgnoreCase("RECTANGLE")) {
+			return new Rectangle();
+		}else if (figureType.equalsIgnoreCase("SQUARE")) {
+			return new Square();
+		}
+		
+		return null;
+	}
+}
+
+
+//실행
+
+package sec01.exam03;
+
+public class FactoryPatternEx {
+
+	public static void main(String[] args) {
+		FigureFactory figureFactory = new FigureFactory();
+		
+		Figure fig1 = figureFactory.getFigure("CIRCLE");
+		
+		// Circle의 draw 메소드 호출
+		fig1.draw();
+		
+		Figure fig2 = figureFactory.getFigure("RECTANGLE");
+		
+		// RECTANGLE의 draw 메소드 호출
+		fig2.draw();
+		
+		Figure fig3 = figureFactory.getFigure("SQUARE");
+		
+		// SQUARE의 draw 메소드 호출
+		fig3.draw();
+			
+	}
+
+}
+//<결과>
+//Circle의 draw 메소드
+//Rectangle의 draw 메소드
+//Square의 draw 메소드
