@@ -1,0 +1,109 @@
+//인터페이스
+
+package sec01.exam04_3;
+
+public interface DataAccessObject {
+	public void select();
+	public void insert();
+	public void updata();
+	public void delete();
+}
+
+
+//구현 클래스 1
+
+package sec01.exam04_3;
+
+public class OracleDao implements DataAccessObject {
+
+	@Override
+	public void select() {
+		System.out.println("Oracle DB에서 검색");
+		
+	}
+
+	@Override
+	public void insert() {
+		System.out.println("Oracle DB에서 삽입");
+		
+	}
+
+	@Override
+	public void updata() {
+		System.out.println("Oracle DB에서 수정");
+		
+	}
+
+	@Override
+	public void delete() {
+		System.out.println("Oracle DB에서 삭제");
+		
+	}
+
+}
+
+
+//구현 클래스 2
+
+package sec01.exam04_3;
+
+public class Mysql implements DataAccessObject {
+
+	@Override
+	public void select() {
+		System.out.println("Mysql에서 검색");
+		
+	}
+
+	@Override
+	public void insert() {
+		System.out.println("Mysql에서 삽입");
+		
+	}
+
+	@Override
+	public void updata() {
+		System.out.println("Mysql에서 수정");
+		
+	}
+
+	@Override
+	public void delete() {
+		System.out.println("Mysql에서 삭제");
+		
+	}
+
+}
+
+
+//실행
+
+package sec01.exam04_3;
+
+public class Ex1 {
+	
+	// static이 붙은건 "." 호출, 안붙으면 생성자 생성 후 "." 호출 
+	public static void dbWork(DataAccessObject dao) {
+		dao.select();
+		dao.insert();
+		dao.updata();
+		dao.delete();
+	}
+	
+	public static void main(String[] args) {
+		dbWork(new OracleDao());
+		dbWork(new Mysql());
+
+	}
+
+}
+//<결과>
+
+//Oracle DB에서 검색
+//Oracle DB에서 삽입
+//Oracle DB에서 수정
+//Oracle DB에서 삭제
+//Mysql에서 검색
+//Mysql에서 삽입
+//Mysql에서 수정
+//Mysql에서 삭제
