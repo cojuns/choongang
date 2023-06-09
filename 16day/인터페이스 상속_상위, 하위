@@ -1,0 +1,86 @@
+//상위 인터페이스 1
+
+package sec01.exam04_2;
+// 상위 인터페이스
+public interface InterA {
+	public void methodA();
+}
+
+
+//상위 인터페이스 2
+
+package sec01.exam04_2;
+//상위 인터페이스
+public interface InterB {
+	public void methodB();
+}
+
+
+//하위 인터페이스
+
+package sec01.exam04_2;
+//하위 인터페이스
+public interface InterC extends InterA, InterB {
+	public void methodC();
+}
+
+
+//하위 인터페이스 구현
+
+package sec01.exam04_2;
+
+public class C implements InterC {
+
+	@Override
+	public void methodA() {
+		System.out.println("C-method_A 실행");
+		
+	}
+
+	@Override
+	public void methodB() {
+		System.out.println("C-method_B 실행");
+		
+	}
+
+	@Override
+	public void methodC() {
+		System.out.println("C-method_C 실행");
+		
+	}
+
+
+
+}
+
+
+
+//실행
+package sec01.exam04_2;
+
+public class Ex1 {
+
+	public static void main(String[] args) {
+		C c1 = new C();
+		
+		InterA a1 = c1;
+		a1.methodA();
+		
+		InterB a2 = c1;
+		a2.methodB();
+		
+		InterC a3 = c1;
+		a3.methodA();
+		a3.methodB();
+		a3.methodC();
+
+	}
+
+}
+//<결과>
+
+//C-method_A 실행
+//C-method_B 실행
+//C-method_A 실행
+//C-method_B 실행
+//C-method_C 실행
