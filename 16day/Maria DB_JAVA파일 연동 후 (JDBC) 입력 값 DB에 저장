@@ -1,0 +1,42 @@
+package jdbc0609;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+public class TestForJDBC {
+
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		Scanner sc = new Scanner(System.in);
+		
+		Connection con = null;
+		String url = "jdbc:mariadb://localhost:3307/jspdb";// DB 연결 주소
+		String user = "root"; // DB 계정
+		String pass = "maria"; // DB PW
+		Class.forName("org.mariadb.jdbc.Driver");
+		System.out.println("드라이버 로딩!");
+		con =
+				DriverManager.getConnection(url, user, pass);
+		System.out.println("접속 성공!");
+		
+		System.out.print("사번 입력: ");
+		int empno = sc.nextInt(); // 사용자로부터 사번 입력 받음
+		System.out.print("이름 입력: ");
+		String ename = sc.nextLine(); // 사용자로부터 이름 입력 받음
+		ename = sc.nextLine();
+		System.out.print("급여 입력: ");
+		int sal = sc.nextInt(); // 사용자로부터 가격 입력 받음
+		System.out.print("전화번호 입력: ");
+		String phone = sc.nextLine(); // 사용자로부터 전화번호 입력 받음
+		phone = sc.nextLine();
+		
+		String sql = "insert into emp (empno,ename,sal,phone)"
+				+ "VALUES ("+ empno +", '"+ename+"', " + sal +", '"+phone+"' )";
+		Statement stmt = con.createStatement();
+		stmt.executeUpdate(sql);
+		System.out.println("query 성공");
+	}
+
+}
