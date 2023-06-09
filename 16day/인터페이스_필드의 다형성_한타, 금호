@@ -1,0 +1,98 @@
+//인터페이스
+
+package sec01.exam04_0;
+
+public interface Tire {
+
+	public void roll();
+	
+	
+	
+}
+
+
+//구현클래스 1
+
+package sec01.exam04_0;
+
+public class HankookTire implements Tire {
+
+	@Override
+	public void roll() {
+		System.out.println("한국타이어가 굴러갑니다.");
+		
+	}
+
+}
+
+
+//구현클래스 2
+
+package sec01.exam04_0;
+
+public class KumhoTire implements Tire {
+
+	@Override
+	public void roll() {
+		System.out.println("금호타이어가 굴러갑니다.");
+		
+	}
+
+}
+
+
+//필드 다형성
+
+package sec01.exam04_0;
+
+public class Car {
+	
+	// 인터페이스 타입 필드 선언과 초기 구현 객체 대입
+	Tire frontLeftTire = new HankookTire();
+	Tire frontRightTire = new HankookTire();
+	Tire backLeftTire = new HankookTire();
+	Tire backRightTire = new HankookTire();
+
+	//인터페이스에서 설명된 roll() 메소드 호출
+	void run() {
+		frontLeftTire.roll();
+		frontRightTire.roll();
+		backLeftTire.roll();
+		backRightTire.roll();
+}
+
+
+	}
+    
+    
+ //  실행
+
+package sec01.exam04_0;
+
+public class CarEx {
+
+	public static void main(String[] args) {
+		Car myCar = new Car();
+		
+		// 한국타이어x4
+		myCar.run();
+		
+		//frontTire 2개 kumhoTire로 교체 
+		myCar.frontLeftTire = new KumhoTire();
+		myCar.frontRightTire = new KumhoTire();
+		
+		// 앞 바퀴 금호 2개, 뒷 바퀴 한국타이어 유지 
+		myCar.run();
+
+	}
+
+}
+//<실행>
+//한국타이어가 굴러갑니다.
+//한국타이어가 굴러갑니다.
+//한국타이어가 굴러갑니다.
+//한국타이어가 굴러갑니다.
+//금호타이어가 굴러갑니다.
+//금호타이어가 굴러갑니다.
+//한국타이어가 굴러갑니다.
+//한국타이어가 굴러갑니다.
