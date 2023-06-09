@@ -1,0 +1,79 @@
+//인터페이스
+
+package sec01.exam04_1;
+//인터페이스
+public interface Vehicle {
+	public void run();
+}
+
+
+//매개 변수의 인터페이스화
+
+package sec01.exam04_1;
+
+public class Driver {
+	public void drive(Vehicle vehicle) {
+		vehicle.run();
+	}
+}
+
+
+//구현 클래스 1
+
+package sec01.exam04_1;
+
+public class Bus implements Vehicle {
+
+	@Override
+	public void run() {
+		System.out.println("버스가 달립니다.");
+		
+	}
+	
+
+
+
+}
+
+
+//구현 클래스 2
+
+package sec01.exam04_1;
+
+public class Taxi implements Vehicle {
+
+	@Override
+	public void run() {
+		System.out.println("택시가 달립니다.");
+		
+	}
+
+
+
+}
+
+
+//실행
+
+package sec01.exam04_1;
+
+public class DriverEX {
+
+	public static void main(String[] args) {
+
+		
+		Driver driver = enw Driver();
+		
+		Bus bus = new Bus();
+        Taxi taxi = new Taxi();
+        
+        driver.drive(bus); // 자동 타입 변환
+        driver.drive(taxi);// 자동 타입 변환
+		
+		
+	}
+
+}
+//<결과>
+//버스가 달립니다.
+//택시가 달립니다.
