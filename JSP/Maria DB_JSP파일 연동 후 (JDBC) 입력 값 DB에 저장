@@ -1,0 +1,81 @@
+//사용자에게 입력 받기
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>사용자 입력</h1>
+<form action="connection.jsp">
+<a>사번 입력=></a><input type="text" name="empno"></br>
+<a>이름 입력=></a><input type="text" name="ename"></br>
+<a>급여 입력=></a><input type="text" name="sal"></br>
+<a>전화번호 입력=></a><input type="text" name="phone"></br>
+<button type="submit">입력</button>
+</form>
+
+<form>
+
+</form>
+
+
+</body>
+</html>
+
+
+DB 연결 및 정의
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>    
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<% 
+String aa = request.getParameter("empno");
+int empno = Integer.parseInt(aa);
+String ename = request.getParameter("ename");
+int sal = Integer.parseInt(request.getParameter("sal"));
+String phone = request.getParameter("phone");
+
+%>
+
+<%
+Connection con = null;
+String url = "jdbc:mariadb://localhost:3307/jspdb";// DB 연결 주소
+String user = "root"; // DB 계정
+String pass = "maria"; // DB PW
+Class.forName("org.mariadb.jdbc.Driver");
+System.out.println("드라이버 로딩!");
+con =
+		DriverManager.getConnection(url, user, pass);
+System.out.println("접속 성공!");
+
+
+
+String sql = "insert into emp (empno,ename,sal,phone)"
+		+ "VALUES ("+ empno +", '"+ename+"', " + sal +", '"+phone+"' )";
+Statement stmt = con.createStatement();
+stmt.executeUpdate(sql);
+System.out.println("query 성공");
+
+
+%>
+<hr>
+<h1>사용자 등록 완료</h1>
+<div><a><strong>사번=</strong><%out.println(empno);%></a></div>
+<div><a><strong>이름=</strong><%out.print(ename); %></a><button type="submit" onclick="location.href= 'reset.jsp'">수정</button></div>
+<div><a><strong>급여=</strong><%out.println(sal); %></a></div>
+<div><a><strong>전화번호=</strong><%out.println(phone); %></a></div>
+<hr>
+
+</body>
+</html>
