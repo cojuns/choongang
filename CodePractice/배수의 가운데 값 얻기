@@ -1,0 +1,46 @@
+package superCode;
+
+public class Center_Num {
+
+	public static void main(String[] args) {
+	/*
+		[문제]
+			1~1000 사이의 숫자 중 다음 조건에 맞는 숫자를 출력하시오.
+			조건 ) 28의 배수를 출력하는 가운데 가운데 위치의 값만 출력한다.
+		[정답]
+			504
+					*/
+		
+		int i = 1;
+		int count = 0;
+		
+		while(i <= 1000) {
+			if(i % 28 == 0) {
+				count = count + 1;// 총 갯수 확인 [35]
+				System.out.println("["+count+"]" + i);
+			}
+			i += 1;	
+		}
+		
+		// 가운데 위치 확인 [17]+1
+		int middle = count / 2 + 1;
+		System.out.println(middle);
+		
+		// 변수 초기화
+		count = 0;
+		i = 0;
+		while(i <= 1000) {
+			
+			i += 1;
+			
+			if(i % 28 == 0) {
+				count = count + 1;
+				
+				if(count == middle) {
+					System.out.println(i);
+				}
+			}
+		}
+	}
+
+}
