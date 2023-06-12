@@ -1,0 +1,77 @@
+//form.jsp ( 입력 받기 )
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>검색</title>
+</head>
+<body>
+<h1>검색 하기</h1>
+
+<form action="insert.jsp">
+<table border="1">
+<tr><td>이름</td><td><input type="text" name="name"></td></tr>
+<tr><td>주소</td><td><input type="text" name="addr"></td></tr>
+<tr><td>전화</td><td><input type="text" name="phone"></td></tr>
+<tr><td colspan="2"><input type="submit" value="전송"></td></tr>
+</table>
+</form>
+
+</body>
+</html>
+
+
+//insert.jsp ( 값 넣기 ) 
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.sql.*" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<%
+
+String name = request.getParameter("name");
+String addr = request.getParameter("addr");
+String phone = request.getParameter("phone");
+
+// 입력 값이 null이거나 빈 값인지 확인
+if (name == null || name.trim().isEmpty() || addr == null || addr.trim().isEmpty() || phone == null || phone.trim().isEmpty()) {
+%>
+<h2>입력 값이 비어 있습니다!</h2>
+<%
+} else {
+    try {
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        String url = "jdbc:mariadb://localhost:3307/jspdb";
+        String user = "root";
+        String pass = "maria";
+
+        Class.forName("org.mariadb.jdbc.Driver");
+        con = DriverManager.getConnection(url, user, pass);
+        String sql = "INSERT INTO person(name, addr, phone) VALUES ('" + name + "','" + addr + "','" + phone + "')";
+        stmt = con.createStatement();
+        int res = stmt.executeUpdate(sql);
+        if (res == 1) {
+            response.sendRedirect("list.jsp");
+        } else {
+%>
+<h2>입력 실패!</h2>
+<%
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+%>
+
+</body>
+</html>
