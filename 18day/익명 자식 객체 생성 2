@@ -1,0 +1,83 @@
+//부모 클래스
+
+package sec03.exam04;
+
+public class Person {
+	void wake() {
+		System.out.println("7시에 기상");
+	}
+}
+
+
+//익명 자식 객체 생성
+
+package sec03.exam04;
+
+public class Anonymous {
+	//필드
+	Person field = new Person() {
+		// 익명의 객체 내부에서만 가능
+		void work() {
+			System.out.println("출근합니다.");
+		}
+		// 부모메서드 재정의 외부에서도 가능 
+		@Override
+		void wake() {
+			System.out.println("6시에 기상");
+			work();// 내부 메서드 호출
+		}
+		
+	};
+	
+	void method1() {
+		//  지역변수 
+		Person localVar = new Person() {
+			// 익명의 객체 내부에서만 가능
+			void work() {
+				System.out.println("출근합니다.");
+			}
+			// 부모메서드 재정의 외부에서도 가능 
+			@Override
+			void wake() {
+				System.out.println("6시에 기상");
+				work();// 내부 메서드 호출
+			}
+			
+		};
+	}
+	
+	void method2(Person person) {
+		person.wake();
+	}
+}
+
+
+//익명 자식 객체 실행
+
+package sec03.exam04;
+
+public class AnonyEx {
+
+	public static void main(String[] args) {
+		Anonymous anony = new Anonymous();
+//		anony.field.wake();
+//		anony.method1();
+		anony.method2(new Person() {
+		// 익명의 객체 내부에서만 가능
+		void work() {
+			System.out.println("출근합니다.");
+		}
+		// 부모메서드 재정의 외부에서도 가능 
+		@Override
+		void wake() {
+			System.out.println("6시에 기상");
+			work();// 내부 메서드 호출
+		}
+		
+	});
+	}
+
+}
+//<결과>
+//6시에 기상
+//출근합니다.
