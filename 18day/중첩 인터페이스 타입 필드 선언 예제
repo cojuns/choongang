@@ -1,0 +1,49 @@
+//선언
+
+package sec03.exam02;
+
+public class CheckBox {
+	static interface OnselectListener {
+		void onSelect();
+	}
+	OnselectListener listener;
+	public void setListener(OnselectListener listener) {
+		this.listener = listener;
+	}
+	void select() {
+		listener.onSelect();
+	}
+}
+
+
+//구현 객체
+
+package sec03.exam02;
+
+import sec03.exam02.CheckBox.OnselectListener;
+
+public class BackgroundChangeListener implements OnselectListener {
+
+	@Override
+	public void onSelect() {
+		System.out.println("배경을 변경합니다.");
+
+	}
+
+}
+
+
+//실행
+
+package sec03.exam02;
+
+public class CheckEX {
+
+	public static void main(String[] args) {
+		CheckBox checkBox = new CheckBox();
+		checkBox.setListener(new BackgroundChangeListener());
+		checkBox.select();
+	}
+
+}
+
