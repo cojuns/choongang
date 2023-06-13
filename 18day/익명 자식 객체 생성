@@ -1,0 +1,61 @@
+상속
+
+package sec03.exam03;
+// 익명 구현 객체 
+public class Parent {
+	void parentMethod() {}
+}
+	
+	
+class Child extends Parent{}
+
+
+선언
+
+package sec03.exam03;
+// 익명 구현 객체 
+public class A {
+	Parent field = new Parent() {
+		int childField;
+		void childMethod() {}
+		
+		@Override
+		void parentMethod() {
+			
+			
+		}
+		
+	};
+	
+	void method3() {
+		field.parentMethod();
+	}
+	
+	void method2(Parent parent) {}
+	
+	void method() {
+		method2(new Parent() {
+		int childField;
+		void childMethod() {}
+		
+		@Override
+		void parentMethod() {
+			
+			
+		}
+		
+	});
+		
+		Parent localVer = new Child() {
+			int childField;
+			void childMethod() {}
+			
+			@Override
+			void parentMethod() {
+				
+				
+			}
+			
+		};
+		};
+	}
