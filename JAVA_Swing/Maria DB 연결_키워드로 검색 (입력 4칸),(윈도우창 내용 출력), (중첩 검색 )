@@ -1,0 +1,178 @@
+package swing0614;
+
+import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+import org.xml.sax.ext.Attributes2;
+
+public class WinPerson extends JFrame {
+	
+	Connection con = null;
+	
+	//사용자 입력 칸
+	JTextField tf1 = new JTextField();// id
+	JTextField tf2 = new JTextField();// name
+	JTextField tf3 = new JTextField();// addr
+	JTextField tf4 = new JTextField();// phone
+	
+	// 검색, 입력, 수정, 삭제 기능 수행 버튼
+	JButton bt1 = new JButton("검색");
+	JButton bt2 = new JButton("입력");
+	JButton bt3 = new JButton("수정");
+	JButton bt4 = new JButton("삭제 ");
+	
+	// 텍스트BOX 결과 출력
+	JTextArea ta = new JTextArea();
+	
+	// 각 정보 이름
+	JLabel la1 = new JLabel("id");
+	JLabel la2 = new JLabel("name");
+	JLabel la3 = new JLabel("addr");
+	JLabel la4 = new JLabel("phone");
+	
+	WinPerson() throws ClassNotFoundException, SQLException{
+		
+        String url = "jdbc:mariadb://localhost:3307/jspdb";
+        String user = "root";
+        String pass = "maria";
+        Class.forName("org.mariadb.jdbc.Driver");
+        System.out.println("드라이버 로딩!");
+
+        con = DriverManager.getConnection(url, user, pass);
+        System.out.println("접속 성공!");
+		
+		// 종료 후 실행 중지 
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+		// 윈도우 기초 패널
+		Container c = this.getContentPane();
+		
+		// 컴포넌트를 임의의 위치에 고정시키려고
+		this.setLayout(null);
+		this.setTitle("person");
+		this.setSize(400, 300);
+		this.setLocation(500, 500);
+		this.setVisible(true);
+		
+		
+		tf1.setSize(80, 20);
+		tf1.setLocation(15, 30);
+		c.add(tf1);
+		tf2.setSize(80, 20);
+		tf2.setLocation(100, 30);
+		c.add(tf2);
+		tf3.setSize(80, 20);
+		tf3.setLocation(190, 30);
+		c.add(tf3);
+		tf4.setSize(80, 20);
+		tf4.setLocation(280, 30);
+		c.add(tf4);
+		
+		bt1.setSize(80, 20);
+		bt1.setLocation(15, 200);
+		c.add(bt1);
+		bt2.setSize(80, 20);
+		bt2.setLocation(100, 200);
+		c.add(bt2);
+		bt3.setSize(80, 20);
+		bt3.setLocation(190, 200);
+		c.add(bt3);
+		bt4.setSize(80, 20);
+		bt4.setLocation(280, 200);
+		c.add(bt4);
+		
+		la1.setSize(80, 20);
+		la1.setLocation(15, 5);
+		c.add(la1);
+		la2.setSize(80, 20);
+		la2.setLocation(100, 5);
+		c.add(la2);
+		la3.setSize(80, 20);
+		la3.setLocation(190, 5);
+		c.add(la3);
+		la4.setSize(80, 20);
+		la4.setLocation(280, 5);
+		c.add(la4);
+		
+		
+		
+		// 텍스트BOX
+//		ta.setSize(320, 80);
+//		ta.setLocation(30,100);
+//		c.add(ta);
+		
+		// 텍스트BOX + 스크롤
+		JScrollPane scrollPane = new JScrollPane(ta);
+		ta.setCaretPosition(ta.getDocument().getLength());
+		scrollPane.setSize(320, 80);
+		scrollPane.setLocation(30, 80);
+		c.add(scrollPane);
+		
+		// 버튼 클릭되었을 때 수행할 동작 정의
+		bt1.addActionListener(new ActionListener() {
+			// 검색
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				// 사용자가 입력한 값 s1, s2, s3에 저장
+				String s1 = tf2.getText();
+				String s2 = tf3.getText();
+				String s3 = tf4.getText();
+				
+				String sql = "select * from person"// 테이블의 모든 열을 선택하는 것을 의미
+						// name, addr, phone 칼럼 값이 입력된 조건과 일치하는 행을 검색
+						// like 연산자와 % 기호를 사용하여 부분 일치 검색을 수행
+						+ " where name like '%"+ s1 +"%'"
+						+ " and addr like '%"+ s2 + "%'"
+						+ " and phone like '%"+ s3 + "%'";
+				
+				// tf1로부터 입력된 id 값을 s4id에 저장
+				// s4id가 비어있지 않다면, 추가적으로 id 칼럼 값을 이용하여 검색하는 쿼리를 생성
+				String s4id = tf1.getText();
+				if(!s4id.equals("")) {
+					sql += " select % from person where id = " + s1;
+				}
+				 try {
+					ta.setText("");// 내용 초기화 데이터 중복으로 쌓이는거 해결
+					Statement stmt = con.createStatement();
+					ResultSet rs = stmt.executeQuery(sql);
+					while(rs.next()) {
+						int id = rs.getInt("id");
+						String name = rs.getString("name");
+						String addr = rs.getString("addr");
+						String phone = rs.getString("phone");
+						String str = String.format("%d, %s, %s, %s\n", id,name,addr,phone);
+						ta.append(str);
+					}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
+			}
+		});
+	}
+		
+		
+	
+
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		new WinPerson();
+
+	}
+
+}
