@@ -1,0 +1,49 @@
+//선언
+
+package sec01.exam01;
+// 제네릭
+public class NewBox<T> {
+	private T t;
+
+	public T get() {
+		return t;
+	}
+
+	public void set(T t) {
+		this.t = t;
+	}
+	
+}
+
+
+//실행
+
+package sec01.exam01;
+
+public class NewBoxEx {
+
+	public static void main(String[] args) {
+//		<클래스> 클래스만 가능
+		
+		NewBox<String> newBox = new NewBox<String>();
+		newBox.set("홍길동");
+		String name = newBox.get();
+		System.out.println(name);
+		
+		NewBox<Apple> newBox2 = new NewBox<Apple>();
+		newBox2.set(new Apple());
+		Apple apple = newBox2.get();
+		System.out.println(apple);
+		
+		NewBox<Integer> a3 = new NewBox<Integer>();
+		a3.set(100);
+		int res = a3.get();
+		System.out.println(res);
+
+	}
+
+}
+//<결과>
+//홍길동
+//sec01.exam01.Apple@1e643faf
+//100
