@@ -1,0 +1,62 @@
+//예외 상속 ( 예외 만들기 ) 
+
+package exam0615_3;
+
+// 예외 상속
+public class TestException extends Exception {
+	public TestException(String msg) {
+		super(msg);
+	}
+}
+
+
+//예외 처리
+
+package exam0615_3;
+
+
+public class Test {
+	private int x;
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) throws TestException {
+		if(x < 0) {
+			throw new TestException("x는 0보다 커야 합니다.");// 예외 생성 (예외 메세지 작성)
+		}
+		
+		this.x = x;
+	}
+	
+	
+}
+
+
+//실행
+
+package exam0615_3;
+
+public class TestEx {
+
+	public static void main(String[] args) {
+		Test test = new Test();
+		try {
+			test.setX(-100);
+		} catch (TestException e) {// 만든 예외 
+			// TODO Auto-generated catch block
+//			e.printStackTrace();
+			System.out.println(e.getMessage());// 예외 메세지 출력
+		}
+		//작성 했던 예외 메세지 나옴
+		//exam0615_3.TestException: x는 0보다 커야 합니다.
+//		at chap10/exam0615_3.Test.setX(Test.java:13)
+//		at chap10/exam0615_3.TestEx.main(TestEx.java:8)
+
+
+	}
+
+}
+//<결과>
+//x는 0보다 커야 합니다.
