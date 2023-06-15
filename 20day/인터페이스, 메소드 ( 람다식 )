@@ -1,0 +1,52 @@
+//인터페이스
+
+package exam0615_2;
+
+public interface MyInterface2 {
+	int method(int x, int y);
+
+}
+
+
+//실행
+
+package exam0615_2;
+
+public class MyInterfaceEx2 {
+
+	public static void main(String[] args) {
+		MyInterface2 my3 = new MyInterface2() {
+			
+			@Override
+			public int method(int x, int y) {
+				System.out.println(x+y);
+				return x+y;
+			}
+		};
+		
+		MyInterface2 my2 = (x,y) -> {
+			System.out.println(x+y);
+		return x+y;
+		};
+		
+		
+		
+		my3.method(3, 4);
+		my2.method(5, 6);
+		
+		int res = my3.method(20, 30);
+		System.out.println(res);
+		
+		MyInterface2 my4 = (a, b) -> {return a+b;};
+		res = my4.method(100, 200);
+		System.out.println(res);
+		
+	}
+
+}
+//<결과>
+//7
+//11
+/50
+//50
+//300
