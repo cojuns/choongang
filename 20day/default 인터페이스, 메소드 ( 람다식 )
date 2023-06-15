@@ -1,0 +1,43 @@
+//인터페이스 
+
+package exam0615_2;
+
+@FunctionalInterface// 인터페이스에 추상메소드 한개만 사용 가능 ( 람다식 개념 ) 
+// default 인터페이스 가능
+
+public interface MyInterface {
+	void method();
+//	void aaa();
+}
+
+
+//실행
+
+package exam0615_2;
+
+public class MyInterfaceEx {
+
+	public static void main(String[] args) {
+		MyInterface my = new MyInterface() {
+			
+			@Override
+			public void method() {
+				System.out.println("my");
+				
+			}
+		};
+		my.method();
+		
+		// 람다식
+		my = () -> {System.out.println("my1");};
+		my.method();
+		
+		my = () -> {System.out.println("my2");};
+		my.method();
+	}
+
+}
+//<결과>
+//my
+//my1
+//my2
