@@ -1,0 +1,21 @@
+package sec01.exam01;
+
+import java.util.HashMap;
+
+public class HashMapEx {
+
+	public static void main(String[] args) {
+		//제네릭 <Integer(키값), String(출력물)>
+		HashMap<Integer, String> map = new HashMap<>();
+		map.put(1, "한국");// put 값 넣기
+		map.put(2, "미국");
+		map.put(3, "일본");
+		String val = map.get(2);// get 값 출력
+		System.out.println(val);// get(2) 미국 출력
+		
+
+	}
+
+}
+//<결과>
+//미국
