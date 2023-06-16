@@ -1,0 +1,153 @@
+// write.jsp
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>
+<%
+request.setCharacterEncoding("utf-8");
+%>
+
+<%
+
+
+    // 지정된 글 번호 얻기
+    int num = Integer.parseInt(request.getParameter("num"));
+
+    // 게시글 데이터를 담을 변수 정의
+    String writer = "";
+    String title = "";
+    String regtime = "";
+    int hits = 0;
+    String content = "";
+
+    // 지정된 글 번호를 가진 레코드 읽기
+    Class.forName("org.mariadb.jdbc.Driver");
+    try (
+        Connection conn = DriverManager.getConnection(
+                "jdbc:mariadb://localhost:3307/jspdb", "root", "maria");
+        Statement stmt = conn.createStatement();
+
+        // 쿼리 실행
+        ResultSet rs = stmt.executeQuery(
+                "select * from board where num=" + num);
+    ) {
+
+        if (rs.next()) {
+
+            // 글 데이터를 변수에 저장
+            writer = rs.getString("writer");
+            title = rs.getString("title");
+            content = rs.getString("content");
+            regtime = rs.getString("regtime");
+            hits = rs.getInt("hits");
+
+            // 글 제목과 내용이 웹 페이지에 올바르게 출력되도록
+            // 공백과 줄 바꿈 처리
+            title = title.replace(" ", "&nbsp;");
+            content = content.replace(" ", "&nbsp;").replace("\n", "<br>");
+
+            // 이 글의 조회수를 1 증가
+            stmt.executeUpdate("update board set hits=hits+1 where num=" + num);
+
+
+        }
+        // 수정된 내용을 데이터베이스에 업데이트
+        PreparedStatement pstmt = conn.prepareStatement("UPDATE board SET content = ? WHERE num = ?");
+        pstmt.setString(1, content);
+        pstmt.setInt(2, num);
+        pstmt.executeUpdate();// 업데이트된 레코드 수를 반환
+        pstmt.close();
+        
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+%>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <style>
+        table {
+            width: 680px;
+            text-align: center;
+        }
+
+        th {
+            width: 100px;
+            background-color: cyan;
+        }
+
+        td {
+            text-align: left;
+            border: 1px solid gray;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>제목</th>
+            <td><%=title %></td>
+        </tr>
+        <tr>
+            <th>작성자</th>
+            <td><%=writer %></td>
+        </tr>
+        <tr>
+            <th>작성일시</th>
+            <td><%=regtime %></td>
+        </tr>
+        <tr>
+            <th>조회수</th>
+            <td><%=hits %></td>
+        </tr>
+        <tr>
+            <th>내용</th>
+            <td>
+                <form action="update.jsp" method="post">
+                    <input type="hidden" name="num" value="<%=num%>">
+                    <textarea name="content" rows="5" cols="50"><%=content%></textarea>
+                    <br>
+                    <input type="submit" value="수정 완료">
+                </form>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+
+
+//update.jsp
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>
+<%
+request.setCharacterEncoding("utf-8");// post방식 추가안하면 한글깨져서 나옴
+%>
+<%
+    String content = request.getParameter("content");
+	
+    int num = Integer.parseInt(request.getParameter("num"));
+
+    Class.forName("org.mariadb.jdbc.Driver");
+    try (
+        Connection conn = DriverManager.getConnection(
+                "jdbc:mariadb://localhost:3307/jspdb", "root", "maria" );
+        PreparedStatement pstmt = conn.prepareStatement("UPDATE board SET content = ? WHERE num = ?");
+    ) {
+    	
+    	// 준비된 문에 content와 num 매개변수를 설정합니다.
+        pstmt.setString(1, content);
+        pstmt.setInt(2, num);
+        
+     // 업데이트 문을 실행합니다.
+        pstmt.executeUpdate();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    // 수정된 내용을 처리한 후 해당 게시물로 이동
+    response.sendRedirect("view.jsp?num=" + num);
+%>
