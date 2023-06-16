@@ -1,0 +1,47 @@
+package sec01.exam06;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ArrayListEx {
+
+	public static void main(String[] args) {
+		List<String> List = new ArrayList<String>();
+		
+		List.add("java");
+		List.add("JDBC");
+		List.add("Servlet/JSP");
+		List.add(2, "Database");
+		List.add("iBATIS");
+		
+		
+		int size = List.size();
+		System.out.println("총 객체수:" + size);
+		System.out.println();
+		
+		String skill = List.get(2);
+		System.out.println("2: " + skill);
+		System.out.println();
+		
+		//향상된 for문
+		for (String str : List) {
+			System.out.println(str);
+		} // 아래 for문과 동일
+		
+//		for(int i=0; i<List.size(); i++) {
+//			String str = List.get(i);
+//			System.out.println(i + ":" + str);
+//		}
+		System.out.println();
+		
+		List.remove(2);
+		List.remove(2);
+		List.remove("iBATIS");
+		
+		for(int i=0; i<List.size(); i++) {
+			String str = List.get(i);
+			System.out.println(i + ":" + str);
+		}
+	}
+
+}
