@@ -1,0 +1,85 @@
+//선언
+
+package arrayList0616;
+
+public class Person {
+	int id;
+	String name;
+	String addr;
+	String phone;
+	
+	
+	public Person(int id, String name, String addr, String phone) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.addr = addr;
+		this.phone = phone;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Person [id=" + id + ", name=" + name + ", addr=" + addr + ", phone=" + phone + "]";
+	}
+	
+	
+
+}
+	
+	
+//실행
+
+package arrayList0616;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+
+
+public class PersonEx {
+
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+        String url = "jdbc:mariadb://localhost:3307/jspdb";
+        String user = "root";
+        String pass = "maria";
+        Class.forName("org.mariadb.jdbc.Driver");
+        System.out.println("드라이버 로딩!");
+        Connection con = DriverManager.getConnection(url, user, pass);
+        System.out.println("접속 성공!");
+        
+		List<Person> list = new ArrayList<>();
+		
+		String sql = "select * from person";
+		Statement stmt = con.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		while(rs.next()) {
+			int id = rs.getInt("id");
+			String name = rs.getString("name");
+			String addr = rs.getString("addr");
+			String phone = rs.getString("phone");
+			Person ps = new Person(id, name, addr, phone);
+			list.add(ps);
+		}
+		
+		for(Person str : list) {
+			System.out.println(str);
+		}
+		
+//		Person person1 = new Person(1, "홍", "서울", "010-1234-5678");
+//		list.add(person1);
+//		Person person2 = new Person(2, "김", "경기", "010-2234-5678");
+//		list.add(person2);
+//		Person person3 = new Person(3, "박", "부산", "010-3234-5678");
+//		list.add(person3);
+		
+
+
+	}
+
+}
