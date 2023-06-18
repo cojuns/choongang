@@ -29,7 +29,7 @@ int hits = 0;
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
+
     <style>
     
         table { width:680px;
@@ -45,6 +45,9 @@ int hits = 0;
          textarea:focus { outline: none; }
     </style>
 
+</head>
+
+
 <body>
 <%
 Class.forName("org.mariadb.jdbc.Driver");
@@ -52,8 +55,9 @@ try {
 	
 	con = DriverManager.getConnection(url, user, pass);
 	stmt = con.createStatement();
+	
 	rs = stmt.executeQuery("select * from board where num=" + num);
-	//System.out.println("DB접속 확인");
+
 	if(rs.next()){
 		writer = rs.getString("writer");
 		title = rs.getString("title");
@@ -63,16 +67,15 @@ try {
 		//조회수
 		stmt.executeUpdate(
 				"update board set hits=hits+1 where num=" + num);
+		
 	}
 	
 	
 	
 	
-	
-	
-
-	
 %>	
+	<form action="update.jsp">
+	<input type="hidden" name="num" value="<%=num%>"> 
 	<table border="1">
 		<tr>
 		<th>조회수</th>
@@ -86,14 +89,16 @@ try {
         
         <tr> 
             <th>제목</th>
-            <td><%=title %></td>
+            <td><textarea name="title"><%= title %></textarea></td>
         </tr>  
         <tr>
 			<th>내용</th>
-			<td class="content"><textarea name="content" ><%=content %></textarea></td>
+			<td class="content"><textarea name="content"><%= content %></textarea></td>
 		</tr>	
      </table>
-		
+     <input type="submit" value="수정">
+	</form>	
+	
 
 <% 		       
 }catch (Exception e){
@@ -103,7 +108,7 @@ try {
 %>
 
 
-	<input type="button" value="수정" onclick="location.href='list.jsp?num=<%=num%>'">
+	
 	
 </body>
 </html>
