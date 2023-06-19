@@ -1,0 +1,39 @@
+package swing0619;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+//  데이터베이스에서 게시글 목록을 조회하여 리스트에 저장하고 출력하는 코드
+public class Ex2 {
+
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		ArrayList<BoardDto> list = new ArrayList<>();
+		Class.forName("org.mariadb.jdbc.Driver");
+        Connection conn = DriverManager.getConnection(
+                    "jdbc:mariadb://localhost:3307/jspdb", "root", "maria");
+        Statement stmt = conn.createStatement();
+        ResultSet rs 
+        	= stmt.executeQuery(
+        	"select num,writer,title,content from board");
+        while (rs.next()) {
+        	int num = rs.getInt("num");
+        	String writer = rs.getString("writer");
+        	String title = rs.getString("title");
+        	String content = rs.getString("content");
+        	BoardDto dto 
+        		= new BoardDto(num, writer, title, content);
+        	// arrayList에 넣으시오.
+        	list.add(dto);
+        }
+        //arrayList에서 객체 꺼내어 출력하기
+        for (BoardDto dto : list) {
+        	System.out.println(dto);
+        }
+	}
+
+}
+
+
