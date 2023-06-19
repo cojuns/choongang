@@ -1,0 +1,37 @@
+package sec02.exam01;
+
+public class StringGetBytesEx {
+
+	public static void main(String[] args) {
+		String str = "안녕하세요";
+		
+		byte[] bytes1 = str.getBytes();
+		System.out.println("bytes1.legth: " + bytes1.length);
+		String str1 = new String(bytes1);
+		System.out.println("bytes->String: " + str1);
+		
+		try {
+			byte[] bytes2 = str.getBytes("EUC-KR");
+			System.out.println("bytes2.length: " + bytes2.length);
+			String str2 = new String(bytes2, "EUC-KR");
+			System.out.println("bytes2->String: " + str2);
+			
+			byte[] bytes3 = str.getBytes("UTF-8");
+			System.out.println("bytes3.length: " + bytes3.length);
+			String str3 = new String(bytes3, "UTF-8");
+			System.out.println("bytes3->String: " + str3);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+}
+//<결과>
+//bytes1.legth: 15
+//bytes->String: 안녕하세요
+//bytes2.length: 10
+//bytes2->String: 안녕하세요
+//bytes3.length: 15
+//bytes3->String: 안녕하세요
