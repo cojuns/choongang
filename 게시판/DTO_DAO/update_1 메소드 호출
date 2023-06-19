@@ -1,0 +1,21 @@
+package swing0619;
+
+import java.sql.SQLException;
+
+public class Ex6 {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+        BoardDao dao = new BoardDao();
+        BoardDto dto = new BoardDto(2, "변경", "변경제목", "변경내용");
+        
+        
+
+        // 게시글 수정
+        int res = dao.update(dto);
+
+        if (res == 1) {
+            System.out.println("게시글 수정 성공");
+        } else {
+            System.out.println("게시글 수정 실패");
+        }
+    }
+}
