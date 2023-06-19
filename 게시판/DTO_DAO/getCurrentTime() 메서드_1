@@ -1,0 +1,20 @@
+// 현재 시각을 출력하는 getCurrentTime() 메서드
+package swing0619;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+public class Ex1 {
+
+	public static void main(String[] args) {
+		Ex1 ex = new Ex1();
+		String str = ex.getCurrentTime();
+		System.out.println(str);
+	}
+	public String getCurrentTime() {
+		//현재 시각을 문자열 형태로 반환하는 코드
+		return LocalDate.now()+" "
+				+LocalTime.now().toString().substring(0, 8);
+	}
+
+}
