@@ -1,0 +1,45 @@
+//현재 날짜를 출력하기
+
+package sec02.exam02;
+
+
+import java.text.*;
+import java.util.*;
+
+
+public class DateEx {
+
+	public static void main(String[] args) {
+		Date now = new Date();
+		String strNow1 = now.toString();
+		System.out.println(strNow1);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일 hh시 mm분 ss초");
+		String strNow2 = sdf.format(now);
+		System.out.println(strNow2);
+	}
+
+}
+//<결과>
+//Mon Jun 19 20:16:06 KST 2023
+//2023년 06월 19일 08시 16분 06초
+
+package sec02.exam02;
+
+import java.text.*;
+import java.util.*;
+
+public class Date2Ex {
+
+	public static void main(String[] args) {
+		Date now = new Date();
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일 E요일 HH시 mm분");
+		System.out.println( sdf.format(now) );
+	
+		
+	}
+
+}
+//<결과>
+//2023년 06월 19일 월요일 20시 16분
