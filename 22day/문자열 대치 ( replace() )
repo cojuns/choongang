@@ -1,0 +1,33 @@
+package sec02.exam01;
+
+public class StringEx {
+
+	public static void main(String[] args) {
+		String str1 = "자바 프로그래밍";
+		int n = "여기에 없는".indexOf("없는");
+		System.out.println(n); // 4
+		System.out.println(str1.length()); // 8
+		
+		str1 = str1.replace("자바", "코볼");
+		System.out.println(str1);// 코볼 프로그래밍
+		
+		String ssn = "880815-1234567";
+		String fn = ssn.substring(0, 6);
+		System.out.println(fn);// 880815
+		
+		String ssn1 = "880815-1234567";
+		String fn1 = ssn1.substring(7);
+		System.out.println(fn1);// 1234567
+		
+		String tel1 = "   9   8   ";
+		System.out.println(tel1.trim());// 9   8
+		
+		String num = "10";
+		int a1 = Integer.parseInt(num);
+		System.out.println(a1);// 10
+		
+		String num2 = String.valueOf(a1);
+		System.out.println(num2);// "10"
+	}
+
+}
