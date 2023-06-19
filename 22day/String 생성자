@@ -1,0 +1,47 @@
+package sec02.exam01;
+
+public class ByteToStringEx {
+
+	public static void main(String[] args) {
+		byte[]bytes = {72,101,108,108,111,32,74,97,118,97};
+		
+		String str1 = new String(bytes);
+		System.out.println(str1);
+		
+		String str2 = new String(bytes,6,4);
+		System.out.println(str2);
+	}
+
+}
+//<결과>
+//Hello Java
+//Java
+
+package sec02.exam01;
+
+import java.io.IOException;
+
+public class KeboardToStringEx {
+
+	public static void main(String[] args) throws IOException {
+		byte[] bytes = new byte[100];
+		
+		System.out.print("입력 :" );
+		int readByteNo = System.in.read(bytes);
+		System.out.println(readByteNo); // 7
+		
+		String str1 = new String(bytes, 1, readByteNo-2);
+		System.out.print(str1); // ello
+		
+		String str2 = new String(bytes, 0, readByteNo-2);
+		System.out.print(str2); // Hello
+		
+
+	}
+
+}
+//<결과>
+//입력 :Hello
+//7
+//ello
+//Hello
