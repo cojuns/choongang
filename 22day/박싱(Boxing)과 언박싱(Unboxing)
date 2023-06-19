@@ -1,0 +1,26 @@
+package sec02.exam01;
+
+public class Boxing_UnBoxingEx {
+
+	public static void main(String[] args) {
+		
+		//박싱
+		Integer obj1 = new Integer(100);
+		Integer obj2 = new Integer("200");
+		Integer obj3 = Integer.valueOf("300");// 해당 방법이 맞음
+
+		//언박싱
+		int vale1 = obj1.intValue();
+		int vale2 = obj2.intValue();
+		int vale3 = obj3.intValue();
+		
+		System.out.println(vale1);
+		System.out.println(vale2);
+		System.out.println(vale3);
+	}
+
+}
+<결과>
+100
+200
+300
