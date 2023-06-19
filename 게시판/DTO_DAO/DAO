@@ -1,0 +1,84 @@
+package swing0619;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+
+// 게시판과 데이터베이스 간의 상호작용을 담당
+
+public class BoardDao {
+	// 데이터베이스 연결을 수행하는 메서드
+	Connection getConnection() throws ClassNotFoundException, SQLException {
+		Class.forName("org.mariadb.jdbc.Driver");
+        Connection conn = DriverManager.getConnection(
+                    "jdbc:mariadb://localhost:3307/jspdb", "root", "maria");
+        return conn;
+	}
+	// selectList() 메서드: 데이터베이스에서 게시글 목록을 조회하는 메서드
+	// getConnection()을 호출하여 데이터베이스 연결을 얻고, Statement 객체를 생성하여 SQL 쿼리를 실행합니다. 
+	// 조회 결과를 ArrayList<BoardDto>에 담아 반환
+	ArrayList<BoardDto> selectList() throws ClassNotFoundException, SQLException {
+		Connection conn = this.getConnection();
+		ArrayList<BoardDto> list = new ArrayList<>();
+		 Statement stmt = conn.createStatement();
+	        ResultSet rs 
+	        	= stmt.executeQuery(
+	        	"select num,writer,title,content from board");
+	        while (rs.next()) {
+	        	int num = rs.getInt("num");
+	        	String writer = rs.getString("writer");
+	        	String title = rs.getString("title");
+	        	String content = rs.getString("content");
+	        	BoardDto dto 
+	        		= new BoardDto(num, writer, title, content);
+	        	// arrayList에 넣으시오.
+	        	list.add(dto);
+	}			
+	        return list;
+}
+	public String getCurrentTime() { // 현재 시각을 문자열 형태로 반환하는 메서드
+		//현재 시각을 문자열 형태로 반환하는 코드
+		return LocalDate.now()+" " // 현재 날짜를 가져옴
+				+LocalTime.now().toString().substring(0, 8);
+	}
+		// 게시글을 데이터베이스에 추가하는 메서드
+		int insertOne(BoardDto dto) throws ClassNotFoundException, SQLException {
+			Connection conn = this.getConnection();
+			Statement stmt = conn.createStatement();
+			String sql = String.format("insert into board(writer,title,content,regtime,hits)"
+					+ " values ('%s','%s','%s','%s',0)" , dto.getWriter(), dto.getTitle(), 
+													dto.getContent(), this.getCurrentTime());
+			System.out.println(sql);
+			return stmt.executeUpdate(sql);
+		}
+		
+		// 게시글 데이터베이스에 삭제하는 메서드
+		int delete(int num) throws ClassNotFoundException, SQLException {
+		    Connection conn = this.getConnection();
+		    Statement stmt = conn.createStatement();
+		    String sql = String.format("delete from board where num = %d", num);
+		    return stmt.executeUpdate(sql);
+		}
+		
+		
+		// 게시글 테이터베이스에 업데이트 메서드
+		int update(BoardDto dto) throws ClassNotFoundException, SQLException {
+		    Connection conn = this.getConnection();
+		    Statement stmt = conn.createStatement();
+		    String sql = String.format("update board set writer = '%s', title = '%s', content = '%s' WHERE num = %d",
+		            dto.getWriter(), dto.getTitle(), dto.getContent(), dto.getNum());
+		    return stmt.executeUpdate(sql);
+		}
+
+
+		
+		
+}
+
+
