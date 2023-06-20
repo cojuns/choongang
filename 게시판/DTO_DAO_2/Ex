@@ -1,0 +1,50 @@
+package daodto0620_2;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+public class Ex1 {
+
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		PersonDao dao = new PersonDao();
+		
+		// insert
+//		PersonDto dto2 = new PersonDto(0, "신설트", "설트구", "010-2323-5545");
+//		dao.insert(dto2);
+		
+//		 update
+//		PersonDto dto3 = new PersonDto(7, "신업뎃", "업뎃구", "010-6666-4234");
+//		dao.update(dto3);
+		
+		// delete
+//		int num = 71;
+//		dao.delete(num);
+		
+		// seletOne
+		 try {
+	            
+	            int id = 7; // 찾을 레코드의 id
+
+	            PersonDto dto = dao.selectOne(id);
+
+	            if (dto != null) {
+	                System.out.println(dto);
+	            } else {
+	                System.out.println("해당 id에 해당하는 레코드를 찾을 수 없습니다.");
+	            }
+	        } catch (ClassNotFoundException e) {
+	            e.printStackTrace();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+		
+		
+		
+//		ArrayList<PersonDto> lst = dao.selectList();
+//		
+//		for(PersonDto dto : lst) {
+//			System.out.println(dto);
+//		}
+	}
+
+}
