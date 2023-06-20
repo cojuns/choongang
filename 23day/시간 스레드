@@ -1,0 +1,69 @@
+//정의
+
+package sec01.exam01;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+public class Time extends Thread {
+
+	@Override
+	public void run() {
+		while (true) {
+		
+		String str = LocalDate.now() + " " + LocalTime.now().toString().substring(0, 8);
+		System.out.println(str);	
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		}
+		
+	
+		
+	}
+	
+	
+}
+
+
+//실행
+
+package sec01.exam01;
+
+public class TaskEx {
+
+	public static void main(String[] args) {
+//		Runnable task = new Task();
+		
+//		Thread th = new Thread(new Task());
+//		th.start(); // 스레드 실행 요청
+	
+		// 익명의 객체 생성
+		Thread th = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+			
+		
+				
+	}
+
+}
+//<결과>
+//2023-06-20 17:30:23
+//2023-06-20 17:30:24
+//2023-06-20 17:30:25
+//2023-06-20 17:30:26
+//2023-06-20 17:30:27
+//2023-06-20 17:30:28
+////2023-06-20 17:30:29
+//2023-06-20 17:30:30
+//...
+//현재시간 무한 반복
