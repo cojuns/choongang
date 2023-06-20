@@ -1,0 +1,91 @@
+package daodto0620_2;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import javax.swing.text.html.parser.DTD;
+
+public class PersonDao {
+	private Connection getConnection() throws ClassNotFoundException, SQLException {
+		Class.forName("org.mariadb.jdbc.Driver");
+        Connection conn = DriverManager.getConnection(
+                    "jdbc:mariadb://localhost:3307/jspdb", "root", "maria");
+
+		return conn; 
+	}
+
+	ArrayList<PersonDto> selectList() throws ClassNotFoundException, SQLException {
+		ArrayList<PersonDto> list = new ArrayList<>();
+		
+		// 위에 Connection 리턴 값
+		Connection conn = getConnection();
+		Statement stmt = conn.createStatement();
+		String sql = "select * from person";
+		ResultSet rs = stmt.executeQuery(sql);
+		while(rs.next()) {
+			int id = rs.getInt("id");
+			String name = rs.getString("name");
+			String addr = rs.getString("addr");
+			String phone = rs.getString("phone");
+			
+			PersonDto dto = new PersonDto(id, name, addr, phone);
+			list.add(dto);
+		}
+		return list;
+	}
+	
+	PersonDto selectOne(int id) throws ClassNotFoundException, SQLException {
+	    Connection conn = getConnection();
+	    Statement stmt = conn.createStatement();
+	    String sql = "SELECT * FROM person WHERE id = " + id;
+	    ResultSet rs = stmt.executeQuery(sql);
+
+	    if (rs.next()) {
+	        String name = rs.getString("name");
+	        String addr = rs.getString("addr");
+	        String phone = rs.getString("phone");
+
+	        return new PersonDto(id, name, addr, phone);
+	    }
+
+	    return null;
+	}
+	
+	void insert(PersonDto dto) throws ClassNotFoundException, SQLException {
+		
+		Connection conn = getConnection();
+		PersonDao dao =new PersonDao();
+		dao.getConnection();
+		Statement stmt = conn.createStatement();
+		String sql = String.format("insert into person" 
+									+ "(name,addr,phone) values" 
+									+"('%s','%s','%s')"
+									, dto.getName(),dto.getAddr(),dto.getPhone());
+										// Dto private이라 get방식 가능
+		stmt.executeUpdate(sql);
+	}
+	int update(PersonDto dto) throws ClassNotFoundException, SQLException {
+		Connection conn = getConnection();
+		PersonDao dao =new PersonDao();
+		dao.getConnection();
+		Statement stmt = conn.createStatement();
+		String sql = String.format("UPDATE person SET NAME ='%s',addr = '%s',phone= '%s' WHERE id = %d"
+									,dto.getName(),dto.getAddr(),dto.getPhone(),dto.getId());
+		return stmt.executeUpdate(sql);
+		
+	}
+	int delete(int id) throws ClassNotFoundException, SQLException {
+		Connection conn = getConnection();
+		PersonDao dao =new PersonDao();
+		dao.getConnection();
+		Statement stmt = conn.createStatement();
+		String sql = String.format("DELETE FROM person WHERE id = %d", id);
+		
+		return stmt.executeUpdate(sql);
+	}
+	
+}
