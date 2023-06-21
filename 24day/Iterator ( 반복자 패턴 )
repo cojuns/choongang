@@ -1,0 +1,28 @@
+package sec02.exam05;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class IteratorEx {
+
+	public static void main(String[] args) {
+		ArrayList<String> cars = new ArrayList<>();
+		cars.add("벤츠");
+		cars.add("아우디");
+		cars.add("페라리");
+		cars.add("기아차");
+		// 이터레이터 패턴 ( 반복자 패턴 )
+		Iterator<String> it = cars.iterator();
+		while(it.hasNext()) { // hasNext() 가져올 객체가 있으면 true를 리턴 없으면 false을 리턴
+			String str = it.next();// next() 컬렉션에서 하나의 객체를 가져 온다.  
+			System.out.println(str);
+		}
+
+	}
+
+}
+//<결과>
+//벤츠
+//아우디
+//페라리
+//기아차
