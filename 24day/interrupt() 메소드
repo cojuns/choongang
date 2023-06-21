@@ -1,0 +1,79 @@
+//방법 (1) 선언
+
+package sec02.exam03;
+
+public class PrintThread extends Thread {
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		try {
+			while(true) {
+				System.out.println("실행 중");
+				Thread.sleep(1);
+			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			
+		}
+		System.out.println("자원 정리");
+		System.out.println("실행 종료");
+	}
+	
+
+}
+
+
+//방법 (2) 선언
+
+package sec02.exam03;
+
+public class PrintThread2 extends Thread {
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		while(true) {
+			System.out.println("실행 중2");
+			if(Thread.interrupted()) {
+				break;
+			}
+		}
+		
+		System.out.println("자원 정리2");
+		System.out.println("실행 종료2");
+	}
+	
+	
+
+}
+
+
+//실행
+
+package sec02.exam03;
+
+public class InterruptEx {
+
+	
+	public static void main(String[] args) {
+//		방법 (1) 실행
+//		Thread thread = new PrintThread();
+//		thread.start();
+
+//		방법 (2) 실행
+		Thread thread2 = new PrintThread2();
+		thread2.start();
+		
+//		방법 (1) 실행
+//		try {
+//			Thread.sleep(1000); // 1초 후 출력 스레드를 중지	
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//
+//		}
+//		thread2.interrupt();
+
+	}
+
+}
