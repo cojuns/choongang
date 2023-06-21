@@ -1,0 +1,23 @@
+package account0621;
+
+public class Ex1 {
+
+	public static void main(String[] args) {
+		AccountServiceImpl service = new AccountServiceImpl();
+		// 입금
+//		service.deposit(10000, 1001);
+		
+		// 출금
+//		service.withdraw(1000, 1001);
+		
+		// 조회
+		service.check(1001);
+		
+		
+
+		
+	}
+
+	}
+
+
