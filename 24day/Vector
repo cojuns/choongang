@@ -1,0 +1,69 @@
+//선언
+
+package sec02.exam04;
+
+public class Board {
+	String subject;
+	String content;
+	String writer;
+	
+	
+	public Board(String subject, String content, String writer) {
+		super();
+		this.subject = subject;
+		this.content = content;
+		this.writer = writer;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Board [subject=" + subject + ", content=" + content + ", writer=" + writer + "]";
+	}
+	
+	
+	
+	
+}
+
+
+//실행
+
+package sec02.exam04;
+
+import java.util.List;
+import java.util.Vector;
+
+public class VetorEx {
+
+	public static void main(String[] args) {
+		List<Board> list = new Vector<Board>();
+		
+		list.add(new Board("제목1", "내용1", "글쓴이1"));
+		list.add(new Board("제목2", "내용2", "글쓴이2"));
+		list.add(new Board("제목3", "내용3", "글쓴이3"));
+		list.add(new Board("제목4", "내용4", "글쓴이4"));
+		list.add(new Board("제목5", "내용5", "글쓴이5"));
+		
+		list.remove(2); // 2번 인덱스 객체(제목3) 삭제 ( 뒤의 인덱스는 1씩 앞으로 당겨짐 )
+		list.remove(3); // 3번 인덱스 객체(제목5) 삭제
+		
+//		for(int i=0; i < list.size(); i++) {
+//			Board border = list.get(i);
+//			System.out.println(border.subject + "\t" 
+//								+ border.content+ "\t" 
+//								+ border.writer + "\t" );
+//		}
+		
+		for(Board board : list) {
+			System.out.println(board);
+		}
+
+	}
+
+}
+//<결과>
+
+//Board [subject=제목1, content=내용1, writer=글쓴이1]
+//Board [subject=제목2, content=내용2, writer=글쓴이2]
+//Board [subject=제목4, content=내용4, writer=글쓴이4]
