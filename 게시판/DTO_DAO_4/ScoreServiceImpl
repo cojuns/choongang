@@ -1,0 +1,34 @@
+package oracle0622;
+
+public class ScoreServiceImpl  {
+	ScoreDao dao = new ScoreDao();
+	
+	// 학생 입력
+	ScoreDto student(String name) {
+		ScoreDto dto = dao.selectOne(name);
+		return dto;
+		
+	}
+	
+	// 학생 조회
+	ScoreDto selectlist (ScoreDto dto) {
+		dao.selectList();
+		return dto;
+	}
+	
+	// 점수 수정
+	void change (String name, int kor, int eng, int math) {
+		dao.update(name, kor, eng, math);
+	}
+	
+	// 학생 추가
+	void insert (ScoreDto dto) {
+		dao.insert(dto);
+	}
+	
+	// 학생 삭제
+	void delete (String name) {
+		dao.delete(name);
+	}
+	
+}
