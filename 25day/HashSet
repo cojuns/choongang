@@ -1,0 +1,21 @@
+package sec01.exam02;
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class HashSetEX {
+
+	public static void main(String[] args) {
+		// 데이터 입력 받을 때 중복 검사할 수 있음 
+		Set<Member> set = new HashSet<Member>();
+		
+		set.add(new Member("홍길동", 30));
+		set.add(new Member("홍길동", 30));// 인스턴스는 다르지만 내부데이터가 동일하므로 객체 1개만 저장
+		set.add(new Member("홍길동", 30));
+		// 두개 비교 후 나머지 한개 비교  
+		
+		System.out.println("총 객체수 : " + set.size()); // 저장된 객체 수 얻기
+
+	}
+
+}
