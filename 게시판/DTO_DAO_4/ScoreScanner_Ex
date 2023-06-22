@@ -1,0 +1,108 @@
+package oracle0622;
+
+import java.util.List;
+import java.util.Scanner;
+
+
+
+public class ScoreScanner {
+
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		
+		ScoreDao dao = new ScoreDao();
+		
+		ScoreServiceImpl service = new ScoreServiceImpl();
+		boolean run = true;
+		ScoreDto balance;
+		
+		ScoreDto dto = null;
+		String name;
+		
+		System.out.print("학생 이름 => ");
+		name = scan.nextLine();
+		dto = service.student(name);
+		name = dto.getName();
+		
+		if(dto.getName().equals("없음")) {
+			System.out.println("존재하지 않는 학생 입니다.");
+		}else {
+			
+
+		while (run) {
+			System.out.println("-------------------------------------");
+			System.out.println("1.전체 학생 조회 | 2.점수 조회 | 3.점수 수정 | 4.학생 추가 | 5.학생 삭제 ");
+			System.out.println("-------------------------------------");
+			System.out.print("선택> ");
+			int menuNum = Integer.parseInt(scan.nextLine());
+			
+			switch(menuNum) {
+			case 1:
+				List<ScoreDto> allStudents = dao.selectList();
+                System.out.println("전체 학생 목록:");
+                for (ScoreDto student : allStudents) {
+                    System.out.println(student);
+                }
+				break;
+			case 2:
+				balance = service.student(name);
+				System.out.println(balance);
+				
+				break;
+				
+			case 3:
+				
+				if (dto.getName().equals("없음")) {
+				    System.out.println("해당 학생이 존재하지 않습니다.");
+				} else {
+				    System.out.println("현재 " + name + " 학생의 점수: " + dto.getKor() + ", " + dto.getEng() + ", " + dto.getMath());
+
+				    System.out.print("국어 점수를 입력하세요: ");
+				    int kor = Integer.parseInt(scan.nextLine());
+
+				    System.out.print("영어 점수를 입력하세요: ");
+				    int eng = Integer.parseInt(scan.nextLine());
+
+				    System.out.print("수학 점수를 입력하세요: ");
+				    int math = Integer.parseInt(scan.nextLine());
+
+				    service.change(name, kor, eng, math);
+				    System.out.println("점수가 수정되었습니다.");
+				}
+				break;
+			case 4:
+				System.out.print("번호 : ");
+				int num = Integer.parseInt(scan.nextLine());
+				System.out.print("이름 :");
+				String name1 = scan.nextLine();
+				System.out.print("국어 점수 : ");
+				int kor = Integer.parseInt(scan.nextLine());
+				System.out.print("영어 점수 : ");
+				int eng = Integer.parseInt(scan.nextLine());
+				System.out.print("수학 점수 : ");
+				int math = Integer.parseInt(scan.nextLine());
+				
+				ScoreDto dto2 = new ScoreDto(num, name1, kor, eng, math);
+				service.insert(dto2);
+				System.out.println("학생이 추가되었습니다.");
+				
+				break;
+			
+			case 5:
+				if(dto != null) {
+					service.delete(name);
+					System.out.println("삭제 되었습니다.");
+				}else {
+					System.out.println("삭제할 데이터가 없습니다.");
+				}
+				
+				break;
+				
+			}
+			
+		}
+
+	}
+
+}
+}
