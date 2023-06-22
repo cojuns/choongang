@@ -1,0 +1,128 @@
+package oracle0622;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+
+
+
+
+public class ScoreDao {
+	
+	
+	Connection getConnection() {
+		Connection conn = null;
+			try {
+				Class.forName("oracle.jdbc.driver.OracleDriver");
+				conn = DriverManager.getConnection(
+						 "jdbc:oracle:thin:@localhost:1521:xe", "scott", "tiger");
+			} catch (SQLException | ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return conn;
+		}
+	
+	
+	// selectList
+	ArrayList<ScoreDto> selectList() {
+		ArrayList<ScoreDto> list = new ArrayList<>();
+		try {
+			Connection conn = this.getConnection();
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT num, name, kor, eng, math FROM score");
+			while(rs.next()) {
+				int num = rs.getInt("num");
+				String name = rs.getString("name");
+				int kor = rs.getInt("kor");
+				int eng = rs.getInt("eng");
+				int math = rs.getInt("math");
+				ScoreDto dto = new ScoreDto(num, name, kor, eng, math);
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}return list;
+	}
+	
+	// selectOne
+	ScoreDto selectOne(String name) {
+		ScoreDto dto = new ScoreDto(0, "없음", 0, 0, 0);
+		try {
+			Connection conn = this.getConnection();
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT num, name, kor,eng,math FROM score "
+					+ "WHERE name = '" + name + "'");
+			if(rs.next()) {
+				int num1 = rs.getInt("num");
+				String name1 = rs.getString("name");
+				int kor = rs.getInt("kor");
+				int eng = rs.getInt("eng");
+				int math = rs.getInt("math");
+				dto = new ScoreDto(num1, name, kor, eng, math);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}return dto;
+	}
+	
+	// insert
+	void insert(ScoreDto dto) {
+		try {
+			Connection conn = this.getConnection();
+			Statement stmt = conn.createStatement();
+			String sql = String.format("insert into score"
+										+"(num, name, kor, eng, math)"
+										+ "values (%d, '%s', %d, %d, %d)"
+										, dto.getNum(),dto.getName(),dto.getKor(),dto.getEng(),dto.getMath());
+			stmt.executeUpdate(sql);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	// update
+	void update(String name ,int kor, int eng, int math) {
+		try {
+			Connection conn = this.getConnection();
+			Statement stmt = conn.createStatement();
+			String sql = String.format("update score set kor = %d, eng = %d, math = %d where name = '%s'"
+										, kor, eng, math, name);
+										
+										
+			stmt.executeUpdate(sql);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	// delete
+	void delete(String name) {
+		
+		try {
+			Connection conn = this.getConnection();
+			Statement stmt = conn.createStatement();
+			String sql = "delete from score where name = '" + name + "'";
+			stmt.executeUpdate(sql);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	
+	}
