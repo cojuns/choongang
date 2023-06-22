@@ -1,0 +1,45 @@
+package oracle0622;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class OracleEx {
+
+	public static void main(String[] args)  {
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			String url = "jdbc:oracle:thin:@localhost:1521:xe";
+			String user = "scott";
+			String pass = "tiger";
+			Connection con = DriverManager.getConnection(url, user, pass);
+			Statement stmt = con.createStatement();
+			String sql = "select * from emp";
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				int empno = rs.getInt("empno");
+				String ename = rs.getString("ename");
+				String job = rs.getString("job");
+				int mgr = rs.getInt("mgr");
+				String hiredate = rs.getDate("hiredate")+"";
+				int sal = rs.getInt("sal");
+				int comm = rs.getInt("comm");
+				int deptno = rs.getInt("deptno");
+				System.out.printf("%d, %s, %s, %d, %s, %d, %d, %d\n"
+						, empno,ename,job,mgr,hiredate,sal,comm,deptno);
+			}
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+		
+		
+	}
+
+}
