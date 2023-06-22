@@ -1,4 +1,4 @@
-정의
+//정의
 
 package sec01.exam02;
 
@@ -46,7 +46,7 @@ public class Member {
 
 
 
-실행
+//실행
 
 package sec01.exam02;
 
