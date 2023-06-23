@@ -1,0 +1,43 @@
+package oracle0623;
+
+import java.util.ArrayList;
+
+public class ScoreServiceImp {
+	ScoreDao dao = new ScoreDao();
+	
+	public ArrayList<ScoreDto> studentList() {
+		return dao.selectList();
+	}
+	
+	// 학생 추가
+	public void insert (ScoreDto dto) {
+		dao.insertOne(dto);
+	}
+	
+	// 총점
+	public int total(int num) {
+		
+		return dao.total(num);
+	}
+	
+	//평균
+	public int avg(int num) {
+		
+		return dao.avg(num);
+	}
+	
+	//과목별 최대 값
+	public NumberDto max() {
+		return dao.selectMax();
+	}
+	
+	// 과목별 평균
+	public NumberDto selectAvg() {
+		return dao.selectAvg();
+	}
+	
+	public double totalAvg() {
+		return dao.selectTotalAvg();
+	}
+
+}
