@@ -67,7 +67,7 @@ public class ScoreDao {
 	    } catch (Exception e) {
 	        // 예외 처리
 	        e.printStackTrace();
-	    }
+	    } 
 	    return total;
 	}
 
