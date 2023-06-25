@@ -151,5 +151,24 @@ public class ScoreDao {
 	
 		
 	}
+
+
+		// 학생 삭제
+	void delete (String name) {
+		Connection conn;
+		try {
+			conn = this.getConnection();
+			Statement stmt = conn.createStatement();
+			String sql = "DELETE FROM score WHERE NAME = '" + name + "'" ;
+			stmt.executeUpdate(sql);
+			
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
 	
 }
