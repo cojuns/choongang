@@ -40,4 +40,11 @@ public class ScoreServiceImp {
 		return dao.selectTotalAvg();
 	}
 
+		// 학생 삭제
+	public void delete (String name) {
+		
+		dao.delete(name);
+		
+	}
+
 }
