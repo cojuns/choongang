@@ -54,5 +54,6 @@
 <input type="button" value="학생입력" onclick="location.href='writeForm.jsp'">
 <input type="button" value="점수리스트" onclick="location.href='scoreList.jsp'">
 <input type="button" value="분석" onclick="location.href='analyzeScore.jsp'">
+<input type="button" value="학생삭제" onclick="location.href='delete.jsp'">
 </body>
 </html>
