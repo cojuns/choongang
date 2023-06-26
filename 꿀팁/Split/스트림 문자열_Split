@@ -1,0 +1,71 @@
+package sec01.exam03;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.util.ArrayList;
+
+class Member {
+	String name;
+	int age;
+	String addr;
+	String phone;
+	
+	
+	public Member(String name, int age, String addr, String phone) {
+		super();
+		this.name = name;
+		this.age = age;
+		this.addr = addr;
+		this.phone = phone;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Member [name=" + name + ", age=" + age + ", addr=" + addr + ", phone=" + phone + "]";
+	}
+	
+	
+	
+	
+	
+}
+
+public class ReadLineEx {
+	static ArrayList<Member> list = new ArrayList<Member>();
+	
+	
+	// 문자열을 받아와서 구분자 ,를 기준으로 분리하고, 분리된 각각의 값을 이용하여 Member 객체를 생성하고 list에 추가
+	public static void stringSplit(String str) {
+		String[] arr = str.split(",");
+		
+		
+			int age = Integer.parseInt(arr[1]);
+			Member member = new Member(arr[0], age, arr[2], arr[3]);
+			list.add(member);
+		}
+	
+	
+	public static void main(String[] args) throws IOException {
+		Reader reader = new FileReader("c:/Temp/test7.db");
+		
+		BufferedReader br = new BufferedReader(reader);
+		
+		while(true) {
+			String data = br.readLine();
+			if(data == null) break;
+			System.out.println(data);
+			stringSplit(data);
+		}
+		br.close();
+		
+		// list 내용 출력
+		for(Member m : list) {
+			System.out.println(m);
+		}
+
+	}
+
+}
