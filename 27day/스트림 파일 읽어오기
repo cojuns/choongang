@@ -1,0 +1,34 @@
+package sec01.exam01;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+
+public class ReadEx {
+	// 파일 읽어오기
+	public static void main(String[] args) throws Exception {
+		InputStream is = new FileInputStream("c:/Temp/test1.db");
+		
+		
+//		while(true) {
+//			int data = is.read();
+//			if(data == -1) break;// -1을 리턴하면 자료가 없다.
+//			System.out.println(data);
+//		}
+		
+		
+		
+		
+		// 임시 저장 공간
+		byte[] buffer = new byte[100];
+		
+		while(true) {
+			int data = is.read(buffer);
+			if(data == -1) break;// -1을 리턴하면 자료가 없다.
+			for(int i = 0; i < data; i++) {
+				System.out.println(buffer[i]);
+			}
+		}
+		is.close();
+	}
+
+}
