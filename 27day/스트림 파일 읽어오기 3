@@ -1,0 +1,33 @@
+package sec01.exam02;
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+
+public class ReadCharEx {
+
+	public static void main(String[] args) throws IOException {
+		
+		Reader reader = new FileReader("c:/Temp/test7.db");
+		// 한 문자씩 읽기
+//		while(true) {
+//			int data = reader.read();
+//			if(data == -1)break;
+//			System.out.println((char)data);
+//		}
+		
+		// 배열 길이만큼 읽기
+		char[]buffer = new char[100];
+		while(true) {
+			int readCharNum = reader.read(buffer);
+//			System.out.println(readCharNum);
+			for(int i=0; i < readCharNum; i++) {
+				System.out.println(buffer[i]);
+			}
+			reader.close();
+		}
+		
+		
+	}
+	
+}
