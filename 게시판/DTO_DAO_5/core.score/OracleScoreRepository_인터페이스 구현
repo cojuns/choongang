@@ -1,0 +1,216 @@
+package core.score;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+public class OracleScoreRepository implements ScoreRepository {
+	// DB 접속 메서드
+	public Connection getConnection() throws ClassNotFoundException, SQLException {
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "scott", "tiger");
+		return conn;
+	}
+	
+	@Override // 한 과목 insert
+	public void save(Score score) {
+		try {
+			Connection conn = this.getConnection();
+			Statement stmt = conn.createStatement();
+			String sql = String.format("insert into score2(sid,seq,subject,score)"
+										+ "values(%d,%d,'%s',%d)",score.getSid(),
+										score.getSeq(), score.getSubject(),
+										score.getScore());
+			stmt.executeUpdate(sql);
+			
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override// 학번으로 성적 검색 
+	public List<Score> findBySid(Long sid) {
+		List<Score> scoreList = new ArrayList<>();
+		try {
+			Connection conn = this.getConnection();
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("select * from score2 where sid =" + sid);
+			while(rs.next()) {
+				long sid1 = rs.getLong("sid");
+				int seq = rs.getInt("seq");
+				String subject = rs.getString("subject");
+				int score = rs.getInt("score");
+				
+				 Score scoreObj = new Score(sid, seq, subject, score);
+				 
+				 scoreList.add(scoreObj);
+			}
+			
+			
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}return  scoreList;
+		
+		
+		
+	}
+
+	@Override// 과목명으로 성적 검색
+	public List<Score> findBySubject(String subject) {
+		List<Score> scoreList = new ArrayList<>();
+		try {
+			Connection conn = this.getConnection();
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("select * from score2 where subject = '" + subject + "'");
+
+			while(rs.next()) {
+				long sid1 = rs.getLong("sid");
+				int seq = rs.getInt("seq");
+				String subject1 = rs.getString("subject");
+				int score = rs.getInt("score");
+				
+				Score scoreObj = new Score(sid1, seq, subject, score);
+
+				 
+				 scoreList.add(scoreObj);
+			}
+			
+			
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}return scoreList;
+	}
+
+	@Override// 학번으로 총점 리턴
+	public int selectSumBySid(Long sid) {
+		try {
+			Connection conn = this.getConnection();
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("select sum(score) from score2 where sid = " + sid );
+
+			if(rs.next()) {
+				int sum = rs.getInt("sum(score)");
+				return sum;
+			}
+			
+			
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}return 0;
+	}
+
+	@Override // 학번으로 평균 리턴
+	public double selectAvgBySid(Long sid) {
+		try {
+			Connection conn = this.getConnection();
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("select avg(score) from score2 where sid = " + sid );
+
+			if(rs.next()) {
+				int avg = rs.getInt("avg(score)");
+				return avg;
+			}
+			
+			
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}return 0;
+	}
+
+
+
+	@Override //과목명으로 최고 점수 ( 점수만 출력 )  
+	public int findByMax1(String subject) {
+		try {
+			Connection conn = this.getConnection();
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("select max(score) from score2 where subject = '" + subject + "'" );
+
+			if(rs.next()) {
+				int max = rs.getInt("max(score)");
+				return max;
+			}
+			
+			
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}return 0;
+	}
+	
+	
+	@Override //과목명으로 최고 점수 ( 최고 점수한 학생도 출력 ) 
+	public List<Score> findByMax2(String subject) {
+	    ArrayList<Score> scoreList = new ArrayList<>();
+	    try {
+	        Connection conn = this.getConnection();
+	        Statement stmt = conn.createStatement();
+	        ResultSet rs = stmt.executeQuery("SELECT sid, seq, MAX(score) AS maxscore FROM score2 WHERE subject = '" + subject + "' GROUP BY sid, seq");
+
+	        while (rs.next()) {
+	        	long sid = rs.getLong("sid");
+	        	int seq = rs.getInt("seq");
+	            int max = rs.getInt("maxscore");
+	            Score scoreObj = new Score(sid, seq, subject, max);
+	            scoreList.add(scoreObj);
+	        }
+
+	    } catch (SQLException | ClassNotFoundException e) {
+	        e.printStackTrace();
+	    }
+	    return scoreList;
+	}
+	
+
+	@Override // 과목명으로 최저 점수 ( 점수만 출력 ) 
+	public int findByMin1(String subject) {
+		try {
+			Connection conn = this.getConnection();
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("select min(score) from score2 where subject = '" + subject + "'" );
+
+			if(rs.next()) {
+				int min = rs.getInt("min(score)");
+				return min;
+			}
+			
+			
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}return 0;
+	}
+	
+	
+	// 과목명으로 최저 점수 ( 최저 점수한 학생도 출력 ) 
+	public ArrayList<Score> findByMin2(String subject) {
+	    ArrayList<Score> scoreList = new ArrayList<>();
+	    try {
+	        Connection conn = this.getConnection();
+	        Statement stmt = conn.createStatement();
+	        ResultSet rs = stmt.executeQuery("SELECT sid, MIN(score) AS minscore FROM score2 WHERE subject = '" + subject + "' group by sid");
+
+	        if (rs.next()) {
+	        	long sid = rs.getLong("sid");
+	            int min = rs.getInt("minscore");
+	            Score scoreObj = new Score(sid, min, subject, min);
+	            scoreList.add(scoreObj);
+	        }
+
+	    } catch (SQLException | ClassNotFoundException e) {
+	        e.printStackTrace();
+	    }
+	    return scoreList;
+	}
+
+
+
+
+
+
+
+
+}
