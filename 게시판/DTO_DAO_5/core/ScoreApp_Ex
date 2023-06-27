@@ -1,0 +1,26 @@
+package core;
+
+public class ScoreApp {
+
+	public static void main(String[] args) {
+		AppConfig app = new AppConfig();
+		
+//		Score score = new Score(1004L, 1, "국어", 77);
+//		app.scoreRepository().save(score);
+//		System.out.println("실행");
+	
+//		app.scoreRepository().findBySid(1001L);
+//		System.out.println(app.scoreRepository().findBySid(1001L));
+//		
+		
+//		System.out.println(app.scoreRepository().findBySubject("영어"));
+		
+//		System.out.println(app.scoreRepository().selectAvgBySid(1002L));
+		
+//		System.out.println(app.scoreRepository().findByMax("국어"));
+		
+		System.out.println(app.scoreRepository().findByMax2("국어"));
+		
+	}
+
+}
