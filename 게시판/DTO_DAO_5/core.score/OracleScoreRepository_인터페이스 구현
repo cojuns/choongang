@@ -124,7 +124,7 @@ public class OracleScoreRepository implements ScoreRepository {
 
 
 
-	@Override //과목명으로 최고 점수 ( 점수만 출력 )  
+	@Override //과목명으로 최고 점수 ( 점수만 출력 )  재구현 필요 
 	public int findByMax1(String subject) {
 		try {
 			Connection conn = this.getConnection();
@@ -185,7 +185,7 @@ public class OracleScoreRepository implements ScoreRepository {
 	}
 	
 	
-	// 과목명으로 최저 점수 ( 최저 점수한 학생도 출력 ) 
+	// 과목명으로 최저 점수 ( 최저 점수한 학생도 출력 ) 재구현 필요 
 	public ArrayList<Score> findByMin2(String subject) {
 	    ArrayList<Score> scoreList = new ArrayList<>();
 	    try {
