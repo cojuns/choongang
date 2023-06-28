@@ -1,0 +1,143 @@
+//Serializable 인터페이스 구현
+
+package sec03.exam03;
+
+import java.io.Serializable;
+import java.util.Date;
+
+							// Serializable 인터페이스 구현
+public class Board implements Serializable {
+	private int bno;
+	private String title;
+	private String content;
+	private String writer;
+	private Date date;
+	
+	
+	public Board(int bno, String title, String content, String writer, Date date) {
+		super();
+		this.bno = bno;
+		this.title = title;
+		this.content = content;
+		this.writer = writer;
+		this.date = date;
+	}
+
+
+	public int getBno() {
+		return bno;
+	}
+
+
+	public void setBno(int bno) {
+		this.bno = bno;
+	}
+
+
+	public String getTitle() {
+		return title;
+	}
+
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+
+	public String getContent() {
+		return content;
+	}
+
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+
+	public String getWriter() {
+		return writer;
+	}
+
+
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+
+
+	public Date getDate() {
+		return date;
+	}
+
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+}
+
+
+//실행
+
+package sec03.exam03;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+public class ObjectStreamEx {
+
+	public static void main(String[] args) throws IOException, ClassNotFoundException {
+		writeList(); // List를 파일에 저장
+		List<Board> list = readList(); // 파일에 저장된 List 읽기
+		
+        // List 내용을 모니터에 출력
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		for(Board board : list) {
+			System.out.println(
+			board.getBno() + "\t" + board.getTitle() + "\t" +
+			board.getContent() + "\t" + board.getWriter() + "\t" +
+			sdf.format(board.getDate())
+					
+					);
+		}
+	}
+	
+	public static void writeList() throws IOException {
+		List<Board> list = new ArrayList<Board>();
+		// list에 Board 객체 저장
+		list.add(new Board(1, "제목1", "내용1", "글쓴이1", new Date()));
+		list.add(new Board(1, "제목2", "내용2", "글쓴이2", new Date()));
+		list.add(new Board(1, "제목3", "내용3", "글쓴이3", new Date()));
+		
+        // 객체 출력 스트림을 이용해서 list 출력 
+		FileOutputStream fos = new FileOutputStream("c:/Temp/board.db");
+		ObjectOutputStream oos = new ObjectOutputStream(fos);
+		oos.writeObject(list);
+		oos.flush();
+		oos.close();
+	}
+	// 객체 입력 스트림을 이용해서 list 읽기
+	public static List<Board> readList() throws IOException, ClassNotFoundException {
+		FileInputStream fis = new FileInputStream("c:/Temp/board.db");
+		ObjectInputStream ois = new ObjectInputStream(fis);
+		List<Board> list = (List<Board>) ois.readObject();
+		return list;
+	}
+}
+//<결과>
+//1	제목1	내용1	글쓴이1	2023-06-28
+//1	제목2	내용2	글쓴이2	2023-06-28
+//1	제목3	내용3	글쓴이3	2023-06-28
