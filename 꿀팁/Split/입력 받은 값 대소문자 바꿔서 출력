@@ -1,0 +1,19 @@
+package sec03.exam04;
+
+import java.util.Scanner;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String a = sc.next();
+        String result = "";
+        
+        for(char s : a.toCharArray()) {// 문자열을 문자 배열로 변환한 후, 각 문자를 s 변수에 순차적으로 저장
+        	if(Character.isLowerCase(s)) {
+        		result += Character.toUpperCase(s);// 문자를 대문자로 변환하는 메서드
+        	}else {
+				result += Character.toLowerCase(s);// 메서드를 사용하여 소문자인지 확인
+			}
+        }System.out.println(result);
+    }
+}
