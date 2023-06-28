@@ -1,0 +1,53 @@
+package sec03.exam02;
+
+import java.util.Arrays;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+public class StreamEx {
+	static int sum = 0;
+	public static void main(String[] args) {
+		
+		// 1~10 까지 출력
+		IntStream st1 = IntStream.rangeClosed(1, 10);
+		st1.forEach(w->System.out.print(w + ","));// 1,2,3,4,5,6,7,8,9,10
+		
+		System.out.println();
+		
+		// 1~10 합계
+		IntStream st2 = IntStream.rangeClosed(1, 10);
+		st2.forEach(w->{
+			sum += w;
+		});
+		System.out.println(sum); // 55 
+		
+		
+		// IntStream
+		int[] intArray = {1,2,3,4,5};
+		IntStream intStream = Arrays.stream(intArray);
+		intStream.forEach(a->System.out.print(a + ","));// 1,2,3,4,5
+		
+		System.out.println();
+		
+		// 3개 다 결과는 동일	
+		String[] strArray = {"김", "이", "박"};
+		
+		// Stream
+		Stream<String> stream = Arrays.stream(strArray);
+		stream.forEach(s->{
+			System.out.println(s);
+		});
+		System.out.println("-----------------------------");
+		// 일반 for문
+		for(int i=0; i < strArray.length; i++) {
+			System.out.println(strArray[i]);
+		}
+		System.out.println("-----------------------------");
+		// 향상된 for문
+		for(String str : strArray) {
+			System.out.println(str);
+		}
+			
+	}
+
+}
