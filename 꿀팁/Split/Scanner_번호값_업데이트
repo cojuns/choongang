@@ -1,0 +1,19 @@
+    public void updateBoard() { // list.set으로도 가능
+        System.out.print("수정할 게시물 번호: ");
+        int bno = Integer.parseInt(scanner.nextLine());
+
+        for (Board board : list) {
+            if (board.getBno() == bno) {
+                System.out.print("새로운 제목: ");
+                String newTitle = scanner.nextLine();
+                System.out.print("새로운 내용: ");
+                String newContent = scanner.nextLine();
+                board.setTitle(newTitle);
+                board.setContent(newContent);
+                System.out.println("게시물이 수정되었습니다.");
+                return;
+            }
+        }
+
+        System.out.println("해당 번호의 게시물이 존재하지 않습니다.");
+    }
