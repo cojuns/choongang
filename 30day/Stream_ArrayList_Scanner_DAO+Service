@@ -1,0 +1,148 @@
+package sec04.exam03;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Scanner;
+
+public class BoardService {
+    private List<Board> list = new ArrayList<>();
+    private Scanner scanner = new Scanner(System.in);
+    
+    private int counter = 1000;
+    
+    
+    // 사용자 입력 메소드
+    public void showMenu() throws ClassNotFoundException, IOException {
+//    	writeList();
+    	list = readList();
+
+        while (true) {
+            System.out.println("----------------------------------------------------------------------------------");
+            System.out.println("1.등록하기  |  2.내용보기  |  3.수정하기  |  4.삭제하기  |  5.저장  |  6.종료  ");
+            System.out.println("----------------------------------------------------------------------------------");
+
+            System.out.print("선택: ");
+            String selectNo = scanner.nextLine();
+            switch (selectNo) {
+                case "1":
+                    registerBoard();
+                    break;
+                case "2":
+                    showBoard();
+                    break;
+                case "3":
+                    updateBoard();
+                    break;
+                case "4":
+                    delete();
+                    break;
+                case "5":
+                    writeList();
+                    break;
+                case "6":
+                    System.out.println("종료합니다.");
+                    return;
+            }
+        }
+    }
+    
+    
+    // 파일에서 이전에 저장된 게시물 리스트를 읽어와서 반환
+    public List<Board> readList() throws IOException, ClassNotFoundException {
+        FileInputStream fis = new FileInputStream("c:/Temp/board.db");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        List<Board> list = (List<Board>) ois.readObject();
+        ois.close();
+        return list;
+    }
+    
+    
+    // 1. 등록하기 메서드 
+    public void registerBoard() {
+    	
+    	
+		Board board = new Board();
+		board.setBno(counter++);
+
+		System.out.print("제목: ");
+		board.setTitle(scanner.nextLine());
+
+		System.out.print("내용: ");
+		board.setContent(scanner.nextLine());
+
+		System.out.print("글쓴이: ");
+		board.setWriter(scanner.nextLine());
+		board.setDate(new Date());
+		list.add(board);
+		
+        System.out.println("게시물이 등록되었습니다.");
+    }
+    
+    
+    // 2. 내용보기 메서드
+    public void showBoard() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		int cnt = 0;
+		for (Board board : list) {
+			System.out.println(cnt++ + " : " + board.getBno() + "\t" + board.getTitle() + "\t" + board.getContent() + "\t"
+					+ board.getWriter() + "\t" + sdf.format(board.getDate()));
+		}
+	}
+    
+    
+    // 3. 수정하기 메소드
+    public void updateBoard() { // list.set으로도 가능
+		System.out.print("수정할 자료번호(맨 앞에 있는 것): ");
+		int num = Integer.parseInt(scanner.nextLine());
+		Board board = new Board();
+		System.out.print("일련번호(뒤에 번호): ");
+		board.setBno(Integer.parseInt(scanner.nextLine()));
+
+		System.out.print("제목: ");
+		board.setTitle(scanner.nextLine());
+
+		System.out.print("내용: ");
+		board.setContent(scanner.nextLine());
+
+		System.out.print("글쓴이: ");
+		board.setWriter(scanner.nextLine());
+		board.setDate(new Date());
+		list.set(num, board);
+
+        System.out.println("수정 완료 ");
+    }
+    
+    // 4. 삭제하기 메소드
+    public void delete() {
+		System.out.print("삭제할 번호(앞에 번호): ");
+		list.remove(Integer.parseInt(scanner.nextLine()));
+		System.out.println("삭제하였습니다.");
+    	}
+    
+    
+    
+    // 5. 저장 메소드
+    public void writeList() throws IOException {
+        FileOutputStream fos = new FileOutputStream("c:/Temp/board.db");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(list);
+        oos.flush();
+        oos.close();
+        System.out.println("저장완료");
+    }
+
+
+
+
+
+
+   
+    
+}
