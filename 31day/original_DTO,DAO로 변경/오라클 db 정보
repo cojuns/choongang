@@ -1,0 +1,8 @@
+create table board (
+num number primary key,
+writer varchar2(20),
+title varchar2(60),
+content varchar2(200),
+regtime varchar2(100),
+hits NUMBER
+);
