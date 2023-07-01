@@ -146,18 +146,37 @@ public class BoardDao {
 
 	
 		
-		public int insert(BoardDto dto) {
-			try {
-				Connection conn = this.getConnection();
-				Statement stmt = conn.createStatement();
-				String sql = String.format("insert into board (writer,content,regtime,hits) values ('%s','%s','%s', %d)",
-						dto.getWriter(), dto.getContent(),dto.getRegtime(),dto.getHits());
-				return stmt.executeUpdate(sql);
-			} catch (SQLException | ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-			return 0;
+		public int insert(String writer, String title, String content) {
 			
+	    try { 
+	    	Connection conn = this.getConnection();
+	            
+	    		int num = 0;   
+	    		for(BoardDto dto : this.selectList()) {
+	    			num = dto.getNum();
+	    		}
+	    		
+		        // 현재 시간 얻기
+		        String curTime = LocalDate.now() + " " + 
+		                         LocalTime.now().toString().substring(0, 8);
+		        
+		        
+		        
+		        // 쿼리 실행
+		        
+	    		String sql = "insert into board (num, writer, title, content, regtime, hits) values (" + (num + 1) + ", '"
+	    			    + writer + "', '" + title + "', '" + content + "', '" + sdf.format(new Date()) + "', 0)";  
+	    				
+		        Statement stmt = this.getConnection().createStatement();
+		        stmt.executeUpdate(sql);
+		        
+
+	    		
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    }
+		return 0;
+	
 		}
 	
 	
