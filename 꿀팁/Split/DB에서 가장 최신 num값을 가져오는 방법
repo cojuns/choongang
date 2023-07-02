@@ -1,0 +1,12 @@
+	        // 가장 최신 num 값을 가져옴
+	        int num = 0;
+	        for (BoardDto dto : this.selectList()) {
+	            if (dto.getNum() > num) {
+	                num = dto.getNum();
+	            }
+	        }
+
+
+	        String sql = "INSERT INTO board (num, writer, title, content, regtime, hits) VALUES (?, ?, ?, ?, ?, 0)";
+	        PreparedStatement pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, num + 1); // 최신 num값에서 +1 해서 insert 가능
