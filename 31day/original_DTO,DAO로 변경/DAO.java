@@ -1,26 +1,24 @@
 package maria0630;
 
-import java.sql.Statement;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.catalina.connector.Response;
-import org.apache.tomcat.dbcp.dbcp2.PStmtKey;
 
 public class BoardDao {
 	
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	
 	Connection getConnection() throws ClassNotFoundException, SQLException {
-		Class.forName("oracle.jdbc.driver.OracleDriver");
-		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "scott", "tiger");
+		Class.forName("org.mariadb.jdbc.Driver");
+		Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3307/jspdb", "root", "maria");
 		return conn;
 	}
 	
@@ -28,8 +26,11 @@ public class BoardDao {
 		try {
 			Connection conn = this.getConnection();
 			ArrayList<BoardDto> list = new ArrayList<>();
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("select num, writer, title, content, regtime, hits from board");
+			
+			String sql = ("select num, writer, title, content, regtime, hits from board");
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			ResultSet rs = pstm.executeQuery();
+			
 			while (rs.next()) {
 				
 				int num = rs.getInt("num");
@@ -58,23 +59,19 @@ public class BoardDao {
 	}
 	
 	public BoardDto selectOne (int num) {
-		PreparedStatement pstm = null;
-		ResultSet rs = null;
-		BoardDto dto = null;
+
 		
 		try {
 	        Connection conn = this.getConnection();
 
 
-			
-			Statement stmt = conn.createStatement();
 			String sql = ("select * from board where num = ? ");
-			pstm = conn.prepareStatement(sql);
+			PreparedStatement pstm = conn.prepareStatement(sql);
 			pstm.setInt(1, num);
-			rs = pstm.executeQuery();
+			ResultSet rs = pstm.executeQuery();
 			
 			if(rs.next()) {
-				dto = new BoardDto();
+				BoardDto dto = new BoardDto();
 				dto.setNum(rs.getInt("num"));
 				dto.setWriter(rs.getString("writer"));
 				dto.setTitle(rs.getString("title"));
@@ -82,7 +79,7 @@ public class BoardDao {
 				dto.setRegtime(rs.getString("regtime"));
 				dto.setHits(rs.getInt("hits"));
 				
-				
+				return dto;
 				
 			}
 			
@@ -90,19 +87,20 @@ public class BoardDao {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+		return null;
 		
-		return dto;
+		
 			
 	}
 
 	public void hits(int num) {
-		PreparedStatement pstm = null;
+		
 		
 		Connection conn;
 		try {
 			conn = this.getConnection();
 	        String sql = "UPDATE board SET hits = hits + 1 WHERE num = ? ";
-	        pstm = conn.prepareStatement(sql);
+	        PreparedStatement pstm = conn.prepareStatement(sql);
 	        pstm.setInt(1, num);
 	        pstm.executeUpdate();
 			
@@ -146,37 +144,61 @@ public class BoardDao {
 
 	
 		
-		public int insert(String writer, String title, String content) {
-			
-	    try { 
-	    	Connection conn = this.getConnection();
-	            
-	    		int num = 0;   
-	    		for(BoardDto dto : this.selectList()) {
-	    			num = dto.getNum();
-	    		}
-	    		
-		        // 현재 시간 얻기
-		        String curTime = LocalDate.now() + " " + 
-		                         LocalTime.now().toString().substring(0, 8);
-		        
-		        
-		        
-		        // 쿼리 실행
-		        
-	    		String sql = "insert into board (num, writer, title, content, regtime, hits) values (" + (num + 1) + ", '"
-	    			    + writer + "', '" + title + "', '" + content + "', '" + sdf.format(new Date()) + "', 0)";  
-	    				
-		        Statement stmt = this.getConnection().createStatement();
-		        stmt.executeUpdate(sql);
-		        
+	public int insert(String writer, String title, String content) {
+	    try {
+	        Connection conn = this.getConnection();
 
-	    		
-	    } catch(Exception e) {
+	        // 가장 최신 num 값을 가져옴
+	        int num = 0;
+	        for (BoardDto dto : this.selectList()) {
+	            if (dto.getNum() > num) {
+	                num = dto.getNum();
+	            }
+	        }
+
+	        // 현재 시간 얻기
+	        String curTime = LocalDate.now() + " " + LocalTime.now().toString().substring(0, 8);
+
+	        // 쿼리 실행
+	        String sql = "INSERT INTO board (num, writer, title, content, regtime, hits) VALUES (?, ?, ?, ?, ?, 0)";
+	        PreparedStatement pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, num + 1);
+	        pstmt.setString(2, writer);
+	        pstmt.setString(3, title);
+	        pstmt.setString(4, content);
+	        pstmt.setString(5, curTime);
+	        pstmt.executeUpdate();
+
+	        
+	        
+	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
-		return 0;
-	
+	    return 0;
+	}
+
+		
+		
+		
+		public void delete(int num) {
+			
+		    // 지정된 글 번호의 레코드를 DB에서 삭제
+		    ;
+		    try { 
+		    		Connection conn = this.getConnection();
+		    		
+		     
+		    		// 쿼리 실행
+		    		String sql = ("delete from board where num= ? ");
+		    		PreparedStatement pstmt = conn.prepareStatement(sql);
+		    		pstmt.setInt(1, num);
+		    		pstmt.executeUpdate();
+		        
+		        
+		    } catch(Exception e) {
+		        e.printStackTrace();
+		    }
+			
 		}
 	
 	
