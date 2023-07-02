@@ -144,7 +144,7 @@ public class BoardDao {
 
 	
 		
-	public int insert(String writer, String title, String content) {
+	public void insert(String writer, String title, String content) {
 	    try {
 	        Connection conn = this.getConnection();
 
