@@ -19,7 +19,7 @@
     <meta charset="UTF-8">
     <style>
         table { width:680px; text-align:center; }
-        th    { width:100px; background-color:cyan; }
+        th    { width:100px; background-color:gray; }
         td    { text-align:left; border:1px solid gray; }
     </style>
 </head>
@@ -49,9 +49,9 @@
 </table>
 
 <br>
-<input type="button" value="목록보기" onclick="location.href='list2.jsp'">
+<input type="button" value="목록보기" onclick="location.href='list.jsp'">
 <input type="button" value="수정"
-       onclick="location.href='write2.jsp?num=<%=num%>'">
+       onclick="location.href='write.jsp?num=<%=num%>'">
 <input type="button" value="삭제"
        onclick="location.href='delete.jsp?num=<%=num%>'">
 
