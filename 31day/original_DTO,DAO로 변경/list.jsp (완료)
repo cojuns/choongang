@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <style>
         table     { width:680px; text-align:center; }
-        th        { background-color:cyan; }
+        th        { background-color:gray; }
         
         .num      { width: 80px; }
         .title    { width:230px; }
@@ -26,7 +26,7 @@
 </head>
 <body>
 
-<table>
+<table border="1">
     <tr>
         <th class="num"    >번호    </th>
         <th class="title"  >제목    </th>
@@ -37,6 +37,7 @@
     </tr>
 
 <%
+
 BoardDao dao = new BoardDao();
 ArrayList<BoardDto> list = dao.selectList();
 
@@ -45,7 +46,7 @@ for(BoardDto board : list){
         <tr>
         	  <td><%=board.getNum()%></td>
             <td style="text-align:left;">
-                <a href="view2.jsp?num=<%=board.getNum()%>">
+                <a href="view.jsp?num=<%=board.getNum()%>">
                     <%=board.getTitle()%>
                 </a>
             </td>
@@ -58,7 +59,7 @@ for(BoardDto board : list){
 
 </table>
 <br>
-<input type="button" value="글쓰기" onclick="location.href='write2.jsp'">
+<input type="button" value="글쓰기" onclick="location.href='write.jsp'">
 
 </body>
 </html>
