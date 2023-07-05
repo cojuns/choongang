@@ -1,0 +1,5 @@
+    int num = Integer.parseInt(request.getParameter("num"));
+	BoardDao dao = new BoardDao();
+	BoardDto dto = dao.selectOne(num, true);
+
+public BoardDto selectOne(int num, boolean incHits)
