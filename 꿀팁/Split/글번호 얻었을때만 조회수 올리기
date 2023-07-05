@@ -1,5 +1,14 @@
-    int num = Integer.parseInt(request.getParameter("num"));
+public BoardDto selectOne(int num, boolean incHits);
+
+
+//조회수 올리기
+int num = Integer.parseInt(request.getParameter("num"));
 	BoardDao dao = new BoardDao();
 	BoardDto dto = dao.selectOne(num, true);
 
-public BoardDto selectOne(int num, boolean incHits)
+	
+    if (num > 0) { // 수정 모드일때는 조회수 올리지않기
+		BoardDao dao = new BoardDao();
+		BoardDto dto = dao.selectOne(num, false);
+	}
+
