@@ -1,0 +1,41 @@
+// 사용자한태 입력 받는 곳
+    <h4>지원 분야</h4>
+				<ul>
+					<li>
+						<label><input type="radio" name="field" value="프론트엔드">프론트엔드 </label>
+					</li>
+					<li>
+						<label><input type="radio" name="field" value="백엔드">백엔드 </label>
+					</li>
+					<li>
+						<label><input type="radio" name="field" value="개발 환경 개선">개발 환경 개선 </label>
+					</li>
+				</ul>
+
+    // name 값 하나로 지정
+    // value 값은 DB에 저장 될 내용
+
+
+// 입력 처리
+<%@page import="sec.BackDto"%>
+<%@page import="sec.BackDao"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+    
+<%
+String name = request.getParameter("name");
+String phone = request.getParameter("phone");
+String support = request.getParameter("field"); // 해당 부분을 name 값으로 지정
+String content = request.getParameter("content");
+
+BackDto dto = new BackDto();
+dto.setName(name);
+dto.setPhone(phone);
+dto.setSupport(support);
+dto.setContent(content);
+
+BackDao dao = new BackDao();
+dao.insertOne(dto);
+
+%>
