@@ -1,0 +1,42 @@
+<%@page import="sec.BackDto"%>
+<%@page import="sec.BackDao"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+    
+<%
+String name = request.getParameter("name");
+String phone = request.getParameter("phone");
+String support = request.getParameter("field");
+String content = request.getParameter("content");
+
+BackDto dto = new BackDto();
+dto.setName(name);
+dto.setPhone(phone);
+dto.setSupport(support);
+dto.setContent(content);
+
+BackDao dao = new BackDao();
+dao.insertOne(dto);
+
+%>
+
+  <script type="text/javascript">
+    alert("등록이 완료 되었습니다.");
+    location.href = "back.jsp";
+  </script>
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+</html>
