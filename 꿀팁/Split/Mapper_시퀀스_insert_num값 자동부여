@@ -1,0 +1,10 @@
+	<!-- selectKey : 시퀀스 가져오기  -->
+	<insert id="ins" parameterType="com.db.EmpDto">
+	  <selectKey keyProperty="empno" resultType="int" order="BEFORE">
+    SELECT my_sequence.NEXTVAL FROM DUAL
+  		</selectKey>
+		INSERT INTO emp_temp (empno, ename, job, sal)
+        VALUES (#{empno}, #{ename}, #{job}, #{sal})
+	
+	</insert>
+
