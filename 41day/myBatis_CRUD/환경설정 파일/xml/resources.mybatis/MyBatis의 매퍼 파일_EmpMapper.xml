@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.mybatis.persistence.EmpMapper">
+    <select id="list" resultType="java.util.Map">
+        SELECT ename
+        FROM emp
+    </select>
+    
+        <select id="list2" resultType="com.db.EmpDto">
+        SELECT empno, ename, job, sal
+        FROM emp
+    </select>
+  
+	<!-- selectKey : 시퀀스 가져오기  -->
+	<insert id="ins" parameterType="com.db.EmpDto">
+	  <selectKey keyProperty="empno" resultType="int" order="BEFORE">
+    SELECT my_sequence.NEXTVAL FROM DUAL
+  		</selectKey>
+		INSERT INTO emp_temp (empno, ename, job, sal)
+        VALUES (#{empno}, #{ename}, #{job}, #{sal})
+	
+	</insert>
+	
+	<delete id="del" parameterType="int">
+		DELETE FROM emp_temp WHERE empno = #{empno}
+	</delete>
+	
+	<update id="upda" parameterType="com.db.EmpDto" >
+		UPDATE emp_temp SET ename = #{ename}, job = #{job}, sal = #{sal}
+   		 WHERE empno = #{empno}
+	</update>
+	
+</mapper>
