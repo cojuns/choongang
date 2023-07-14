@@ -1,0 +1,4 @@
+CREATE SEQUENCE my_sequence
+  START WITH 1001 // 시작 값
+  INCREMENT BY 1 // 증가 값
+  NOCACHE;
