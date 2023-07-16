@@ -32,5 +32,9 @@
 		UPDATE emp_temp SET ename = #{ename}, job = #{job}, sal = #{sal}
    		 WHERE empno = #{empno}
 	</update>
+
+	    <select id="selone" resultType="com.db.EmpDto">
+        SELECT * FROM Emp WHERE empno = #{empno}
+   		 </select>
 	
 </mapper>
