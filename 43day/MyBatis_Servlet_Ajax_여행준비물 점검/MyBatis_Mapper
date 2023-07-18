@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.mybatis.persistence.EmpMapper">
+    <select id="list1" resultType="java.util.Map">
+        SELECT content
+        FROM checkd
+    </select>
+    
+	<select id="list" resultType="com.db.CheckdDTO">
+        SELECT *
+        FROM checkd
+    </select>
+    
+<!-- selectKey : 시퀀스 가져오기  -->
+	<insert id="ins" parameterType="com.db.CheckdDTO">
+	  <selectKey keyProperty="num" resultType="int" order="BEFORE">
+    SELECT checkd_sequence.NEXTVAL FROM DUAL
+  		</selectKey>
+		INSERT INTO checkd (num, content, regtime )
+        VALUES (#{num}, #{content}, sysdate)
+	
+	</insert>
+	
+	<delete id="del" parameterType="int">
+		DELETE FROM checkd WHERE num = #{num}
+	</delete>
+	
+</mapper>
