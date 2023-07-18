@@ -1,0 +1,20 @@
+package com.db;
+
+import java.sql.Date;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Setter
+@Getter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+public class CheckdDTO {
+	private int num;
+	private String content;
+	private Date regtime;
+}
