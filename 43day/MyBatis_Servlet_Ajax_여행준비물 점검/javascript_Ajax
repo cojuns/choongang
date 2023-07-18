@@ -1,0 +1,49 @@
+let itemList = [];
+const addBtn = document.querySelector("#add"); // 버튼의 id
+addBtn.addEventListener("click", addList);
+function addList() {
+    const content = document.getElementById("list").value;
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', `insert?content=${encodeURIComponent(content)}`, true);
+    xhr.send();
+
+    xhr.onload = () => {
+        if (xhr.status === 200) {
+            itemList.push(content);
+            showList();
+        }
+    };
+
+	
+    let str = document.querySelector("#itemList");  // input의 id
+    if (str.value != null && str.value != '') {
+        itemList.push(str.value);
+        str.value = '';
+        str.focus();
+    }
+    showList();
+    
+    
+}
+function showList() {
+    let list = "<ul>";
+    for(let i=0; i < itemList.length; i++) {
+        list += `<li>${itemList[i]}<span class='close' id='${i}'>X</span></li>`;
+    }
+    
+    list += "</ul>";
+    document.querySelector("#itemList").innerHTML = list; // div의 id
+
+    let remove = document.querySelectorAll(".close");
+    //console.log(remove);
+    for(let i = 0; i < remove.length; i++) {
+        remove[i].addEventListener("click", removeList);
+    }
+}
+
+function removeList() {
+    let id = this.getAttribute("id");
+    console.log(id);
+    itemList.splice(id, 1);
+    showList();
+}
