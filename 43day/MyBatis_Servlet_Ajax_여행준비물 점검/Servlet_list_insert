@@ -1,0 +1,89 @@
+package com.db;
+
+import java.io.IOException;
+import java.io.Reader;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+/**
+ * Servlet implementation class Serv3
+ */
+@WebServlet("/insert")
+public class Serv4 extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
+	private static SqlSessionFactory sqlSessionFactory;
+
+	static {
+		try {
+			// 마이바티스 환경 설정 XML 파일 경로
+			String resource = "resources/mybatis/config-mybatis.xml";
+			Reader reader = Resources.getResourceAsReader(resource);
+			sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public Serv4() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+    
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // POST 요청으로 전달된 데이터를 DB에 저장
+        request.setCharacterEncoding("UTF-8");
+        String content = request.getParameter("content");
+        if (content != null && !content.isEmpty()) {
+            // 세션 및 트랜잭션 시작
+            try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+                int res = sqlSession.insert("org.mybatis.persistence.EmpMapper.ins", new CheckdDTO(0, content, null));
+                sqlSession.commit();
+                System.out.println("Insertion Result: " + res);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        // DB에서 데이터 조회
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            List<CheckdDTO> list = sqlSession.selectList("org.mybatis.persistence.EmpMapper.list");
+            request.setAttribute("list", list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            sqlSession.close();
+        }
+
+        // JSP로 결과 전달
+        request.getRequestDispatcher("index-result.jsp").forward(request, response);
+    }
+
+
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+	}
+}
