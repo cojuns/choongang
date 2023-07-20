@@ -1,0 +1,5 @@
+package student; 
+
+public class WrongIdPasswordException extends RuntimeException { 
+	 //비밀번호 변경 시 입력한 기존 비밀번호와 현재 비밀번호가 다른 경우 이 예외가 발생하도록 처리
+}
