@@ -1,0 +1,19 @@
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter 
+@Setter 
+
+public class StudentRequest {
+    
+
+    private String phone; // 학생 전화번호를 저장하는 변수
+    private String password; // 학생 비밀번호를 저장하는 변수
+    private String confirmPassword; // 비밀번호 확인을 위해 입력한 비밀번호를 저장하는 변수
+    private String name; // 학생 이름을 저장하는 변수
+
+    public boolean isPasswordEqualToConfirmPassword() {
+        // 비밀번호와 확인용 비밀번호가 일치하는지 확인하는 메서드
+        return password.equals(confirmPassword); // 비밀번호와 확인용 비밀번호를 비교하여 결과 반환
+    }
+}
