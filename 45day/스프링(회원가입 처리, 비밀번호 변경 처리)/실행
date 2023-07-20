@@ -1,0 +1,108 @@
+package student;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+import spring.DuplicateMemberException;
+import spring.MemberNotFoundException;
+import spring.WrongIdPasswordException;
+
+public class MainForAssemStudent {
+
+    public static void main(String[] args) throws IOException {
+        // 메인 메서드
+
+        BufferedReader reader =
+                new BufferedReader(new InputStreamReader(System.in));
+
+        // 사용자 입력을 받는 반복문
+        while (true) {
+            System.out.println("명령어를 입력하세요:");
+            String command = reader.readLine(); // 사용자 입력 받기
+            if (command.equalsIgnoreCase("exit")) {
+                System.out.println("종료합니다.");
+                break;
+            }
+
+            if (command.startsWith("new ")) {
+                // "new"로 시작하는 명령어 처리
+                processNewCommand(command.split(" "));
+                continue;
+            } else if (command.startsWith("change ")) {
+                // "change"로 시작하는 명령어 처리
+                processChangeCommand(command.split(" "));
+                continue;
+            }
+
+            printHelp(); // 잘못된 명령어일 경우 도움말 출력
+        }
+    }
+
+    private static AssemStudent assemStudent = new AssemStudent();
+
+    private static void processNewCommand(String[] arg) {
+        // "new" 명령어 처리
+
+        if (arg.length != 5) {
+            printHelp();
+            return;
+        }
+
+        StudentRegisterService SregSvc = assemStudent.getStudentRegisterService();
+        // AssemStudent에서 StudentRegisterService 객체를 가져옴
+
+        StudentRequest Sreq = new StudentRequest();
+        Sreq.setPhone(arg[1]);
+        Sreq.setName(arg[2]);
+        Sreq.setPassword(arg[3]);
+        Sreq.setConfirmPassword(arg[4]);
+
+        if (!Sreq.isPasswordEqualToConfirmPassword()) {
+            System.out.println("암호와 확인이 일치하지 않습니다.\n");
+            return;
+        }
+
+        try {
+            SregSvc.regist(Sreq);
+            // 학생 정보 등록을 수행
+            System.out.println("등록했습니다.\n");
+        } catch (DuplicateMemberException e) {
+            System.out.println("이미 존재하는 폰번호입니다.\n");
+        }
+    }
+
+    private static void processChangeCommand(String[] arg) {
+        // "change" 명령어 처리
+
+        if (arg.length != 4) {
+            printHelp();
+            return;
+        }
+
+        StudentChangePasswordService studentChangePasswordService =
+                assemStudent.getStudentChangePasswordService();
+        // AssemStudent에서 StudentChangePasswordService 객체를 가져옴
+
+        try {
+            studentChangePasswordService.changePassword(arg[1], arg[2], arg[3]);
+            // 학생 비밀번호 변경을 수행
+            System.out.println("암호를 변경했습니다.\n");
+        } catch (MemberNotFoundException e) {
+            System.out.println("존재하지 않는 폰번호입니다.\n");
+        } catch (WrongIdPasswordException e) {
+            System.out.println("폰번호와 암호가 일치하지 않습니다.\n");
+        }
+    }
+
+    private static void printHelp() {
+        // 도움말 출력
+
+        System.out.println();
+        System.out.println("잘못된 명령입니다. 아래 명령어 사용법을 확인하세요.");
+        System.out.println("명령어 사용법:");
+        System.out.println("new 폰번호 이름 암호 암호확인");
+        System.out.println("change 폰번호 현재비번 변경비번");
+        System.out.println();
+    }
+}
