@@ -1,0 +1,13 @@
+package student;
+
+public class DuplicationStudentException extends RuntimeException {
+    // DuplicationStudentException 클래스를 정의하며 RuntimeException 클래스를 상속받음
+
+    public DuplicationStudentException(String message) {
+        // 생성자 메서드
+        super(message);
+        // 부모 클래스인 RuntimeException의 생성자를 호출하고, 인자로 전달된 메시지를 설정함
+    }
+    //동일한 전화번호를 가진 학생이 이미 등록되어 있으면 이 예외를 발생시키고 
+    //해당 메시지를 사용자에게 알리는 용도로 사용
+}
