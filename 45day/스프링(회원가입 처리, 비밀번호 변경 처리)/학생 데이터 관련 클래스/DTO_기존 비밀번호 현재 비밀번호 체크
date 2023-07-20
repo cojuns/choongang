@@ -1,0 +1,64 @@
+package student; 
+
+import java.time.LocalDateTime;
+
+//spring 패키지에서 WrongIdPasswordException 클래스를 import
+import spring.WrongIdPasswordException; 
+
+
+
+public class Student { 
+
+    private long sid; // 학생 ID를 저장하는 변수
+    private String phone; // 학생 전화번호를 저장하는 변수
+    private String passwd; // 학생 비밀번호를 저장하는 변수
+    private String name; // 학생 이름을 저장하는 변수
+    private LocalDateTime registerDateTime; // 학생 등록 일시를 저장하는 변수
+
+
+    public void setSid(long sid) { // sid 변수를 설정하는 메서드
+        this.sid = sid;
+    }
+
+
+    public long getSid() { // sid 변수를 반환하는 메서드
+        return sid;
+    }
+
+
+    public Student(String phone, String passwd, String name, LocalDateTime registerDateTime) { // 생성자 메서드
+        super(); 
+        this.phone = phone; // 전화번호를 인자로 받아 phone 변수에 저장
+        this.passwd = passwd; // 비밀번호를 인자로 받아 passwd 변수에 저장
+        this.name = name; // 이름을 인자로 받아 name 변수에 저장
+        this.registerDateTime = registerDateTime; // 등록 일시를 인자로 받아 registerDateTime 변수에 저장
+    }
+
+
+    public String getPhone() { 
+        return phone;
+    }
+
+
+    public String getPasswd() { 
+        return passwd;
+    }
+
+
+    public String getName() { 
+        return name;
+    }
+
+
+    public LocalDateTime getRegisterDateTime() { // registerDateTime 변수를 반환하는 메서드
+        return registerDateTime;
+    }
+
+    // 비밀번호 변경 메서드
+    public void changePassword(String oldpasswd, String newpasswd) { 
+        if (!passwd.equals(oldpasswd)) // 기존 비밀번호(oldpasswd)와 현재 비밀번호(passwd)가 다른 경우
+            throw new WrongIdPasswordException(); // WrongIdPasswordException 예외를 발생시킴
+        this.passwd = newpasswd; // 비밀번호를 새로운 비밀번호(newpasswd)로 변경
+    }
+
+}
