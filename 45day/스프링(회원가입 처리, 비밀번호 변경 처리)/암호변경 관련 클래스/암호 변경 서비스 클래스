@@ -1,0 +1,33 @@
+package student;
+
+import spring.MemberNotFoundException;
+
+public class StudentChangePasswordService {
+
+
+    private StudentDao studentDao; // StudentDao 객체를 참조하는 멤버 변수
+
+    public void changePassword(String phone, String oldPwd, String newPwd) {
+        // 학생의 비밀번호 변경 메서드
+
+        Student student = studentDao.selectByPhone(phone);
+        // 전화번호를 기반으로 학생 정보를 조회
+
+        if (student == null)
+            // 조회된 학생이 없으면 (해당 전화번호로 등록된 학생이 없으면)
+            throw new MemberNotFoundException();
+            // MemberNotFoundException 예외를 발생시킴
+
+        student.changePassword(oldPwd, newPwd);
+        // 학생 객체의 비밀번호 변경 메서드 호출 (기존 비밀번호를 새로운 비밀번호로 변경)
+
+        studentDao.update(student);
+        // 변경된 학생 정보를 업데이트 (DB에 반영)
+    }
+
+    public void setStudentDao(StudentDao studentDao) {
+        // StudentDao 객체를 주입하는 setter 메서드
+        this.studentDao = studentDao;
+        // 주입받은 StudentDao 객체를 멤버 변수에 설정
+    }
+}
