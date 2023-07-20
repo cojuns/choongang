@@ -1,0 +1,36 @@
+package student;
+
+import java.time.LocalDateTime;
+
+import spring.DuplicateMemberException;
+
+public class StudentRegisterService {
+    private StudentDao studentDao;
+
+    // 생성자를 통해 StudentDao 객체를 주입받음
+    // 의존 객체를 생성자를 통해 주입한다.
+    public StudentRegisterService(StudentDao studentDao) {
+        this.studentDao = studentDao;
+    }
+
+    // 학생 등록을 수행하는 메서드
+    public Long regist(StudentRequest req) {
+        // 입력한 전화번호로 이미 등록된 학생이 있는지 조회
+        Student student = studentDao.selectByPhone(req.getPhone());
+
+        // 같은 전화번호를 가진 학생이 이미 존재하면 예외 발생
+        if (student != null) {
+            throw new DuplicateMemberException("dup phone " + req.getPhone());
+            // DuplicateMemberException 예외를 발생시키고 메시지를 설정하여 사용자에게 중복된 전화번호임을 알림
+        }
+
+        // 같은 전화번호를 가진 학생이 존재하지 않으면 DB에 삽입
+        Student newStudent = new Student(
+                req.getPhone(), req.getPassword(), req.getName(),
+                LocalDateTime.now());
+        studentDao.insert(newStudent); // 학생 정보를 DB에 삽입
+
+        // 새로 등록한 학생의 ID를 반환
+        return newStudent.getSid();
+    }
+}
