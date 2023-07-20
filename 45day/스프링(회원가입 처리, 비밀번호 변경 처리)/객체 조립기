@@ -1,0 +1,40 @@
+package student;
+
+public class AssemStudent {
+    // AssemStudent 클래스 정의
+
+    private StudentDao studentDao; // StudentDao 객체를 가리키는 멤버 변수
+    private StudentRegisterService SregSvc; // StudentRegisterService 객체를 가리키는 멤버 변수
+    private StudentChangePasswordService pwdSvc; // StudentChangePasswordService 객체를 가리키는 멤버 변수
+
+    public AssemStudent() {
+        // 생성자 메서드
+
+        studentDao = new StudentDao();
+        // 새로운 StudentDao 객체를 생성하여 studentDao 멤버 변수에 설정
+
+        SregSvc = new StudentRegisterService(studentDao);
+        // StudentRegisterService 객체를 생성하고 studentDao를 인자로 넘겨서 SregSvc 멤버 변수에 설정
+
+        pwdSvc = new StudentChangePasswordService();
+        // StudentChangePasswordService 객체를 생성하여 pwdSvc 멤버 변수에 설정
+
+        pwdSvc.setStudentDao(studentDao);
+        // pwdSvc의 setStudentDao 메서드를 사용하여 studentDao를 설정 (의존 객체 주입)
+    }
+
+    public StudentDao getStudentDao() {
+        // studentDao 멤버 변수를 반환하는 메서드
+        return studentDao;
+    }
+
+    public StudentRegisterService getStudentRegisterService() {
+        // SregSvc 멤버 변수를 반환하는 메서드
+        return SregSvc;
+    }
+
+    public StudentChangePasswordService getStudentChangePasswordService() {
+        // pwdSvc 멤버 변수를 반환하는 메서드
+        return pwdSvc;
+    }
+}
