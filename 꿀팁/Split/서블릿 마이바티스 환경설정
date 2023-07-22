@@ -1,0 +1,12 @@
+	private static SqlSessionFactory sqlSessionFactory;
+
+	static {
+		try {
+			// 마이바티스 환경 설정 XML 파일 경로
+			String resource = "resources/mybatis/config-mybatis.xml";
+			Reader reader = Resources.getResourceAsReader(resource);
+			sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
