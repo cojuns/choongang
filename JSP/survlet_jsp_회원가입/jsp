@@ -1,0 +1,26 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+    <% request.setCharacterEncoding("utf-8"); %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>회원 가입</title>
+</head>
+<body>
+    <h1>회원 가입</h1>
+    <form action="SumServlet" method="post">
+        <label for="first_name">이름:</label>
+        <input type="text" id="first_name" name="first_name" required><br>
+
+        <label for="last_name">성:</label>
+        <input type="text" id="last_name" name="last_name" required><br>
+
+        <label for="email">이메일:</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <input type="submit" value="가입">
+    </form>
+</body>
+</html>
+
