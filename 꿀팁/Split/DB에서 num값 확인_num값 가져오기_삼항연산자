@@ -1,0 +1,32 @@
+// 인터페이스 or Service
+boolean hasArticle(Long num);
+
+// 구현
+	@Override
+	// 게시물 번호를 매개변수로 받아서 해당 번호에 해당하는 게시물이 데이터베이스에 존재하는지 확인
+	public boolean hasArticle(Long num) {
+		// 주어진 게시물 번호를 가진 게시물을 데이터베이스에서 검색하고 그 결과를 Dto로 반환
+		// false로 조회 시 조회수를 증가시키지않게 설정
+		BoardDto dto = boardDao.selectOne(num, false);
+		if(dto == null) {
+			return false;
+		}
+		//조회 결과(Dto)가 null이 아니라면 해당 게시물이 데이터베이스에 존재하는 것을 의미
+		return true;
+	}
+
+// 실행 
+        long num = (arg[1].length() > 0) ? Long.parseLong(arg[1]) : 0;
+        
+        // 변수 num의 값이 0이 아니고, boardService의 hasArticle 메서드를 호출하여 해당 
+        // 게시물 번호(num)의 게시물이 데이터베이스에 존재하는지 여부를 확인
+        if(num != 0 && boardService.hasArticle(num)) {
+            
+            
+            
+    		boardService.cancelOne(num);
+    		
+    		System.out.println("글 삭제 완료");
+        }else {
+			System.out.println("글 번호가 오류입니다.");
+		}
