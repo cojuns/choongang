@@ -1,0 +1,121 @@
+// 스프링 설정 클래스 @Bean
+
+package config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import dao.BoardDao;
+import service.BoardServiceImpl;
+
+@Configuration
+public class AppCtx {
+	
+	@Bean
+	public BoardDao boardDao() {
+		return new BoardDao();
+	}
+	
+	
+	//@Bean // 세터방식
+//	public BoardServiceImpl boardservice() {
+//		BoardServiceImpl boardservice = new BoardServiceImpl();
+//		boardservice.setBoardDao(boardDao());
+//		return boardservice;
+//	}
+	
+	@Bean // 생성자 방식
+	public BoardServiceImpl boardservice() {
+		BoardServiceImpl boardservice = new BoardServiceImpl(boardDao());
+		return boardservice;
+	}
+	
+}
+
+
+
+
+// 구현 ( 인터페이스, ServiceImpl )
+
+package service;
+
+import java.util.ArrayList;
+
+import dao.BoardDao;
+import dao.BoardDto;
+
+public class BoardServiceImpl implements BoardService {
+	
+	// 스프링 설정 클래스에서 생성자 생성했으니 생성자 생성 필요 없음
+	BoardDao boardDao;
+	
+	
+	// 세터메서드 방식 ( 의존 객체 주입 ) 
+	public void setBoardDao(BoardDao boardDao) {
+		this.boardDao = boardDao;
+	}
+	
+	
+	
+	// 생성자방식 ( 의존 객체 주입 )
+	public BoardServiceImpl(BoardDao boardDao) {
+		super();
+		// 주입 받은 객체를 필드에 할당
+		this.boardDao = boardDao;
+	}
+
+
+
+
+	@Override
+	public ArrayList<BoardDto> findAll() {
+		return boardDao.selectList();
+	}
+
+	@Override
+	public BoardDto findOne(Long num, boolean incHits) {
+		if (incHits) {
+			boardDao.updateHits(num);
+		}
+		return boardDao.selectOne(num, incHits);
+	}
+
+	@Override
+	public void saveOne(BoardDto dto) {
+		boardDao.insertOne(dto);
+		
+	}
+
+	@Override
+	public void modifyOne(BoardDto dto) {
+		boardDao.updateOne(dto);
+		
+	}
+
+	@Override
+	public void cancelOne(Long num) {
+		boardDao.deleteOne(num);
+		
+	}
+
+
+
+	@Override
+	// 게시물 번호를 매개변수로 받아서 해당 번호에 해당하는 게시물이 데이터베이스에 존재하는지 확인
+	public boolean hasArticle(Long num) {
+		// 주어진 게시물 번호를 가진 게시물을 데이터베이스에서 검색하고 그 결과를 Dto로 반환
+		// false로 조회 시 조회수를 증가시키지않게 설정
+		BoardDto dto = boardDao.selectOne(num, false);
+		if(dto == null) {
+			return false;
+		}
+		//조회 결과(Dto)가 null이 아니라면 해당 게시물이 데이터베이스에 존재하는 것을 의미
+		return true;
+	}
+
+
+
+}
+
+
+
