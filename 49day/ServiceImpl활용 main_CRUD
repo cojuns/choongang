@@ -1,0 +1,157 @@
+package main;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.List;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import config.AppCtx;
+import dao.BoardDto;
+import service.BoardService;
+import service.BoardServiceImpl;
+
+
+public class MainForSpring {
+
+	private static ApplicationContext ctx = null;
+	
+	public static void main(String[] args) throws IOException {
+		ctx = new AnnotationConfigApplicationContext(AppCtx.class);
+		
+		BufferedReader reader = 
+				new BufferedReader(new InputStreamReader(System.in));
+		while (true) {
+			System.out.println("명령어를 입력하세요:");
+			String command = reader.readLine();
+			if (command.equalsIgnoreCase("exit")) {
+				System.out.println("종료합니다.");
+				break;
+			}
+			if (command.startsWith("new ")) {
+//				String[] aaa = command.split(" ");
+//				for(String ss : aaa) {
+//					System.out.println(ss);
+//				}
+				processNewCommand(command.split(" "));
+				continue;
+			} else if (command.startsWith("change ")) {
+				processChangeCommand(command.split(" "));
+				continue;
+			} else if (command.equals("list")) {
+				processListCommand();
+				continue;
+			} else if (command.startsWith("delete ")) {
+				processDeleteCommand(command.split(" "));
+				continue;
+			}
+			
+			printHelp();
+		}
+	}
+
+	private static void processNewCommand(String[] arg) {
+		if (arg.length != 4) {
+			printHelp();
+			return;
+		}
+		
+		BoardService boardService =
+				ctx.getBean("boardservice", BoardServiceImpl.class);
+		boardService.saveOne(new BoardDto(0L, arg[1], arg[2], arg[3], null, 0));
+		System.out.println("글 등록 완료");
+		
+
+	}
+
+	private static void processChangeCommand(String[] arg) {
+		if (arg.length != 5) {
+			printHelp();
+			return;
+			
+		}
+		
+		BoardService boardService =
+				ctx.getBean("boardservice", BoardService.class);
+		
+        long num = (arg[1].length() > 0) ? Long.parseLong(arg[1])
+                : 0;
+        if(num != 0 && boardService.hasArticle(num)) {
+            BoardDto dto = new BoardDto(num, arg[2], arg[3], arg[4], null, 0);
+            
+            
+    		boardService.modifyOne(dto);
+    		System.out.println("글 수정 완료");
+        }else {
+			System.out.println("글 번호가 오류입니다.");
+		}
+
+//		ChangePasswordService changePwdSvc = 
+//				ctx.getBean("changePwdSvc", ChangePasswordService.class);
+//		try {
+//			changePwdSvc.changePassword(arg[1], arg[2], arg[3]);
+//			System.out.println("암호를 변경했습니다.\n");
+//		} catch (MemberNotFoundException e) {
+//			System.out.println("존재하지 않는 이메일입니다.\n");
+//		} catch (WrongIdPasswordException e) {
+//			System.out.println("이메일과 암호가 일치하지 않습니다.\n");
+//		}
+	}
+
+	private static void printHelp() {
+		System.out.println();
+		System.out.println("잘못된 명령입니다. 아래 명령어 사용법을 확인하세요.");
+		System.out.println("명령어 사용법:");
+		System.out.println("new 이메일 이름 암호 암호확인");
+		System.out.println("change 이메일 현재비번 변경비번");
+		System.out.println();
+	}
+
+	private static void processListCommand() {
+		BoardService listprint =
+				ctx.getBean("boardservice", BoardService.class);
+							// "boardservice" @Bean 사용 할 메서드변수
+		List<BoardDto> list = listprint.findAll();
+		for(BoardDto dto : list) {
+			System.out.println(dto);
+		}
+		
+
+	}
+	
+	private static void processDeleteCommand(String[] arg) {
+		if (arg.length != 2) {
+			printHelp();
+			return;
+			
+		}
+		
+		BoardService boardService =
+				ctx.getBean("boardservice", BoardService.class);
+		
+		// arg 배열의 두 번째 요소(arg[1])가 비어있지 않은 경우(길이가 0보다 큰 경우), 
+		// 해당 값을 long 타입으로 변환하여 변수 num에 저장
+		// 예외적인 상황에서 비어있는 경우 0으로 초기화하여 기본값으로 사용하기 위함
+        long num = (arg[1].length() > 0) ? Long.parseLong(arg[1]) : 0;
+        
+        // 변수 num의 값이 0이 아니고, boardService의 hasArticle 메서드를 호출하여 해당 
+        // 게시물 번호(num)의 게시물이 데이터베이스에 존재하는지 여부를 확인
+        if(num != 0 && boardService.hasArticle(num)) {
+            
+            
+            
+    		boardService.cancelOne(num);
+    		
+    		System.out.println("글 삭제 완료");
+        }else {
+			System.out.println("글 번호가 오류입니다.");
+		}
+		
+
+	}
+
+	
+
+}
