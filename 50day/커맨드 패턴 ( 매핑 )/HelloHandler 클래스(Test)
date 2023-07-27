@@ -1,0 +1,30 @@
+package command;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+
+public class HelloHandler implements CommandHandler {
+
+	@Override
+	public String process(HttpServletRequest req, HttpServletResponse res) {
+		// HttpServletRequest: HTTP 프로토콜의 요청 정보를 서블릿에게 전달하기 위한 목적으로 사용
+		// HttpServletResponse: 클라이언트로 응답을 생성하기 위해 사용하는 객체
+
+
+
+
+		
+		
+		// 1. 명령어와 관련된 비지니스 로직 처리
+			// 사용자가 요청한 작업 수행
+		
+		// 2. 뷰 페이지에서 사용할 정보 저장
+		req.setAttribute("hello", "안녕하세요!");
+		
+		// 3. 뷰페이지의 URI 리턴 
+		return "/WEB-INF/view/hello.jsp";
+	}
+
+}
