@@ -1,0 +1,30 @@
+package command;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import dao.BoardDto;
+import service.BoardService;
+
+public class ViewHandler implements CommandHandler {
+	@Autowired
+	BoardService boardService;
+	@Override
+	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		
+		
+		long num = Long.parseLong(req.getParameter("num"));
+		
+		// 방법 1
+		BoardDto dto = boardService.findOne(num, true);
+		req.setAttribute("dto", dto);
+		req.setAttribute("num", num);
+		
+		// 방법 2
+//		req.setAttribute("dto", boardService.findOne(num,true));
+		return "/WEB-INF/view/view.jsp";
+	}
+
+}
