@@ -1,0 +1,24 @@
+package command;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import service.BoardService;
+
+public class ListHandler implements CommandHandler {
+	@Autowired
+	BoardService boardService;
+	@Override
+	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
+	
+		// @Autowired 설정 시 밑에 추가 안해줘도 됨
+//		BoardService boardService =
+//				ControllerUsingURI.ctx.getBean("boardservice", BoardService.class);
+			// public static ApplicationContext ctx; 호출
+		req.setAttribute("list", boardService.findAll());
+		return "/WEB-INF/view/list.jsp";
+	}
+
+}
