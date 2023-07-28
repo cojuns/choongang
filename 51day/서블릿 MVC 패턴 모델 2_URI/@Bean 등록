@@ -1,0 +1,39 @@
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import command.GitHandler;
+import command.HelloHandler;
+import command.InsertHandler;
+import command.ListHandler;
+import command.ViewHandler;
+import command.WriteHandler;
+import dao.BoardDao;
+import service.BoardServiceImpl;
+
+@Configuration
+public class AppCtx {
+	
+	@Bean
+	public BoardDao boardDao() {
+		return new BoardDao();
+	}
+    
+    @Bean // 생성자 방식
+	public BoardServiceImpl boardservice() {
+		BoardServiceImpl boardservice = new BoardServiceImpl(boardDao());
+		return boardservice;
+	}
+    
+    @Bean 
+	public ListHandler listHandler() {
+		return new ListHandler();
+	}
+	@Bean 
+	public ViewHandler viewHandler() {
+		return new ViewHandler();
+	}
+	
+	@Bean
+	public WriteHandler writeHandler() {
+		return new WriteHandler();
+	}
