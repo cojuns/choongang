@@ -1,0 +1,29 @@
+package command;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import service.BoardService;
+
+public class WriteHandler implements CommandHandler {
+	@Autowired
+	BoardService boardService;
+	
+	@Autowired
+	InsertHandler insertHandler;
+	
+	@Override
+	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		
+		req.setAttribute("action", "/insert.do");
+    	
+		
+		
+		
+		return "/WEB-INF/view/write.jsp";
+	}
+	
+	
+}
