@@ -1,0 +1,8 @@
+/hello.do=helloHandler
+/git.do=gitHandler
+/list.do=listHandler
+/view.do=viewHandler
+/write.do=writeHandler
+/insert.do=insertHandler
+/login.do=command.LoginHandler
+/welcome.do=command.LoginHandler
