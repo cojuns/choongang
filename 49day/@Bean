@@ -1,0 +1,31 @@
+package config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import dao.BoardDao;
+import service.BoardServiceImpl;
+
+@Configuration
+public class AppCtx {
+	
+	@Bean
+	public BoardDao boardDao() {
+		return new BoardDao();
+	}
+	
+	
+	//@Bean // 세터방식
+//	public BoardServiceImpl boardservice() {
+//		BoardServiceImpl boardservice = new BoardServiceImpl();
+//		boardservice.setBoardDao(boardDao());
+//		return boardservice;
+//	}
+	
+	@Bean // 생성자 방식
+	public BoardServiceImpl boardservice() {
+		BoardServiceImpl boardservice = new BoardServiceImpl(boardDao());
+		return boardservice;
+	}
+	
+}
