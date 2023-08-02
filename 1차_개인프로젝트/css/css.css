@@ -1,0 +1,186 @@
+/* 전체 HTML 문서에 적용되는 스타일 */
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: linear-gradient(#141e30, #243b55); /* 배경에 선형 그라데이션 적용 */
+}
+
+/* 로그인 박스 스타일 */
+.login-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,.5); /* 반투명한 검은색 배경 설정 */
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6); /* 그림자 효과 추가 */
+  border-radius: 10px; /* 모서리를 둥글게 만듦 */
+}
+
+/* 로그인 박스 제목 스타일 */
+.login-box h2 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #03e9f4; /* 글자 색상을 흰색으로 설정 */
+  text-align: center;
+}
+
+/* 로그인 박스 내부 요소 스타일 */
+.login-box .user-box {
+  position: relative;
+}
+
+.login-box .user-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff; /* 입력란 글자 색상을 흰색으로 설정 */
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff; /* 입력란 아래에 밑줄 생성 */
+  outline: none;
+  background: transparent; /* 입력란 배경을 투명으로 설정하여 스타일링 */
+}
+
+.login-box .user-box label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff; /* 레이블 글자 색상을 흰색으로 설정 */
+  pointer-events: none;
+  transition: .5s; /* 부드러운 트랜지션 효과 설정 */
+}
+
+/* 입력란에 포커스 또는 유효한 값이 있을 때 레이블의 스타일 변경 */
+.login-box .user-box input:focus ~ label,
+.login-box .user-box input:valid ~ label {
+  top: -20px; /* 레이블을 위로 이동하여 입력란과 겹치지 않게 함 */
+  left: 0;
+  color: #03e9f4; /* 레이블 글자 색상을 파란색으로 변경 */
+  font-size: 12px; /* 레이블 글자 크기를 작게 조정 */
+}
+
+/* 로그인 버튼 스타일 */
+.login-box form a {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  color: #03e9f4; /* 버튼 텍스트 색상을 파란색으로 설정 */
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s; /* 부드러운 트랜지션 효과 설정 */
+  margin-top: 40px;
+  letter-spacing: 4px; /* 버튼 텍스트 간격을 넓게 설정 */
+}
+
+/* 로그인 버튼에 호버(hover) 효과를 적용하기 위한 애니메이션 스타일 */
+.login-box a:hover {
+  background: #03e9f4; /* 버튼 배경 색상을 파란색으로 변경 */
+  color: #fff; /* 버튼 텍스트 색상을 흰색으로 변경 */
+  border-radius: 5px; /* 버튼 모서리를 둥글게 만듦 */
+  box-shadow: 0 0 5px #03e9f4, /* 버튼에 그림자 효과 추가 */
+              0 0 25px #03e9f4,
+              0 0 50px #03e9f4,
+              0 0 100px #03e9f4;
+}
+
+/* 로그인 버튼에 사용되는 그라데이션과 애니메이션 스타일 */
+.login-box a span {
+  position: absolute;
+  display: block;
+}
+
+.login-box a span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ffffff); /* 그라데이션 적용 */
+  animation: btn-anim1 1s linear infinite; /* 애니메이션 설정 */
+}
+
+.login-box a span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #ffffff); /* 그라데이션 적용 */
+  animation: btn-anim2 1s linear infinite;
+  animation-delay: .25s; /* 애니메이션 딜레이 설정 */
+}
+
+.login-box a span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #ffffff); /* 그라데이션 적용 */
+  animation: btn-anim3 1s linear infinite;
+  animation-delay: .5s; /* 애니메이션 딜레이 설정 */
+}
+
+.login-box a span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #ffffff); /* 그라데이션 적용 */
+  animation: btn-anim4 1s linear infinite;
+  animation-delay: .75s; /* 애니메이션 딜레이 설정 */
+}
+
+/* 로그인 버튼에 사용되는 애니메이션 효과 */
+@keyframes btn-anim1 {
+  0% {
+    left: -100%;
+  }
+  50%,100% {
+    left: 100%;
+  }
+}
+
+@keyframes btn-anim2 {
+  0% {
+    top: -100%;
+  }
+  50%,100% {
+    top: 100%;
+  }
+}
+
+@keyframes btn-anim3 {
+  0% {
+    right: -100%;
+  }
+  50%,100% {
+    right: 100%;
+  }
+}
+
+@keyframes btn-anim4 {
+  0% {
+    bottom: -100%;
+  }
+  50%,100% {
+    bottom: 100%;
+  }
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+
