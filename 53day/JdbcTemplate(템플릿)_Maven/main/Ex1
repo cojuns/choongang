@@ -1,0 +1,37 @@
+package main;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import config.DbConfig;
+import config.DbQueryConfig;
+import spring.Member;
+import spring.MemberDao;
+
+public class TestMemberDao {
+
+	public static void main(String[] args) {
+		AnnotationConfigApplicationContext ctx =
+				new AnnotationConfigApplicationContext(DbConfig.class, DbQueryConfig.class);
+		MemberDao memberDao = ctx.getBean("memberDao", MemberDao.class);
+		System.out.println(memberDao.count());
+		
+		 // 삭제
+		//memberDao.delete("test4");
+		
+		// 조회
+//		List<Member> list = memberDao.selectAll();
+//		for(Member member : list) {
+//			System.out.println(member);
+//		}
+		
+		 // 생성 
+		//memberDao.insert(new Member("test4", "111", "구마적", "sed@scd.com"));
+		
+		// 업데이트
+		Member member = new Member("test4", "222", "신마적","ewewe@dd.com");
+		memberDao.update(member);
+		
+		
+	}
+
+}
