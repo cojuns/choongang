@@ -1,4 +1,6 @@
 /* 전체 HTML 문서에 적용되는 스타일 */
+
+
 html {
   height: 100%;
 }
@@ -9,6 +11,42 @@ body {
   font-family: sans-serif;
   background: linear-gradient(#141e30, #243b55); /* 배경에 선형 그라데이션 적용 */
 }
+
+
+
+.login-box table {
+  
+  color: #03e9f4;
+  font-size: 13px;
+
+    border-spacing: 20px;
+    
+    margin-left: -40px;
+    margin-bottom: 80px;
+
+    margin-top: -50px;
+}
+
+.login-box td {
+  text-align: center;
+  color: #fff;
+
+  
+}
+
+.dates {
+  padding: 0px 20px;
+}
+
+
+
+.titles {
+  width: 300px;
+  border: 2px solid white  ;
+  padding: 0px 30px;
+}
+
+
 
 /* 로그인 박스 스타일 */
 .login-box {
