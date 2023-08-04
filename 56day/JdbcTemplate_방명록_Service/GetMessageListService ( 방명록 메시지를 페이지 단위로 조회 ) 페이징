@@ -1,0 +1,50 @@
+package guestbook.service;
+
+import java.util.Collections;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import guestbook.dao.MessageDao;
+import guestbook.model.Message;
+
+public class GetMessageListService {
+	
+	@Autowired
+	private MessageDao messageDao; 
+
+	// 한 페이지에 표시될 메시지 수
+	private static final int MESSAGE_COUNT_PER_PAGE = 3;
+
+	public MessageListView getMessageList(int pageNumber) {
+		int currentPageNumber = pageNumber; // 요청받은 페이지 번호
+
+		// 전체 메시지의 수를 가져옴
+		int messageTotalCount = messageDao.selectCount();
+
+		List<Message> messageList = null;
+		int firstRow = 0;
+		int endRow = 0;
+		if (messageTotalCount > 0) {
+			// 요청한 페이지의 첫 번째 메시지와 마지막 메시지의 인덱스를 계산
+			firstRow = (pageNumber - 1) * MESSAGE_COUNT_PER_PAGE + 1;
+			endRow = firstRow + MESSAGE_COUNT_PER_PAGE - 1;
+			// 메시지를 firstRow부터 endRow까지 조회하여 리스트로 가져옴
+			messageList = messageDao.selectList(firstRow, endRow);
+		} else {
+			// 전체 메시지가 없는 경우 (빈 리스트)
+			currentPageNumber = 0;
+			messageList = Collections.emptyList();
+		}
+
+		// 조회된 메시지 리스트와 페이징에 필요한 정보들을 MessageListView 객체로 생성하여 반환
+		return new MessageListView(
+			messageList, // 조회된 메시지 리스트
+			messageTotalCount, // 전체 메시지 수
+			currentPageNumber, // 현재 페이지 번호
+			MESSAGE_COUNT_PER_PAGE, // 한 페이지에 표시될 메시지 수
+			firstRow, // 현재 페이지의 첫 번째 메시지 인덱스
+			endRow // 현재 페이지의 마지막 메시지 인덱스
+		);
+	} 
+}
