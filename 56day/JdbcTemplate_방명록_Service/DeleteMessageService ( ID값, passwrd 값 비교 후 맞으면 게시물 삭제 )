@@ -1,0 +1,36 @@
+package guestbook.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import guestbook.dao.MessageDao;
+import guestbook.model.Message;
+
+public class DeleteMessageService {
+	
+	// 싱글톤
+//	private static DeleteMessageService instance = new DeleteMessageService();
+//
+//	public static DeleteMessageService getInstance() {
+//		return instance;
+//	}
+//
+//	private DeleteMessageService() {
+//	}
+	@Autowired
+	private MessageDao messageDao;
+
+	public void deleteMessage(int messageId, String password) {
+	
+			
+			Message message = messageDao.select(messageId);
+			if (message == null) {
+				throw new MessageNotFoundException("메시지 없음");
+			}
+			if (!message.matchPassword(password)) {
+				throw new InvalidPassowrdException("bad password");
+			}
+			messageDao.delete1(messageId);
+			
+
+	}
+}
