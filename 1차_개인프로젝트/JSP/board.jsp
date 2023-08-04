@@ -20,23 +20,24 @@
   
   <form>
   
-    <table>
+    <table class= "tables">
     <tr>
         <th >NUM    </th>
-        <th >TITLE</th>
+        <th class="titles">TITLE</th>
         <th >NAME  </th>
-        <th >DATE</th>
+        <th class="dates">DATE</th>
         <th >HITS  </th>
     </tr>
 
     <tr>
-<td>1</td>
-<td>제목1</td>
-<td>홍길동</td>
-<td>2023-11-02</td>
-<td>3</td>
-
+      <td>1</td>
+      <td>제목입니다.</td>
+      <td>홍길동</td>
+      <td>2023-11-02</td>
+      <td>3</td>
     </tr>
+
+    
 
 </table>
 
