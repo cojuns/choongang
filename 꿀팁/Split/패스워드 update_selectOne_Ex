@@ -1,0 +1,40 @@
+	private Member makeMemberFromResultSet(ResultSet rs) throws SQLException {
+		Member member = new Member();
+		member.setId(rs.getString("memberid"));
+		member.setName(rs.getString("name"));
+		member.setPassword(rs.getString("password"));
+		member.setRegDate(rs.getDate("regdate"));
+		
+		return member;
+
+	}
+
+// 위에 코드로 인해 반복문 안해도됨 ( 람다식 ) 
+	public Member selectById(String memberid) {
+		String sql = "select * from member where memberid = ?";
+		return jdbcTemplate.queryForObject(sql, 
+				(ResultSet rs, int rowNum) -> {
+					return makeMemberFromResultSet(rs);
+				}, memberid);
+	}
+
+// JDBCTemplate 사용 
+	public void updatePassword(Member member) {
+		String sql = "update member set name=?, password=?, regdate=? where memberid =?";
+		jdbcTemplate.update(sql,
+				member.getName(),
+				member.getPassword(),
+				member.getRegDate(),
+				member.getId()
+				);
+	}
+
+// 테스트 실행
+      Member selectId = memberDao.selectById("test"); // 위에 selectById메서드로 아이디 값 가져옴
+      if (selectId != null) {
+    	  selectId.setPassword("111"); // 새로운 비밀번호로 업데이트
+          memberDao.updatePassword(selectId);
+          System.out.println("Password updated successfully.");
+      } else {
+          System.out.println("Member not found.");
+      }
