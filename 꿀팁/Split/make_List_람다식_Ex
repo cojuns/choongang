@@ -1,0 +1,14 @@
+	public List<Member> selectList(){
+		String sql = "select * from member";
+		
+		List<Member> result = jdbcTemplate.query(sql, (ResultSet rs, int rowNum) -> {
+			return makeMemberFromResultSet(rs);
+		});
+		return result;
+	}
+
+    // 실행
+      List<Member> list = memberDao.selectList();
+      for (Member mem : list ) {
+    	  System.out.println(mem);
+      }
