@@ -1,0 +1,39 @@
+package config;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import member.dao.MemberDao;
+
+
+
+public class CountEx {
+
+   public static void main(String[] args) {
+      AnnotationConfigApplicationContext ctx =
+            new AnnotationConfigApplicationContext(AppCtx.class);
+      MemberDao memberDao 
+              = ctx.getBean("memberDao", MemberDao.class);
+
+      
+//      memberDao.insert1(new Member("test3", "김두한", "333", null));
+//     System.out.println(memberDao.selectById("test")); 
+      
+//      Member selectId = memberDao.selectById("test");
+//      if (selectId != null) {
+//    	  selectId.setPassword("111"); // 새로운 비밀번호로 업데이트
+//          memberDao.updatePassword(selectId);
+//          System.out.println("Password updated successfully.");
+//      } else {
+//          System.out.println("Member not found.");
+//      }
+      
+//      List<Member> list = memberDao.selectList();
+//      for (Member mem : list ) {
+//    	  System.out.println(mem);
+//      }
+      
+      	memberDao.delete("test3");
+      
+   }
+
+}
