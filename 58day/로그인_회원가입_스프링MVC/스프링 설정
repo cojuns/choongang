@@ -1,0 +1,76 @@
+package config;
+
+import org.apache.tomcat.jdbc.pool.DataSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import auth.service.LoginService;
+import cotroller.LogController;
+import cotroller.MyController;
+import member.dao.MemberDao;
+import member.service.ChangePasswordService;
+import member.service.JoinService;
+
+@Configuration
+@EnableTransactionManagement
+public class ControllerConfig {
+	
+	@Bean(destroyMethod = "close") // 빈이 소멸될 때 커넥션 풀을 닫도록 설정
+	public DataSource dataSource() {
+		
+		DataSource ds = new DataSource();
+		ds.setDriverClassName("com.mysql.jdbc.Driver");
+		ds.setUrl("jdbc:mysql://localhost:3306/board?"
+				+"useSSL=true&useUnicode=true&characterEncoding=utf8");
+		ds.setUsername("jspexam");
+		ds.setPassword("jsppw");
+		ds.setInitialSize(2); // 초기 커넥션 개수 지정
+		ds.setMaxActive(10); // 최대 커넥션 개수 지정
+		
+		return ds;
+		
+	}
+	
+	@Bean
+	public MemberDao memberDao() {
+		return new MemberDao(dataSource());
+	}
+	
+	@Bean
+	public MyController myController() {
+		return new MyController();
+		
+	}
+	
+	@Bean
+	public LoginService loginservice() {
+		return new LoginService();
+	}
+	
+	@Bean
+	public ChangePasswordService changePasswordService() {
+		
+		return new ChangePasswordService();
+	}
+	
+	@Bean
+	public PlatformTransactionManager transactionManager() {
+		DataSourceTransactionManager tm = new DataSourceTransactionManager();
+		tm.setDataSource(dataSource());
+		return tm;
+	}
+	
+	@Bean
+	public LogController logController() {
+		return new LogController();
+	}
+	
+	@Bean
+	public JoinService joinService() {
+		return new JoinService();
+	}
+	
+}
