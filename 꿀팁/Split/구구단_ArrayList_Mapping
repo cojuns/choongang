@@ -1,0 +1,13 @@
+	public String result(Model model, @RequestParam String dan) {
+		List<String> list = new ArrayList<>();
+		int num = Integer.parseInt(dan);
+		for(int i=1; i <=9; i++) {
+
+			String res = String.format("%d X %d = %d", i, num, i*num);
+			list.add(res);
+		}
+
+		
+		model.addAttribute("list", list);
+		return "result";
+	}
