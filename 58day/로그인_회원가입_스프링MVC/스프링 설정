@@ -39,11 +39,6 @@ public class ControllerConfig {
 		return new MemberDao(dataSource());
 	}
 	
-	@Bean
-	public MyController myController() {
-		return new MyController();
-		
-	}
 	
 	@Bean
 	public LoginService loginservice() {
