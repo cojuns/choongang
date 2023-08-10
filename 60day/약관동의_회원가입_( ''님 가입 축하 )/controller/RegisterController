@@ -1,0 +1,77 @@
+package controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import spring.DuplicateMemberException;
+import spring.MemberRegisterService;
+import spring.RegisterRequest;
+
+@Controller
+public class RegisterController {
+	
+	@Autowired
+	private MemberRegisterService memberRegisterService;
+	
+	@GetMapping("/register/step1")
+	public String handleStep1() {
+		return "register/step1";
+	}
+	
+	// 1번째 방법 HttpServletRequest 방식
+//	@PostMapping("register/step2")
+//	public String handleStep2(HttpServletRequest request) {
+//		String agreepParam = request.getParameter("agree");
+//		System.out.println(agreepParam);
+//		if(agreepParam == null || !agreepParam.equals("true")) {
+//			return "register/step1";
+//		}
+//		return "register/step2";
+//	}
+	
+	// 2번째 방법 @RequestParam 방식 ( 해당 방식 많이 이용 ) 
+	@PostMapping("/register/step2")
+	public String handleStep2(@RequestParam(value = "agree",// name 속성 안써도 됨 
+											defaultValue = "false") Boolean agree) {
+		
+		System.out.println(agree);
+		if(!agree) {
+			return "register/step1";
+		}
+		return "register/step2";
+	}
+	
+	// 3번째 방법 required = true 
+//	@PostMapping("/register/step2")
+//	public String handleStep2(@RequestParam(required = true,defaultValue = "false" 
+//											) Boolean agree) {
+//		
+//		System.out.println(agree);
+//		if(!agree) {
+//			return "register/step1";
+//		}
+//		return "register/step2";
+//	}
+	
+	
+	@GetMapping("/register/step2")
+	public String handleStep2Get() {
+		return "redirect:/register/ster1";
+	}
+	
+	@PostMapping("/register/step3")
+	public String handleStep3(RegisterRequest registerRequest) {
+		try {
+			memberRegisterService.regist(registerRequest);
+			return "register/step3";
+		}catch(DuplicateMemberException e) {
+			return "register/step2";
+		}
+		
+		
+		
+	}
+}
