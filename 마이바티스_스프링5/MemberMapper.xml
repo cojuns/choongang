@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mybatis.dao.MemberDAO">
+    <select id="selectCount" resultType="_int">
+        SELECT count(*)
+        FROM member
+    </select>
+    
+    <select id="selectList" resultType="member.model.Member">
+        SELECT *
+        FROM member
+    </select>
+    
+    <select id="selectById" parameterType="string" resultType="member.model.Member">
+    	SELECT * FROM MEMBER WHERE MEMBERID = #{PARAM1}
+    </select>
+    
+    <update id="updateArtilce">
+    	update article set title = #{param1}, moddate = now()
+				where article_no = #{param2}
+    
+    </update>
+    
+    <insert id="insertArtCont" parameterType="article.model.ArticleContent">
+    insert into article_content(article_no, content) values(#{artCon.number}, #{artCon.content});
+
+    </insert>
+    
+    <insert id="insertArticle" parameterType="article.model.Article"
+    									useGeneratedKeys="true" keyProperty="number">
+    	insert into article(writer_id, writer_name, title, regdate, moddate, read_cnt)
+			values (#{art.writer.id},#{art.writer.name},#{art.title},now(),now(),0)
+    
+    </insert>
+    
+</mapper>
