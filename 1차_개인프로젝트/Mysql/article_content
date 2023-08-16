@@ -1,0 +1,4 @@
+create table board.article_content (
+    article_no int primary key,
+    content text
+) engine=InnoDB default character set = utf8;
