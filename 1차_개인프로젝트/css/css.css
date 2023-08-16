@@ -1,4 +1,14 @@
-/* 전체 HTML 문서에 적용되는 스타일 */
+* {
+	font-family: 'Jua', sans-serif;
+}
+
+
+h4 {
+	color: red;
+	
+
+	
+}
 
 
 html {
@@ -93,7 +103,7 @@ body {
   left: 0;
   padding: 10px 0;
   font-size: 16px;
-  color: #fff; /* 레이블 글자 색상을 흰색으로 설정 */
+  color: #03e9f4; /* 레이블 글자 색상을 흰색으로 설정 */
   pointer-events: none;
   transition: .5s; /* 부드러운 트랜지션 효과 설정 */
 }
@@ -122,6 +132,29 @@ body {
   letter-spacing: 4px; /* 버튼 텍스트 간격을 넓게 설정 */
 }
 
+.buttonS {
+	  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  color: #03e9f4; /* 버튼 텍스트 색상을 파란색으로 설정 */
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s; /* 부드러운 트랜지션 효과 설정 */
+  margin-top: 40px;
+  letter-spacing: 4px; /* 버튼 텍스트 간격을 넓게 설정 */
+   background: transparent;
+    border: none;
+  
+}
+
+
+
+
+
+
+
 /* 로그인 버튼에 호버(hover) 효과를 적용하기 위한 애니메이션 스타일 */
 .login-box a:hover {
   background: #03e9f4; /* 버튼 배경 색상을 파란색으로 변경 */
@@ -133,11 +166,34 @@ body {
               0 0 100px #03e9f4;
 }
 
+.buttonS:hover {
+	  background: #03e9f4; /* 버튼 배경 색상을 파란색으로 변경 */
+  color: #fff; /* 버튼 텍스트 색상을 흰색으로 변경 */
+  border-radius: 5px; /* 버튼 모서리를 둥글게 만듦 */
+  box-shadow: 0 0 5px #03e9f4, /* 버튼에 그림자 효과 추가 */
+              0 0 25px #03e9f4,
+              0 0 50px #03e9f4,
+              0 0 100px #03e9f4;
+	
+}
+
+
+
+
+
 /* 로그인 버튼에 사용되는 그라데이션과 애니메이션 스타일 */
 .login-box a span {
   position: absolute;
   display: block;
 }
+
+.buttonS span {
+	  position: absolute;
+  display: block;
+}
+
+
+
 
 .login-box a span:nth-child(1) {
   top: 0;
@@ -148,7 +204,27 @@ body {
   animation: btn-anim1 1s linear infinite; /* 애니메이션 설정 */
 }
 
+.buttonS span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ffffff); /* 그라데이션 적용 */
+  animation: btn-anim1 1s linear infinite; /* 애니메이션 설정 */
+}
+
+
 .login-box a span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #ffffff); /* 그라데이션 적용 */
+  animation: btn-anim2 1s linear infinite;
+  animation-delay: .25s; /* 애니메이션 딜레이 설정 */
+}
+
+.buttonS span:nth-child(2) {
   top: -100%;
   right: 0;
   width: 2px;
@@ -168,7 +244,28 @@ body {
   animation-delay: .5s; /* 애니메이션 딜레이 설정 */
 }
 
+.buttonS span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #ffffff); /* 그라데이션 적용 */
+  animation: btn-anim3 1s linear infinite;
+  animation-delay: .5s; /* 애니메이션 딜레이 설정 */
+}
+
+
 .login-box a span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #ffffff); /* 그라데이션 적용 */
+  animation: btn-anim4 1s linear infinite;
+  animation-delay: .75s; /* 애니메이션 딜레이 설정 */
+}
+
+.buttonS span:nth-child(4) {
   bottom: -100%;
   left: 0;
   width: 2px;
@@ -220,5 +317,3 @@ body {
   justify-content: space-between;
   margin-top: 20px;
 }
-
-
