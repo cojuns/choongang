@@ -4,6 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/css.css">
 <title>회원제 게시판 예제</title>
 </head>
@@ -41,15 +45,18 @@
       <span></span>
       암호변경
     </a>
-    </div>
-    
-     <a href="article/list.do">
+
+	     <a href="article/list.do">
       <span></span>
       <span></span>
       <span></span>
       <span></span>
       게시판
     </a>
+	
+    </div>
+    
+
     </div>
     
     
