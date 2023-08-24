@@ -1,0 +1,54 @@
+package controller;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
+
+import spring.RegisterRequest;
+
+public class RegisterRequestValidator implements Validator {
+	
+	private static final String emailRegExp = 
+			"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" +
+					"[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+	private Pattern pattern;
+	
+	public RegisterRequestValidator() {
+		pattern = Pattern.compile(emailRegExp);
+	}
+	
+	@Override
+	public boolean supports(Class<?> clazz) {
+		     // 대상이 되는 커맨드 객체
+		return RegisterRequest.class.isAssignableFrom(clazz);
+	}
+
+	@Override
+	public void validate(Object target, Errors errors) {
+		RegisterRequest regReq = (RegisterRequest) target;
+        // 이메일 프로퍼티 값 유효하지 확인 
+		if(regReq.getEmail() == null  || regReq.getEmail().trim().isEmpty()) {
+			errors.rejectValue("email", "required");// 에러 코드 추가
+		}else {// 정규표현시을 이용해서 이메일이 올바른지 확인
+			Matcher matcher = pattern.matcher(regReq.getEmail());
+			if(!matcher.matches()) {
+				errors.rejectValue("email", "bad");// 에러 코드 추가 
+			}
+		}
+        // ValidationUtils 클래스 활용 
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "required");
+		ValidationUtils.rejectIfEmpty(errors, "password", "required");
+		ValidationUtils.rejectIfEmpty(errors, "confirmPassword", "required");
+		if(!regReq.getPassword().isEmpty()) {
+			if(!regReq.isPasswordEqualToConfirmPassword()) {
+				errors.rejectValue("confirmPassword", "nomatch");
+			}
+		}
+		
+		
+	}
+
+}
