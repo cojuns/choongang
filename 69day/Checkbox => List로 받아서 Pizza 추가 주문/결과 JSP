@@ -1,0 +1,26 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>주문 결과</title>
+</head>
+<body>
+    <div>
+        <h2>주문이 완료되었습니다!</h2>
+        <p>총 주문 가격: ${total} </p>
+
+        <h3>선택한 추가 주문 내역:</h3>
+        <ul>
+            <c:forEach items="${plist.plist}" var="addOn">
+                <c:if test="${not empty addOn.addorder}">
+                    <li>${addOn.addorder}</li>
+                </c:if>
+            </c:forEach>
+        </ul>
+    </div>
+</body>
+</html>
