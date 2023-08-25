@@ -1,0 +1,47 @@
+package controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import lombok.extern.slf4j.Slf4j;
+import spring.Pizza;
+
+@Controller
+@RequestMapping("/order")
+@Slf4j
+public class OrderController {
+	
+	@GetMapping
+	public String order(Model model) {
+		model.addAttribute("plist", new Pizza());
+		
+
+		
+		return "order/pizzaOrder";
+	}
+	
+	@PostMapping
+	public String result(Model model, @ModelAttribute("plist") Pizza pizza) {
+	    List<String> selectedAddOns = new ArrayList<>();
+	    
+	    
+	    if (pizza.getSelectedAddOns() != null) {
+	        for (String addOn : pizza.getSelectedAddOns()) {
+	            selectedAddOns.add(addOn);
+	        }
+	    }
+
+	    pizza.setSelectedAddOns(selectedAddOns);
+	    model.addAttribute("total", pizza.getTotal());
+
+	    return "order/result";
+	}
+
+}
