@@ -1,0 +1,74 @@
+@Controller
+public class RegisterController {
+	
+
+	
+	private MemberRegisterService memberRegisterService;
+	
+	public void setMemberRegisterService(MemberRegisterService memberRegisterService) {
+		this.memberRegisterService = memberRegisterService;
+	}
+	
+	@PostMapping("/register/step3")
+	public String handleStep3(RegisterRequest regReq) {
+		try {
+			memberRegisterService.regist(regReq);
+			return "register/step3";
+		}catch(DuplicateMemberException ex) {
+			return "register/step2";
+		}
+		
+
+	}
+
+
+@Configuration
+public class ControllerConfig {
+	
+	@Autowired
+	private MemberRegisterService memberRegisterService;
+	
+	@Bean
+	public RegisterController registerController() {
+		RegisterController controller = new RegisterController();
+		controller.setMemberRegisterService(memberRegisterService);
+		return controller;
+	}
+
+//JSP
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원 가입</title>
+</head>
+<body>
+<h2>회원 정보 입력</h2> <!-- 커맨드객체 -->
+<form:form action="step3" modelAttribute="registerRequest">
+<p>
+<label>이메일:<br/> <!-- 이미 있는 이메일이면 다시 폼을 보여줄 때 기존에 입력한 이메일, 이름이 폼에 채워짐 -->
+<form:input path="email"/>
+</label>
+</p>
+<p>
+<label>이름:<br/>
+<form:input path="name"/>
+</label>
+</p>
+<p>
+<label>비밀번호:<br/>
+<form:password path="password"/>
+</label>
+<p>
+<label>비밀번호 확인:<br/>
+<form:password path="confirmPassword"/>
+</label>
+</p>
+<input type="submit" value="가입 완료">
+</form:form>
+</body>
+</html>
