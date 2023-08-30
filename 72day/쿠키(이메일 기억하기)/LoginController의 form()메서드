@@ -1,0 +1,12 @@
+    @GetMapping
+    public String form(LoginCommand loginCommand,
+    		@CookieValue(value = "REMEMBER", required = false) Cookie rCookie) { // 이 부분! LoginCommand loginCommand
+    	//model.addAttribute("loginCommand", new LoginCommand());
+    	if(rCookie != null) {
+    		loginCommand.setEmail(rCookie.getValue());
+    		loginCommand.setRememberEmail(true);
+    	}
+    	
+    	
+    	return "login/loginForm";
+    }
