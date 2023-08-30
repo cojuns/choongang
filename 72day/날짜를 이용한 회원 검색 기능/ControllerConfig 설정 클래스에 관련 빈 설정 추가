@@ -1,0 +1,14 @@
+@Configuration
+public class ControllerConfig {
+	
+	@Autowired
+	private MemberDao memberDao;
+    
+    	@Bean
+	public MemberListController memberListController() {
+		MemberListController controller = new MemberListController();
+		controller.setMemberDao(memberDao);
+		return controller;
+	}
+    
+    }
