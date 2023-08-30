@@ -1,0 +1,20 @@
+@Configuration
+@EnableWebMvc
+public class MvcConfig implements WebMvcConfigurer {
+	
+	
+	
+	
+	
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		
+		registry.addInterceptor(authCheckInterceptor()).addPathPatterns("/edit/**")
+														.excludePathPatterns("/edit/help/**");
+		
+	}
+	
+	@Bean
+	public AuthCheckInterceptor authCheckInterceptor() {
+		return new AuthCheckInterceptor();
+	}
