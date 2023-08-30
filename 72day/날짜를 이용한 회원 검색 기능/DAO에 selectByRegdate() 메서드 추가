@@ -1,0 +1,24 @@
+	public class MemberDao {
+
+	private JdbcTemplate jdbcTemplate;
+
+	public MemberDao(DataSource dataSource) {
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+	}
+    
+    public List<Member> selectByRegdate(LocalDateTime from, LocalDateTime to){
+		List<Member> result = jdbcTemplate.query("select * from MEMBER where REGDATE between ? and ? order by REGDATE desc",
+				(rs, n) -> {
+					Member member = new Member(
+							rs.getString("EMAIL"),
+							rs.getString("PASSWORD"),
+							rs.getString("NAME"),
+							rs.getTimestamp("REGDATE").toLocalDateTime());
+					member.setId(rs.getLong("ID"));
+					return member;
+					
+					
+				}, from, to);
+		return result;
+	}
+    }
