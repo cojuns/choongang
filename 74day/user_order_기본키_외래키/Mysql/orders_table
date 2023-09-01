@@ -1,0 +1,8 @@
+CREATE TABLE `orders` (
+  `orderid` int NOT NULL AUTO_INCREMENT,
+  `orderdate` date DEFAULT NULL,
+  `userid` int DEFAULT NULL,
+  PRIMARY KEY (`orderid`),
+  KEY `userid` (`userid`),
+  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
