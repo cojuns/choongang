@@ -1,0 +1,36 @@
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/employees")
+public class EmployeeController {
+    private final EmployeeDao employeeDao;
+    private final DepartmentDao departmentDao;
+
+    @Autowired
+    public EmployeeController(EmployeeDao employeeDao, DepartmentDao departmentDao) {
+        this.employeeDao = employeeDao;
+        this.departmentDao = departmentDao;
+    }
+
+    @GetMapping("/list")
+    public List<Employee> getAllEmployees() {
+        return employeeDao.getAllEmployees();
+    }
+
+    @PostMapping("/create")
+    public void createEmployee(@RequestParam String employeeName, @RequestParam String departmentName) {
+        Department department = departmentDao.getDepartmentByName(departmentName);
+        if (department == null) {
+            throw new IllegalArgumentException("부서를 찾을 수 없습니다: " + departmentName);
+        }
+
+        Employee employee = new Employee();
+        employee.setEmployeeName(employeeName);
+        employee.setDepartment(department);
+
+        employeeDao.createEmployee(employee);
+    }
+}
