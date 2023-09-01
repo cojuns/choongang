@@ -1,0 +1,44 @@
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public class EmployeeDao {
+    private final JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public EmployeeDao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    public List<Employee> getAllEmployees() {
+        String sql = "SELECT * FROM Employee";
+        return jdbcTemplate.query(sql, new EmployeeRowMapper());
+    }
+
+    public void createEmployee(Employee employee) {
+        String sql = "INSERT INTO Employee (employeeName, department_id) VALUES (?, ?)";
+        jdbcTemplate.update(sql, employee.getEmployeeName(), employee.getDepartment().getId());
+    }
+}
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class DepartmentDao {
+    private final JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public DepartmentDao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    public Department getDepartmentByName(String departmentName) {
+        String sql = "SELECT * FROM Department WHERE departmentName = ?";
+        return jdbcTemplate.queryForObject(sql, new DepartmentRowMapper(), departmentName);
+    }
+}
