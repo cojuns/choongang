@@ -1,0 +1,8 @@
+@Getter
+@Setter
+public class Department {
+    private Long id;
+    private String departmentName;
+
+    
+}
