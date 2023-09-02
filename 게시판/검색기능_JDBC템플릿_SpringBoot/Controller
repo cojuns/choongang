@@ -1,0 +1,13 @@
+@Controller
+@RequestMapping("/posts")
+public class PostController {
+    @Autowired
+    private PostJdbcDAO postJdbcDAO;
+
+    @GetMapping("/search")
+    public String searchPosts(@RequestParam("keyword") String keyword, Model model) {
+        List<Post> searchResults = postJdbcDAO.searchPosts(keyword);
+        model.addAttribute("searchResults", searchResults);
+        return "search_results"; // 검색 결과를 보여줄 JSP 페이지 이름
+    }
+}
