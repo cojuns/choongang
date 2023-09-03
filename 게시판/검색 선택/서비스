@@ -1,0 +1,29 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class ItemService {
+    private List<Item> itemList = new ArrayList<>();
+    private Long currentId = 1L;
+
+    public List<Item> searchItems(String keyword) {
+        return itemList.stream()
+                      .filter(item -> item.getName().contains(keyword))
+                      .collect(Collectors.toList());
+    }
+
+    public void addItem(Item item) {
+        item.setId(currentId++);
+        itemList.add(item);
+    }
+
+    public Item getItemById(Long id) {
+        return itemList.stream()
+                      .filter(item -> item.getId().equals(id))
+                      .findFirst()
+                      .orElse(null);
+    }
+}
