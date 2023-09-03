@@ -1,0 +1,40 @@
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+@Controller
+@RequestMapping("/items")
+public class ItemController {
+    @Autowired
+    private ItemService itemService;
+
+    @GetMapping("/search")
+    public String searchItems(@RequestParam("keyword") String keyword, Model model) {
+        List<Item> searchResults = itemService.searchItems(keyword);
+        model.addAttribute("items", searchResults);
+        return "item/search-results";
+    }
+
+    @GetMapping("/{id}")
+    public String viewItemDetails(@PathVariable("id") Long id, Model model) {
+        Item item = itemService.getItemById(id);
+        if (item == null) {
+            return "redirect:/items/search";
+        }
+        model.addAttribute("item", item);
+        return "item/item-details";
+    }
+
+    @GetMapping("/add")
+    public String addItemForm(Model model) {
+        model.addAttribute("item", new Item());
+        return "item/add-item";
+    }
+
+    @PostMapping("/add")
+    public String addItem(@ModelAttribute("item") Item item) {
+        itemService.addItem(item);
+        return "redirect:/items/search";
+    }
+}
