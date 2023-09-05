@@ -1,0 +1,66 @@
+package com.study.springboot.spring;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.sql.Types;
+import java.util.List;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
+
+import lombok.RequiredArgsConstructor;
+
+
+@Repository
+public class MemberDao {
+
+
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+
+	
+	
+	
+	public void insertMember(Member member) {
+	    KeyHolder keyHolder = new GeneratedKeyHolder();
+	    jdbcTemplate.update(new PreparedStatementCreator() {
+	        @Override
+	        public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+	            // 파라미터로 전달받은 Connection을 이용해서 PreparedStatement 생성
+	            PreparedStatement pstmt = con.prepareStatement(
+	                    "INSERT INTO member (name, password, phone, job, deptno) " +
+	                            "VALUES (?, ?, ?, ?, ?)",
+	                    new String[]{"mno"}); // 자동 생성된 mno 값을 얻기 위해 컬럼명을 지정
+
+	            // 인덱스 파라미터 값 설정
+	            pstmt.setString(1, member.getName());
+	            pstmt.setString(2, member.getPassword());
+	            pstmt.setString(3, member.getPhone());
+	       
+	            pstmt.setString(4, member.getJob());
+	            
+	            if (member.getDeptno() != null) {
+	                pstmt.setInt(5, member.getDeptno());
+	            } else {
+	                pstmt.setNull(5, Types.INTEGER);
+	            }
+
+	            // 생성한 PreparedStatement 객체 리턴
+	            return pstmt;
+	        }
+	    }, keyHolder);
+
+	    Number generatedMno = keyHolder.getKey();
+	    member.setMno((long) generatedMno.intValue());
+	}
+}
