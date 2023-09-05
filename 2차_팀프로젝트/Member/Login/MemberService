@@ -1,0 +1,26 @@
+package com.study.springboot.spring;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class MemberService {
+
+	@Autowired
+	private MemberDao memberDao;
+
+
+	public MemberInfo authenticate(Long mno, String password) {
+		Member member = memberDao.selectByMno(mno);
+		if (member == null) {
+			throw new WrongIdPasswordException();
+		}
+		if (!member.matchPassword(password)) {
+			throw new WrongIdPasswordException();
+		}
+		return new MemberInfo(member.getMno(),
+
+				member.getName(), member.getPhone(), member.getJob(), member.getDeptno());
+	}
+
+}
