@@ -10,17 +10,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.study.springboot.spring.Member;
 import com.study.springboot.spring.MemberDao;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
 @RequestMapping("/joinForm")
+@Slf4j
 public class JoinController {
 	
     @Autowired
     private MemberDao memberDao;
-
+    
+    
+    
     @GetMapping
     public String showRegisterForm(Model model) {
-        model.addAttribute("member", new Member());
+    	
+    	Member member = new Member();
+    	
+    	Long nextMno = (long) memberDao.getNextMno();
+    	member.setMno(nextMno);
+    	
+    	
+        model.addAttribute("member", member);
         return "/login/joinForm"; // 회원 등록 폼을 표시할 뷰 페이지의 이름
+    
+    
     }
 
     @PostMapping
