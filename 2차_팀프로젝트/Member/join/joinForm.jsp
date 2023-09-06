@@ -10,31 +10,36 @@
 <body>
 <h2>회원 정보 입력</h2>
 <form:form action="" method="post" modelAttribute="member" id="joinForm">
-<p>
-<label>사번:<br/> 
-<form:input path="mno"/> <!-- 다음 사번 자동으로 가져오기 -->
-</label>
-</p>
+
 <p>
 <label>이름:<br/>
 <form:input path="name"/>
 </label>
 </p>
+
 <p>
 <label>핸드폰:<br/> 
 <form:input path="phone" id="phone"/>
 </label>
 </p>
+
 <p>
 <label>비밀번호:<br/>
-<form:input path="password" id="password" />
+<form:input style="border:none" path="password" id="password" readonly="true" />
 </label>
 </p>
 
 <p>
-        <label for="job">부서 선택:</label>
+<label>사번:<br/> 
+<form:input style="border:none" path="mno" readonly="true"/> <!-- 다음 사번 자동으로 가져오기 -->
+</label>
+</p>
+
+<p>
+        <label for="job">직위 선택:</label>
         <form:select path="job" id="job">
             <form:option value="사원">사원</form:option>
+            <form:option value="주임">주임</form:option>
             <form:option value="대리">대리</form:option>
             <form:option value="과장">과장</form:option>
             <form:option value="부장">부장</form:option>
