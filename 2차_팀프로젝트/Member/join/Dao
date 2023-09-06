@@ -63,4 +63,13 @@ public class MemberDao {
 	    Number generatedMno = keyHolder.getKey();
 	    member.setMno((long) generatedMno.intValue());
 	}
+
+
+		// 다음 사번 가져오기
+	public int getNextMno() {
+		String sql = "SELECT MAX(mno)+ 1 FROM member";
+        Integer nextMno = jdbcTemplate.queryForObject(sql, Integer.class);
+        return nextMno;
+	
+	}
 }
