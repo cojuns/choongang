@@ -1,0 +1,87 @@
+	// 사원 목록 출력
+	public List<Member> listAll(int page, int size) {
+	    int offset = (page - 1) * size;
+	    String sql = "SELECT m.mno, m.name, m.phone, m.hiredate, m.job, d.dname, d.loc " +
+	                 "FROM member m " +
+	                 "LEFT JOIN department d ON m.deptno = d.deptno " +
+	                 "LIMIT ?, ?";
+
+	    return jdbcTemplate.query(
+	        new PreparedStatementCreator() {
+	            @Override
+	            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+	                PreparedStatement ps = con.prepareStatement(sql);
+	                ps.setInt(1, offset);
+	                ps.setInt(2, size);
+	                return ps;
+	            }
+	        },
+	        new RowMapper<Member>() {
+	            @Override
+	            public Member mapRow(ResultSet rs, int rowNum) throws SQLException {
+	                Member member = new Member();
+	                member.setMno((long) rs.getInt("mno"));
+	                member.setName(rs.getString("name"));
+	                member.setPhone(rs.getString("phone"));
+
+	                // hiredate 컬럼을 LocalDateTime으로 변환
+	                Timestamp hiredateTimestamp = rs.getTimestamp("hiredate");
+	                member.setHiredate(hiredateTimestamp != null ? hiredateTimestamp.toLocalDateTime() : null);
+
+	                member.setJob(rs.getString("job"));
+
+	                member.setDname(rs.getString("dname"));
+	                member.setLoc(rs.getString("loc"));
+
+	                return member;
+	            }
+	        });
+	}
+	// 페이징 기능에 사용
+	public int getTotalMemberCount() {
+	    String sql = "SELECT COUNT(*) FROM member";
+	    return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
+	
+
+
+	// 검색
+	public List<Member> searchMembers(String type, String keyword) {
+	    // 검색 쿼리 작성 (예: 이름으로 검색)
+	    String sql = "SELECT m.mno, m.name, m.phone, m.hiredate, m.job, d.dname, d.loc " +
+	                 "FROM member m " +
+	                 "LEFT JOIN department d ON m.deptno = d.deptno " +
+	                 "WHERE " + type + " LIKE ?";
+
+	    String likeKeyword = "%" + keyword + "%";
+
+	    return jdbcTemplate.query(
+	        new PreparedStatementCreator() {
+	            @Override
+	            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+	                PreparedStatement ps = con.prepareStatement(sql);
+	                ps.setString(1, likeKeyword);
+	                return ps;
+	            }
+	        },
+	        new RowMapper<Member>() {
+	            @Override
+	            public Member mapRow(ResultSet rs, int rowNum) throws SQLException {
+	                Member member = new Member();
+	                member.setMno((long) rs.getInt("mno"));
+	                member.setName(rs.getString("name"));
+	                member.setPhone(rs.getString("phone"));
+
+	                // hiredate 컬럼을 LocalDateTime으로 변환
+	                Timestamp hiredateTimestamp = rs.getTimestamp("hiredate");
+	                member.setHiredate(hiredateTimestamp != null ? hiredateTimestamp.toLocalDateTime() : null);
+
+	                member.setJob(rs.getString("job"));
+
+	                member.setDname(rs.getString("dname"));
+	                member.setLoc(rs.getString("loc"));
+
+	                return member;
+	            }
+	        });
+	}
