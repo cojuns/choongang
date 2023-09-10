@@ -1,0 +1,28 @@
+package com.study.springboot.board.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+public class Board {
+
+	private int bno;
+	private int mno;
+	private String title;
+	private String content;
+	private String date;
+	
+	
+	public Board(int mno, String title, String content) {
+		super();
+		this.mno = mno;
+		this.title = title;
+		this.content = content;
+	}
+}
