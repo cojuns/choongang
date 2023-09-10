@@ -1,0 +1,24 @@
+package com.study.springboot.board.dao;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import com.study.springboot.board.model.ReplyCommand;
+
+@Repository
+public class ReplyDao {
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+
+	public String replyInsert(ReplyCommand reply) {
+		
+		String sql = "insert into comment(bno,content,date) values (?, ? ,now())";
+		
+		jdbcTemplate.update(sql,reply.getBno(),reply.getContent());
+		
+		return "success";
+		
+	}
+
+}
