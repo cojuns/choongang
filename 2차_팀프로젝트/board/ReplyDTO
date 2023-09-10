@@ -1,0 +1,27 @@
+package com.study.springboot.board.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+
+public class Reply {
+
+	private int reno;
+	private int bno;
+	private String content;
+	private String date;
+	public Reply(int bno, String content) {
+		super();
+		this.bno = bno;
+		this.content = content;
+	}
+
+}
