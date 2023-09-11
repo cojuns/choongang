@@ -1,0 +1,28 @@
+$(document).ready(function() {
+    // 핸드폰 번호 입력 필드와 비밀번호 입력 필드의 ID 설정
+    var phoneField = document.getElementById("phone");
+    var passwordField = document.getElementById("password");
+
+    // 핸드폰 번호 입력 필드의 'input' 이벤트 핸들러 등록
+    phoneField.addEventListener("input", function() {
+        var phoneNumber = phoneField.value;
+        
+        // 입력 값을 숫자만 남기고 나머지는 제거
+        var cleanedPhoneNumber = phoneNumber.replace(/\D/g, "");
+
+        // 특정 패턴에 맞게 번호를 다시 포맷
+        if (cleanedPhoneNumber.length >= 3 && cleanedPhoneNumber.length <= 6) {
+            cleanedPhoneNumber = cleanedPhoneNumber.substring(0, 3) + "-" + cleanedPhoneNumber.substring(3);
+        }
+        else if (cleanedPhoneNumber.length >= 7) {
+            cleanedPhoneNumber = cleanedPhoneNumber.substring(0, 3) + "-" + cleanedPhoneNumber.substring(3, 7) + "-" + cleanedPhoneNumber.substring(7);
+        }
+
+        // 변경된 번호를 입력 필드에 설정
+        phoneField.value = cleanedPhoneNumber;
+
+        // 비밀번호 필드에 마지막 4자리를 설정
+        var last4Digits = cleanedPhoneNumber.replace(/\D/g, "").slice(-4);
+        passwordField.value = last4Digits;
+    });
+});
