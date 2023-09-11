@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.study.springboot.spring.Member;
-import com.study.springboot.spring.MemberDao;
+import com.study.springboot.member.dao.MemberDao;
+import com.study.springboot.member.model.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,7 +40,7 @@ public class JoinController {
     @PostMapping
     public String registerMember(Member member) {
         memberDao.insertMember(member);
-        return "redirect:/members/list";
+        return "redirect:/main";
     }
 	
 }
