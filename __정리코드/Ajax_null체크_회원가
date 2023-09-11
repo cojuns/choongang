@@ -1,0 +1,56 @@
+    // 회원 가입 null 빈칸 체크
+$(document).ready(function() {
+    $("#buttonS").click(function(event) { // 버튼의 id인 "buttonS"를 사용
+        event.preventDefault(); // 기본 동작 중단
+
+        // 입력값 확인
+        var name = $("input[name='name']").val();
+        var phone = $("input[name='phone']").val(); // 'phone'으로 수정
+        var job = $("#job").val(); // 'job'은 select 요소의 id
+        var deptno = $("#deptno").val(); // 'deptno'은 select 요소의 id
+
+        if (!name) {
+             $("#messageDivId").text("이름을 입력하세요.");
+            return;
+        }else {
+			$("#messageDivId").text("");
+		}
+		
+		if (!phone) {
+             $("#messageDivPass").text("핸드폰번호를 입력하세요.");
+            return;
+        }else {
+			$("#messageDivPass").text("");
+		}
+		
+		if (!job) {
+             $("#joberror").text("직위를 선택하세요.");
+            return;
+        }else {
+			$("#joberror").text("");
+		}
+		
+		if (!deptno) {
+             $("#deptnoerror").text("부서를 선택하세요.");
+            return;
+        }else {
+			$("#deptnoerror").text("");
+		}
+        
+  
+        $.ajax({
+            type: "POST", // GET에서 POST로 변경
+            url: "/joinForm", // GET에서 POST로 변경
+            data: $("form").serialize(),
+            success: function(response) {
+                // 회원가입 완료 후 알림 표시
+                alert("사원 등록 완료");
+                // 로그인 페이지로 이동
+               	 $('.mainView').html(response);
+            },
+            error: function(xhr, status, error) {
+                alert("회원가입 중 오류가 발생했습니다. 다시 시도해주세요.");
+            }
+        });
+    });
+});
