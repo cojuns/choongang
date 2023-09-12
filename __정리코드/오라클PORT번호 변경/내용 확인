@@ -1,0 +1,13 @@
+오라클 
+
+계정 접속 / 로그인 
+sys as sysdba
+
+
+db정보 port 번호 확인
+
+SELECT DBMS_XDB.GETHTTPPORT()
+ FROM DUAL;
+
+port 번호 변경
+EXEC DBMS_XDB.SETHTTPPORT(9999);
