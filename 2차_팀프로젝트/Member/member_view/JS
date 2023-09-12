@@ -1,0 +1,97 @@
+$(document).ready(function () {
+    // 검색 버튼을 클릭했을 때
+    $('.search').click(function (event) {
+        event.preventDefault(); // 기본 동작 중단
+
+        // 입력한 데이터 가져오기
+        var type = $('.type').val();
+        var keyword = $('.keyword').val();
+        if (keyword == null) {
+            alert("검색내용을 입력하세요.");
+            return; // 함수 종료
+        }
+        // AJAX 요청
+        $.ajax({
+            url: '/getSearchList', // 적절한 URL로 수정
+            type: 'Get',
+            data: {
+                type: type,
+                keyword: keyword,
+                page: 1 // 검색 결과를 첫 번째 페이지로 설정
+            },
+            success: function (res) {
+                $('.mainView').html(res);
+            },
+            error: function () {
+                // AJAX 요청이 실패한 경우 처리할 내용
+                alert('오류가 발생했습니다.');
+            }
+        });
+    });
+});
+    // 페이지 번호 링크를 클릭했을 때의 처리
+    $(document).on('click', '.search_page', function (event) {
+        event.preventDefault(); // 기본 동작 중단
+
+        var pageUrl = $(this).attr('href');
+
+        // AJAX 요청
+        $.ajax({
+            url: pageUrl,
+            type: 'GET',
+            success: function (data) {
+                // AJAX 요청이 성공하면 data를 적절한 방식으로 처리하여 페이지 업데이트
+                $('.mainView').html(data);
+            },
+            error: function () {
+                // AJAX 요청이 실패한 경우 처리할 내용
+                alert('오류가 발생했습니다.');
+            }
+        });
+    });
+
+    // 페이지 번호 링크를 클릭했을 때의 처리
+    $(document).on('click', '.readMemeber', function (event) {
+        event.preventDefault(); // 기본 동작 중단
+
+        var pageUrl = $(this).attr('href');
+
+        // AJAX 요청
+        $.ajax({
+            url: pageUrl,
+            type: 'GET',
+            success: function (data) {
+                // AJAX 요청이 성공하면 data를 적절한 방식으로 처리하여 페이지 업데이트
+                $('.mainView').html(data);
+            },
+            error: function () {
+                // AJAX 요청이 실패한 경우 처리할 내용
+                alert('오류가 발생했습니다.');
+            }
+        });
+    });
+
+    $(document).on('click', '.mainpage', function (event) {
+        event.preventDefault(); // 기본 동작 중단
+
+        var pageUrl = $(this).attr('href');
+
+        // AJAX 요청
+        $.ajax({
+            url: pageUrl,
+            type: 'GET',
+            success: function (data) {
+                // AJAX 요청이 성공하면 data를 적절한 방식으로 처리하여 페이지 업데이트
+                $('.mainView').html(data);
+            },
+            error: function () {
+                // AJAX 요청이 실패한 경우 처리할 내용
+                alert('오류가 발생했습니다.');
+            }
+        });
+    });
+
+
+
+
+
