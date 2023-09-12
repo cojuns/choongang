@@ -1,0 +1,41 @@
+	public Member selectByMno(Long Mno) {
+		List<Member> results = jdbcTemplate.query(
+				"select * from MEMBER where mno = ?",
+				new RowMapper<Member>() {
+					@Override
+					public Member mapRow(ResultSet rs, int rowNum) throws SQLException {
+						Member member = new Member(
+								rs.getLong("mno"), 
+								rs.getString("NAME"),
+								rs.getString("PASSWORD"),
+								rs.getString("PHONE"), 
+								rs.getTimestamp("hiredate").toLocalDateTime(), 
+								rs.getString("job"), rs.getInt("deptno"));
+								
+						
+						
+						member.setMno(rs.getLong("mno"));
+						return member;
+					}
+				}, Mno);
+
+		return results.isEmpty() ? null : results.get(0);
+	}
+
+ 	public Department selectByDeptno(int deptno) {
+		List<Department> results = jdbcTemplate.query(
+				"select * from department where deptno = ?",
+				new RowMapper<Department>() {
+					@Override
+					public Department mapRow(ResultSet rs, int rowNum) throws SQLException {
+						Department department = new Department(
+								rs.getInt("deptno"),
+								rs.getString("dname"),
+								rs.getString("loc"));
+							
+						return department;
+					}
+				}, deptno);
+
+		return results.isEmpty() ? null : results.get(0);
+	}
