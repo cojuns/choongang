@@ -1,0 +1,172 @@
+// DTO
+
+package com.study.springboot.member.model;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import com.study.springboot.member.service.WrongIdPasswordException;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+
+@Getter
+@NoArgsConstructor
+@Setter
+public class Member {
+    private Long mno;
+    private String name;
+    private String password;
+    private String phone;
+    private LocalDateTime hiredate;
+    private String job;
+    private Integer deptno;
+    private String dname;
+    private String loc;
+    
+    // 검색 필터
+    private String type;
+    private String keyword;
+    
+    public Member(Long mno, String name, String password, String phone, LocalDateTime hiredate, String job, Integer deptno) {
+        this.mno = mno;
+        this.name = name;
+        this.password = password;
+        this.phone = phone;
+        this.hiredate = hiredate;
+        this.job = job;
+        this.deptno = deptno;
+
+        		
+    }
+    
+    
+    public String getFormattedHiredate() {
+        if (hiredate != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            return hiredate.format(formatter);
+        }
+        return null; // 혹은 다른 기본값을 반환할 수 있습니다.
+    }
+    
+    
+
+    // setHiredate 메소드를 수정
+    public void setHiredate(LocalDateTime hiredate) {
+        this.hiredate = hiredate;
+    }
+
+    // setDepartment 메소드를 수정
+    public void setDepartment(Department department) {
+        this.deptno = department.getDeptno();
+    }
+    
+
+
+    public void changePassword(String oldPassword, String newPassword) {
+        if (!password.equals(oldPassword)) {
+            throw new WrongIdPasswordException();
+        }
+        this.password = newPassword;
+    }
+
+    public boolean matchPassword(String password) {
+        return this.password.equals(password);
+    }
+
+    public void setMno(Long mno) {
+        this.mno = mno;
+    }
+}
+
+
+// DTO 2
+package com.study.springboot.member.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+public class Department {
+    private Integer deptno;
+    private String dname;
+    private String loc;
+}
+
+// DAO
+	public Member selectByMno(Long Mno) {
+		List<Member> results = jdbcTemplate.query(
+				"select * from MEMBER where mno = ?",
+				new RowMapper<Member>() {
+					@Override
+					public Member mapRow(ResultSet rs, int rowNum) throws SQLException {
+						Member member = new Member(
+								rs.getLong("mno"), 
+								rs.getString("NAME"),
+								rs.getString("PASSWORD"),
+								rs.getString("PHONE"), 
+								rs.getTimestamp("hiredate").toLocalDateTime(), 
+								rs.getString("job"), rs.getInt("deptno"));
+								
+						
+						
+						member.setMno(rs.getLong("mno"));
+						return member;
+					}
+				}, Mno);
+
+		return results.isEmpty() ? null : results.get(0);
+	}
+
+ 	public Department selectByDeptno(int deptno) {
+		List<Department> results = jdbcTemplate.query(
+				"select * from department where deptno = ?",
+				new RowMapper<Department>() {
+					@Override
+					public Department mapRow(ResultSet rs, int rowNum) throws SQLException {
+						Department department = new Department(
+								rs.getInt("deptno"),
+								rs.getString("dname"),
+								rs.getString("loc"));
+							
+						return department;
+					}
+				}, deptno);
+
+// service
+package com.study.springboot.member.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.study.springboot.member.dao.MemberDao;
+import com.study.springboot.member.model.Member;
+
+@Service
+public class ReadMemberService {
+	
+	@Autowired
+	MemberDao memberDao;
+	
+	public Member readMember(long mno) {
+		
+		Member member = memberDao.selectByMno(mno);
+		member.setDname(memberDao.selectByDeptno(member.getDeptno()).getDname());
+		member.setLoc(memberDao.selectByDeptno(member.getDeptno()).getLoc());
+		return member;
+	}
+	
+}
+
+
+
+
