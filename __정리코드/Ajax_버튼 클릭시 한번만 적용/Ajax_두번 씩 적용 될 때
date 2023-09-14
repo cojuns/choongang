@@ -1,0 +1,27 @@
+    $(document).on('click', '.readMemeber', function (event) {
+        event.preventDefault(); 
+		
+		$(this).prop('disabled', true); // 해당 코드랑 
+		
+        var pageUrl = $(this).attr('href');
+		
+		console.log(1);
+		
+        
+        $.ajax({
+            url: pageUrl,
+            type: 'GET',
+            success: function (data) {
+                
+                $('.mainView').html(data);
+            },
+            error: function () {
+                
+                alert('오류가 발생했습니다.');
+            },
+            complete: function () { // 해당 코드 활용 
+            
+            $('.search_page').prop('disabled', false);
+        }
+        });
+    });
