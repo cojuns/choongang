@@ -1,0 +1,14 @@
+<td><strong><a class="readMember" href="#" onclick="openMemberWindow('/readMember?mno=${member.mno}')">${member.mno}</a></strong></td>
+
+function openMemberWindow(url) {
+  // 화면 중앙에 위치하도록 새 창 열기
+  const screenWidth = window.screen.width;
+  const screenHeight = window.screen.height;
+  const windowWidth = 900; // 새 창의 너비
+  const windowHeight = 300; // 새 창의 높이
+  const left = (screenWidth - windowWidth) / 3;
+  const top = (screenHeight - windowHeight) / 4;
+
+  const windowFeatures = `width=${windowWidth},height=${windowHeight},left=${left},top=${top}`;
+  window.open(url, 'MemberWindow', windowFeatures);
+}
