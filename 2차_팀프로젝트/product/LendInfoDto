@@ -1,0 +1,26 @@
+package com.study.springboot.product.lend.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.Date;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+public class LendInfoDto {
+	private Integer lend_no;
+	private Integer reg_no;
+	private String pname;
+	private Integer pno;
+	private String name;
+	private Integer mno;
+	private String phone;
+	private String job;
+	private Integer deptno;
+	private Date order_date;
+	private Date fin_date;
+}
