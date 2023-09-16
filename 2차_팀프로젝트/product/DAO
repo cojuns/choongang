@@ -1,0 +1,76 @@
+package com.study.springboot.product.lend.dao;
+
+import java.util.Date;
+import java.util.List;
+
+import com.study.springboot.product.lend.model.LendInfoDto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import com.study.springboot.product.lend.model.LendDto;
+
+@Repository
+public class LendDao {
+	
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+	
+	public int count() {
+		String sql = "select count(*) from lend";
+		return this.jdbcTemplate.queryForObject(sql, Integer.class);
+	}
+	
+	public List<LendDto> lendList(Integer page, Integer pageSize) {
+		String sql = "select lend_no, reg_no, pno, pname, mno, order_date, fin_date from lend "
+					+ "limit ?, ?";
+		List<LendDto> result = this.jdbcTemplate.query(sql, 
+				(rs, rowNum)->{
+					LendDto lendDto = new LendDto(
+							rs.getInt("lend_no"),
+							rs.getInt("reg_no"),
+							rs.getInt("pno"),
+							rs.getString("pname"),
+							rs.getInt("mno"),
+							rs.getDate("order_date"),
+							rs.getDate("fin_date"));
+					return lendDto;
+				}, (page-1) * pageSize, pageSize);
+		return result;
+	}
+
+	public List<LendInfoDto> selectByLend(Integer lend_no) {
+		String sql = "select lend.lend_no, lend.reg_no, lend.pname, lend.pno, member.name, member.mno, member.phone, " +
+				"member.job, member.deptno, lend.order_date, lend.fin_date " +
+				"from lend lend join member member on lend.mno = member.mno where lend.lend_no = ?";
+		List<LendInfoDto> result = this.jdbcTemplate.query(sql, (rs, rowNum)->{
+            LendInfoDto lendInfoDto = new LendInfoDto(
+					rs.getInt("lend_no"),
+					rs.getInt("reg_no"),
+					rs.getString("pname"),
+					rs.getInt("pno"),
+					rs.getString("name"),
+					rs.getInt("mno"),
+					rs.getString("phone"),
+					rs.getString("job"),
+					rs.getInt("deptno"),
+					rs.getDate("order_date"),
+					rs.getDate("fin_date")
+			);
+			return lendInfoDto;
+		}, lend_no);
+		return result.isEmpty() ? null : result;
+	}
+
+	public int activation(Integer reg_no, Integer pno, String pname, Integer mno) {
+		String sql = "insert into lend (reg_no, pno, pname, mno, order_date) values (?, ?, ?, ?, now())";
+		return this.jdbcTemplate.update(sql, reg_no, pno, pname, mno);
+	}
+	
+	public int deactivation(Integer lend_no, Integer mno) {
+		String sql = "update lend set fin_date = now() where lend_no = ? and mno = ?";
+		return this.jdbcTemplate.update(sql, lend_no, mno);
+	}
+
+
+}
