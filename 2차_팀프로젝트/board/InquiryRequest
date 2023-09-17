@@ -1,0 +1,21 @@
+package com.study.springboot.board.service;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+public class InquiryRequest {
+
+	private int mno;
+	private String name;
+	private String title;
+	private String content;
+	
+}
