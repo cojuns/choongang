@@ -1,0 +1,7 @@
+    @Bean // 기본 로그인페이지 제거
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+                .authorizeRequests()
+                .anyRequest().permitAll();
+        return http.build();
+    }
