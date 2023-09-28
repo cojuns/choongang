@@ -1,0 +1,21 @@
+    @Autowired
+    LoginDao loginDao;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @GetMapping("/joinForm")
+    public String registerForm(Model model){
+    model.addAttribute("memberDto", new MemberDto());
+        return "login/joinForm";
+    }
+
+    @PostMapping("/joinForm")
+    public String registerMember(MemberDto memberDto) throws Exception {
+        String encryptedPassword = passwordEncoder.encode(memberDto.getMem_pw());
+        memberDto.setMem_pw(encryptedPassword);
+
+        loginDao.register(memberDto);
+
+        return "redirect:/main";
+    }
