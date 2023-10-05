@@ -6,3 +6,16 @@
         OFFSET #{offset}
     </select>
 </mapper>
+
+
+package com.example.mapper;
+
+import com.example.domain.YourEntity;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import java.util.List;
+
+@Mapper
+public interface YourMapper {
+    List<YourEntity> findAllWithPaging(@Param("offset") int offset, @Param("size") int size);
+}
