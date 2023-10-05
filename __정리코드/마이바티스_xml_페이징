@@ -71,3 +71,26 @@ public class YourController {
         return yourService.findAllWithPaging(page, size);
     }
 }
+
+
+
+//    @PostMapping("/loginForm")
+//    public String loginProcess(@RequestParam Long mem_no, @RequestParam String mem_pw) {
+//        MemberDto member = loginDao.getLoginId(mem_no);
+//        System.out.println("member =======> "+member);
+//        if (member != null) {
+//            // 비밀번호 매칭 확인
+//            if (passwordEncoder.matches(mem_pw, member.getMem_pw())) {
+//                // Spring Security로 사용자 인증을 진행
+//                List<GrantedAuthority> authorities = new ArrayList<>();
+//                authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+//                Authentication authentication = new UsernamePasswordAuthenticationToken(member, null, authorities);
+//                SecurityContextHolder.getContext().setAuthentication(authentication);
+//
+//                // 로그인 성공 후 리다이렉트
+//                return "/";
+//            }
+//        }
+//        // 로그인 실패 시 다시 로그인 페이지로 이동
+//        return "redirect:/login/joinForm";
+//    }
