@@ -19,3 +19,55 @@ import java.util.List;
 public interface YourMapper {
     List<YourEntity> findAllWithPaging(@Param("offset") int offset, @Param("size") int size);
 }
+
+
+package com.example.service;
+
+import com.example.domain.YourEntity;
+import com.example.mapper.YourMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import java.util.List;
+
+@Service
+public class YourService {
+    private final YourMapper yourMapper;
+
+    @Autowired
+    public YourService(YourMapper yourMapper) {
+        this.yourMapper = yourMapper;
+    }
+
+    public List<YourEntity> findAllWithPaging(int page, int size) {
+        int offset = (page - 1) * size;
+        return yourMapper.findAllWithPaging(offset, size);
+    }
+}
+
+
+package com.example.controller;
+
+import com.example.domain.YourEntity;
+import com.example.service.YourService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
+
+@RestController
+public class YourController {
+    private final YourService yourService;
+
+    @Autowired
+    public YourController(YourService yourService) {
+        this.yourService = yourService;
+    }
+
+    @GetMapping("/items")
+    public List<YourEntity> getItemsWithPaging(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return yourService.findAllWithPaging(page, size);
+    }
+}
