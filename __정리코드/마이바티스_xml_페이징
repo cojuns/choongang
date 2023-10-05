@@ -1,0 +1,8 @@
+<!-- src/main/resources/mappers/YourMapper.xml -->
+<mapper namespace="com.example.mapper.YourMapper">
+    <select id="findAllWithPaging" resultType="com.example.domain.YourEntity">
+        SELECT * FROM table
+        LIMIT #{size}
+        OFFSET #{offset}
+    </select>
+</mapper>
