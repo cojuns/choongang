@@ -1,0 +1,81 @@
+XML
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.dao.UserMapper">
+
+    <!-- Create -->
+    <insert id="insertUser" parameterType="com.example.dto.User">
+        INSERT INTO user (username, email)
+        VALUES (#{username}, #{email})
+    </insert>
+
+    <!-- Read -->
+    <select id="selectUserById" resultType="com.example.dto.User">
+        SELECT * FROM user WHERE id = #{id}
+    </select>
+
+    <!-- Update -->
+    <update id="updateUser">
+        UPDATE user
+        SET username = #{username}, email = #{email}
+        WHERE id = #{id}
+    </update>
+
+    <!-- Delete -->
+    <delete id="deleteUser">
+        DELETE FROM user WHERE id = #{id}
+    </delete>
+
+</mapper>
+
+DAO
+package com.example.dao;
+
+import com.example.dto.User;
+import java.util.List;
+
+public interface UserMapper {
+    int insertUser(User user);
+    User selectUserById(Long id);
+    int updateUser(User user);
+    int deleteUser(Long id);
+}
+설정 파일 
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <!-- ... 다른 설정들 ... -->
+
+    <mappers>
+        <mapper resource="com/example/dao/UserMapper.xml" />
+    </mappers>
+</configuration>
+
+실행 예제
+// sqlSession은 MyBatis 설정에 따라 생성되어야 함.
+SqlSession sqlSession = ...;
+
+// Mapper 가져오기
+UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+
+// Create
+User newUser = new User();
+newUser.setUsername("JohnDoe");
+newUser.setEmail("johndoe@example.com");
+userMapper.insertUser(newUser);
+
+// Read
+User user = userMapper.selectUserById(1L);
+
+// Update
+user.setUsername("JaneDoe");
+userMapper.updateUser(user);
+
+// Delete
+userMapper.deleteUser(user.getId());
+
+// sqlSession 닫기
+sqlSession.close();
+
