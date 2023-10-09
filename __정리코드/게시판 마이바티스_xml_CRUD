@@ -1,0 +1,101 @@
+public class Post {
+    private Long id;
+    private String title;
+    private String content;
+    private String author;
+
+    // 생성자, getter, setter 생략
+}
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.dao.PostMapper">
+
+    <!-- Create -->
+    <insert id="insertPost" parameterType="com.example.dto.Post">
+        INSERT INTO posts (title, content, author)
+        VALUES (#{title}, #{content}, #{author})
+    </insert>
+
+    <!-- Read by ID -->
+    <select id="selectPostById" resultType="com.example.dto.Post">
+        SELECT * FROM posts WHERE id = #{id}
+    </select>
+
+    <!-- Read all posts -->
+    <select id="selectAllPosts" resultType="com.example.dto.Post">
+        SELECT * FROM posts ORDER BY id DESC
+    </select>
+
+    <!-- Update -->
+    <update id="updatePost">
+        UPDATE posts
+        SET title = #{title}, content = #{content}
+        WHERE id = #{id}
+    </update>
+
+    <!-- Delete -->
+    <delete id="deletePost">
+        DELETE FROM posts WHERE id = #{id}
+    </delete>
+
+</mapper>
+
+
+          package com.example.dao;
+
+import com.example.dto.Post;
+import java.util.List;
+
+public interface PostMapper {
+    int insertPost(Post post);
+    Post selectPostById(Long id);
+    List<Post> selectAllPosts();
+    int updatePost(Post post);
+    int deletePost(Long id);
+}
+
+          <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <!-- ... 다른 설정들 ... -->
+
+    <mappers>
+        <mapper resource="com/example/dao/PostMapper.xml" />
+    </mappers>
+</configuration>
+
+
+
+          // sqlSession은 MyBatis 설정에 따라 생성되어야 함.
+SqlSession sqlSession = ...;
+
+// Mapper 가져오기
+PostMapper postMapper = sqlSession.getMapper(PostMapper.class);
+
+// Create
+Post newPost = new Post();
+newPost.setTitle("New Post Title");
+newPost.setContent("This is the content of the post.");
+newPost.setAuthor("JohnDoe");
+postMapper.insertPost(newPost);
+
+// Read by ID
+Post post = postMapper.selectPostById(1L);
+
+// Read all posts
+List<Post> posts = postMapper.selectAllPosts();
+
+// Update
+post.setTitle("Updated Title");
+postMapper.updatePost(post);
+
+// Delete
+postMapper.deletePost(post.getId());
+
+// sqlSession 닫기
+sqlSession.close();
+
