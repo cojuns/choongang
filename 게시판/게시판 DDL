@@ -1,0 +1,65 @@
+CREATE TABLE `user` (
+  `user_no` int NOT NULL AUTO_INCREMENT,
+  `user_tp` int NOT NULL,
+  `user_nm` varchar(100) NOT NULL,
+  `user_tel` varchar(13) NOT NULL,
+  `user_loginId` varchar(200) NOT NULL,
+  `user_passwd` varchar(50) NOT NULL,
+  `user_email` varchar(320) NOT NULL,
+  `user_brdt` varchar(8) NOT NULL,
+  `user_gen` int NOT NULL,
+  `user_signdate` date NOT NULL,
+  `user_deletedate` date DEFAULT NULL,
+  PRIMARY KEY (`user_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
+  CREATE TABLE `board` (
+  `board_no` int NOT NULL AUTO_INCREMENT,
+  `board_name` varchar(50) NOT NULL COMMENT '게시판종류',
+  PRIMARY KEY (`board_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+  CREATE TABLE `post` (
+  `post_no` int NOT NULL AUTO_INCREMENT,
+  `board_no` int NOT NULL,
+  `num` int NOT NULL,
+  `content` text NOT NULL,
+  `date_created` datetime NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `hits` int DEFAULT NULL,
+  `user_no` int NOT NULL,
+  PRIMARY KEY (`post_no`),
+  KEY `FK_Board_TO_Post_1` (`board_no`),
+  KEY `FK_user_TO_Post_1` (`user_no`),
+  CONSTRAINT `FK_Board_TO_Post_1` FOREIGN KEY (`board_no`) REFERENCES `board` (`board_no`),
+  CONSTRAINT `FK_user_TO_Post_1` FOREIGN KEY (`user_no`) REFERENCES `user` (`user_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+  CREATE TABLE `comments` (
+  `comment_no` int NOT NULL AUTO_INCREMENT,
+  `parent_comment_no` int DEFAULT NULL,
+  `post_no` int NOT NULL,
+  `comment_content` text NOT NULL,
+  `comment_date` datetime NOT NULL,
+  `user_no` int NOT NULL,
+  PRIMARY KEY (`comment_no`),
+  KEY `FK_Post_TO_Comments_1` (`post_no`),
+  KEY `FK_Comments_TO_Comments_1` (`parent_comment_no`),
+  KEY `FK_user_TO_Comments_1` (`user_no`),
+  CONSTRAINT `FK_Comments_TO_Comments_1` FOREIGN KEY (`parent_comment_no`) REFERENCES `comments` (`comment_no`),
+  CONSTRAINT `FK_Post_TO_Comments_1` FOREIGN KEY (`post_no`) REFERENCES `post` (`post_no`),
+  CONSTRAINT `FK_user_TO_Comments_1` FOREIGN KEY (`user_no`) REFERENCES `user` (`user_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+  CREATE TABLE `file_attachment` (
+  `file_id` int NOT NULL AUTO_INCREMENT,
+  `post_no` int NOT NULL,
+  `file_name` varchar(255) NOT NULL,
+  `file_path` varchar(255) NOT NULL,
+  `file_size` int NOT NULL,
+  `file_uploaded_date` datetime NOT NULL,
+  PRIMARY KEY (`file_id`),
+  KEY `FK_Post_TO_File_Attachment_1` (`post_no`),
+  CONSTRAINT `FK_Post_TO_File_Attachment_1` FOREIGN KEY (`post_no`) REFERENCES `post` (`post_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
